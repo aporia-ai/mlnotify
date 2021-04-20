@@ -8,21 +8,23 @@ import sklearn.datasets
 import mlnotify  # noqa: F401
 from tests.utils import MockedNotifyPlugin
 
+LightgbmSampleData = Any
+
 
 @pytest.fixture
-def sample_data() -> Any:
+def sample_data() -> LightgbmSampleData:
     sample_data_path = Path(Path(__file__).parent, "data", "lightgbm.bin").as_posix()
     return lightgbm.Dataset(sample_data_path)
 
 
-def test_lightgbm_train(sample_data: Any, mocked_notify_plugin: MockedNotifyPlugin):
+def test_lightgbm_train(sample_data: LightgbmSampleData, mocked_notify_plugin: MockedNotifyPlugin):
     lightgbm.train({"num_leaves": 2, "objective": "binary"}, sample_data, 1)
 
     mocked_notify_plugin.before.assert_called_once()
     mocked_notify_plugin.after.assert_called_once()
 
 
-def test_lightgbm_sklearn_train(sample_data: Any, mocked_notify_plugin: MockedNotifyPlugin):
+def test_lightgbm_sklearn_train(sample_data: LightgbmSampleData, mocked_notify_plugin: MockedNotifyPlugin):
     lightgbm.sklearn.train({"num_leaves": 2, "objective": "binary"}, sample_data, 1)
 
     mocked_notify_plugin.before.assert_called_once()

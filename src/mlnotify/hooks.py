@@ -52,9 +52,7 @@ def patch(destination: Any, name: str, before: HookFunction, after: HookFunction
     """
     original_func: Callable = gorilla.get_attribute(destination, name)
 
-    partial_type: Union[Type[partial[Any]], Type[partialmethod[Any]]] = (
-        partialmethod if inspect.isclass(destination) else partial
-    )
+    partial_type: Union[Type[partial], Type[partialmethod]] = partialmethod if inspect.isclass(destination) else partial
 
     patch_func = partial_type(base_patch_func, __original_func=original_func, __before=before, __after=after)
     patch = gorilla.Patch(destination, name, patch_func, settings=GORILLA_SETTINGS)
