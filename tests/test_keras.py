@@ -1,8 +1,7 @@
-from pathlib import Path
 from typing import Any, Dict, Union
 
 from keras.models import Sequential
-from numpy import loadtxt
+from numpy import random
 import pytest
 import tensorflow
 
@@ -14,8 +13,7 @@ KerasSampleData = Dict[str, Union[list, Any]]
 
 @pytest.fixture
 def sample_data() -> KerasSampleData:
-    sample_data_path = Path(Path(__file__).parent, "data", "keras.csv")
-    dataset = loadtxt(sample_data_path, delimiter=",")
+    dataset = random.rand(15, 9)
     return {"x": dataset[:, 0:8], "y": dataset[:, 8]}
 
 

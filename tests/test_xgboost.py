@@ -1,7 +1,7 @@
 from pathlib import Path
 from typing import Any, Dict, Union
 
-from numpy import loadtxt
+from numpy import random
 import pytest
 import xgboost
 
@@ -19,8 +19,7 @@ def sample_data() -> xgboost.DMatrix:
 
 @pytest.fixture
 def sample_np_data() -> SampleNpData:
-    sample_data_path = Path(Path(__file__).parent, "data", "keras.csv")
-    dataset = loadtxt(sample_data_path, delimiter=",")
+    dataset = random.rand(15, 9)
     return {"x": dataset[:, 0:8], "y": dataset[:, 8]}
 
 
