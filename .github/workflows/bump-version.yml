@@ -1,0 +1,54 @@
+name: Bump Version
+on:
+  push:
+    branches:
+      - master
+jobs:
+  bump-version:
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@master
+        with:
+          ref: ${{ github.ref }}
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Configure git
+        run: |
+          git config --global user.email "camparibot@aporia.com"
+          git config --global user.name "camparibot"
+          git config --global push.followTags true
+
+      - name: Install dependencies
+        run: make install-deps
+
+      - name: Bump Version
+        id: bump-version
+        run: make bump-version
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_DEFAULT_REGION: ${{ secrets.AWS_DEFAULT_REGION }}
+          AWS_ECR_ACCOUNT_URL: ${{ secrets.AWS_ECR_ACCOUNT_URL }}
+          CAMPARIBOT_TOKEN: ${{ secrets.CAMPARIBOT_TOKEN }}
+
+      - name: Create check run
+        id: create-check-run
+        run: |
+          CHECK_RUN_ID=`curl -X POST https://api.github.com/repos/${{ github.repository }}/check-runs \
+              -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+              -H "Accept:application/vnd.github.antiope-preview+json" \
+              -d "{\"name\": \"Aporia / deploy (push)\", \"head_sha\": \"${{ steps.bump-version.outputs.bumped_version_commit_hash }}\", \"status\": \"in_progress\", \"details_url\": \"https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}\", \"output\": {\"title\": \"Versioned Commit\", \"summary\": \"This is a versioned commit. To see the full GitHub Action, [click here](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}).\"}}" \
+            | jq .id`;
+          echo "::set-output name=check_run_id::$CHECK_RUN_ID";
+
+      - name: Scan dependencies for insecure packages.
+        run: make dependencies-safety
+
+      - name: Update check run to success
+        run: |
+          curl -X PATCH https://api.github.com/repos/${{ github.repository }}/check-runs/${{ steps.create-check-run.outputs.check_run_id }} \
+            -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+            -H "Accept:application/vnd.github.antiope-preview+json" \
+            -d "{\"status\": \"completed\", \"conclusion\": \"success\"}";

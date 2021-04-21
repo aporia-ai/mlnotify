@@ -1,0 +1,24 @@
+name: SDK Tests
+on:
+  push:
+    branches-ignore:
+      - master
+jobs:
+  test:
+    runs-on: ubuntu-20.04
+    name: Python ${{ matrix.python-version }}
+    strategy:
+      matrix:
+        python-version: ['3.6.x', '3.7.x', '3.8.x']
+    steps:
+      - name: Checkout
+        uses: actions/checkout@master
+      - name: Install dependencies
+        run: make install-deps
+      - name: Setup python
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python-version }}
+          architecture: x64
+      - name: Test
+        run: make test
