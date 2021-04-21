@@ -4,6 +4,7 @@ import 'firebase/messaging'
 export const firebaseMessagingService = {
 	async registerServiceWorker() {
 		if (!('serviceWorker' in navigator)) return
+		console.log('registering notify-sw.js')
 		return await navigator.serviceWorker.register('/notify-sw.js')
 	},
 	async registerClient(messaging, serviceWorkerRegistration, topicId) {
