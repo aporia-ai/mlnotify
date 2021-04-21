@@ -2,3 +2,6 @@
 base = "website/"
 command = "gridsome build"
 publish = "dist"
+[[plugins]]
+# package = "netlify-plugin-gridsome-cache"
+package = "@netlify/plugin-lighthouse"
