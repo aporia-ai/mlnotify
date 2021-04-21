@@ -6,4 +6,6 @@ publish = "dist"
 
 [[plugins]]
 package = "netlify-plugin-gridsome-cache"
+
+[[plugins]]
 package = "@netlify/plugin-lighthouse"
