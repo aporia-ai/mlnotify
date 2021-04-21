@@ -16,7 +16,7 @@ export const firebaseMessagingService = {
 			throw new Error('No registration token available. Request permission to generate one.')
 		}
 
-		await fetch('http://localhost:3000/register-client', {
+		await fetch('/.netlify/functions/register-client', {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',

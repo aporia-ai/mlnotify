@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "@netlify/functions": "^0.7.0",
+    "firebase": "^8.4.1",
     "firebase-admin": "^9.6.0",
     "gridsome": "^0.7.0",
     "gridsome-plugin-pwa": "^0.0.18"
