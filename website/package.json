@@ -4,7 +4,7 @@
   "scripts": {
     "develop": "gridsome develop",
     "explore": "gridsome explore",
-    "build": "gridsome build",
+    "build": "gridsome build && node scripts/appendToServiceWorker.js",
     "functions:build": "netlify-lambda build netlify/functions --config webpack.functions.js"
   },
   "dependencies": {
