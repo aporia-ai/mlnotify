@@ -1,7 +1,6 @@
 [build]
 base = "website/"
 command = "gridsome build"
-functions = "lambda"
 publish = "dist"
 
 [[plugins]]
