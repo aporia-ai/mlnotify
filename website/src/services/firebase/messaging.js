@@ -2,11 +2,6 @@ import firebase from 'firebase/app'
 import 'firebase/messaging'
 
 export const firebaseMessagingService = {
-	async registerServiceWorker() {
-		if (!('serviceWorker' in navigator)) return
-		console.log('registering notify-sw.js')
-		return await navigator.serviceWorker.register('/notify-sw.js')
-	},
 	async registerClient(messaging, serviceWorkerRegistration, topicId) {
 		const currentToken = await messaging.getToken({
 			vapidKey: 'BPpG5RwZGPOg_qOXJi9ETeLX7FVflIHnaq4tKUh_h4JW9a4yoUYwN9MAbtPtXgPmAKt-pgyuAVI6ker6ZrG3_4I',
@@ -55,16 +50,9 @@ export const firebaseMessagingService = {
 			}
 		})
 	},
-	async onPageLoad() {
-		return new Promise(resolve => {
-			window.addEventListener('load', resolve)
-		})
-	},
-	async start() {
+	async start(serviceWorkerRegistration) {
 		const messaging = await firebaseMessagingService.initializeFirebaseMessaging()
 		firebaseMessagingService.requestNotificationPermission()
-		await firebaseMessagingService.onPageLoad()
-		const serviceWorkerRegistration = await firebaseMessagingService.registerServiceWorker()
 		firebaseMessagingService.registerClient(messaging, serviceWorkerRegistration, '123')
 	},
 }
