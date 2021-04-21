@@ -1,8 +1,8 @@
 import DefaultLayout from '~/layouts/Default.vue'
-import { firebaseMessagingService } from './services/firebase/messaging.js'
 
-export default function(Vue, { isClient }) {
+export default async function(Vue, { isClient }) {
 	if (isClient) {
+		const { firebaseMessagingService } = await import('./services/firebase/messaging.js')
 		firebaseMessagingService.start()
 	}
 	Vue.component('Layout', DefaultLayout)

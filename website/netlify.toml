@@ -1,0 +1,9 @@
+[build]
+base = "website/"
+command = "gridsome build"
+functions = "lambda"
+publish = "dist"
+
+[[plugins]]
+package = "netlify-plugin-gridsome-cache"
+package = "@netlify/plugin-lighthouse"
