@@ -9,3 +9,5 @@ dist
 
 # Local Netlify folder
 .netlify
+
+.test-scripts
