@@ -6,13 +6,17 @@
 			</strong>
 			<nav class="nav">
 				<g-link class="nav__link" to="/">Home</g-link>
-				<g-link class="nav__link" to="/about/">About</g-link>
+				<g-link class="nav__link" to="/training">Training</g-link>
 			</nav>
 		</header>
-		<slot />
 	</div>
 </template>
 
+<script>
+export default {
+	name: 'Default',
+}
+</script>
 <style>
 body {
 	font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
