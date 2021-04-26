@@ -2,7 +2,7 @@ import firebase from 'firebase/app'
 import 'firebase/messaging'
 
 export const firebaseMessagingService = {
-	async registerClient(messaging, serviceWorkerRegistration, topicId) {
+	async subscribeToTraining(messaging, serviceWorkerRegistration, topicId) {
 		const currentToken = await messaging.getToken({
 			vapidKey: 'BPpG5RwZGPOg_qOXJi9ETeLX7FVflIHnaq4tKUh_h4JW9a4yoUYwN9MAbtPtXgPmAKt-pgyuAVI6ker6ZrG3_4I',
 			serviceWorkerRegistration,
@@ -12,7 +12,7 @@ export const firebaseMessagingService = {
 			throw new Error('No registration token available. Request permission to generate one.')
 		}
 
-		await fetch('/.netlify/functions/register-client', {
+		await fetch('/.netlify/functions/subscribe-to-training', {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
@@ -53,6 +53,6 @@ export const firebaseMessagingService = {
 	async start(serviceWorkerRegistration) {
 		const messaging = await firebaseMessagingService.initializeFirebaseMessaging()
 		firebaseMessagingService.requestNotificationPermission()
-		firebaseMessagingService.registerClient(messaging, serviceWorkerRegistration, '123')
+		firebaseMessagingService.subscribeToTraining(messaging, serviceWorkerRegistration, '1234')
 	},
 }

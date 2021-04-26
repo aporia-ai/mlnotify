@@ -1,3 +1,5 @@
 # VS Code
 .vscode/*
 !.vscode/settings.json
+.netlify
+.test-scripts

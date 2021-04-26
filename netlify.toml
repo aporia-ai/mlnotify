@@ -1,6 +1,7 @@
 [build]
 base = "website/"
 command = "npm run build"
+functions = ".netlify/functions"
 publish = "dist"
 
 [[plugins]]

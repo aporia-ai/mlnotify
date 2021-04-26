@@ -10,10 +10,10 @@ BASE_URL = "https://mlnotify.com/training"
 class NotifyPlugin(BasePlugin):
     """This plugin allows the user to get a notification when his model's training is over.
 
-    The before function prints a url & QR code to stdout. The url leads to mlnotify.com
+    The before function prints a url & QR code to stdout. The url leads to the base url
     with a uuid of this specific training session.
 
-    The after function sends a notification to the mlnotify.com server which will notify
+    The after function sends a notification to the server which will notify
     the user that his model finished training if he entered the website with the
     generated url.
     """
@@ -38,7 +38,7 @@ class NotifyPlugin(BasePlugin):
     def after(self):
         """This function will run after the hooked function finished.
 
-        Sends a 'training_complete' message to the mlnotify.com server with
+        Sends a 'training_complete' message to the server with
         This training's uuid
         """
         # TODO
