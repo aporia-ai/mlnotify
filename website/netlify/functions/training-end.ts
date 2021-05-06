@@ -1,5 +1,5 @@
 // Firebase
-import { initializeApp } from '../utils/firebase'
+import { FirebaseKeys, initializeApp } from '../utils/firebase'
 
 // Middy
 import middy from '@middy/core'
@@ -12,7 +12,7 @@ import createError from 'http-errors'
 
 // Types
 import { APIGatewayProxyEvent, APIGatewayProxyResult } from 'aws-lambda'
-import { Training } from '../utils/types'
+import { Statistics, Training } from '../utils/types'
 
 type Event = APIGatewayProxyEvent & { body: { trainingId: string } }
 
@@ -32,7 +32,7 @@ const inputSchema = {
 async function baseHandler({ body: { trainingId } }: Event): Promise<APIGatewayProxyResult> {
 	// Initialize firebase
 	const app = initializeApp()
-	const trainings = app.database().ref('trainings')
+	const trainings = app.database().ref(FirebaseKeys.Trainings)
 
 	// Validate training
 	const training: Training = (await trainings.child(trainingId).get()).val()
@@ -55,12 +55,18 @@ async function baseHandler({ body: { trainingId } }: Event): Promise<APIGatewayP
 		},
 	})
 
+	// Update statistics
+	const statisticsRef = app.database().ref(FirebaseKeys.Statistics)
+	const decrement = (val = 1) => Math.max(val - 1, 0)
+	const activeTrainingsCountKey: keyof Statistics = 'activeTrainingsCount'
+
 	// Unsubscribe all subscribers
-	await Promise.all(
-		training.subscribers.map(({ messagingRegistrationToken }) =>
+	await Promise.all([
+		...training.subscribers.map(({ messagingRegistrationToken }) =>
 			app.messaging().unsubscribeFromTopic(messagingRegistrationToken, trainingId),
 		),
-	)
+		statisticsRef.child(activeTrainingsCountKey).transaction(decrement),
+	])
 
 	return {
 		statusCode: 200,

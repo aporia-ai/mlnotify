@@ -1,5 +1,5 @@
 // Firebase
-import { initializeApp } from '../utils/firebase'
+import { FirebaseKeys, initializeApp } from '../utils/firebase'
 
 // Middy
 import middy from '@middy/core'
@@ -12,9 +12,9 @@ import { customAlphabet } from 'nanoid/async'
 
 // Types
 import { APIGatewayProxyEvent, APIGatewayProxyResult } from 'aws-lambda'
-import { Training } from '../utils/types'
+import { Statistics, Training } from '../utils/types'
 
-type Event = APIGatewayProxyEvent & { body: {} }
+type Event = APIGatewayProxyEvent & { body: Record<string, never> }
 
 const inputSchema = {
 	type: 'object',
@@ -26,10 +26,10 @@ const inputSchema = {
 }
 const nanoid = customAlphabet('0123456789', 6)
 
-async function baseHandler(event: Event): Promise<APIGatewayProxyResult> {
+async function baseHandler(_event: Event): Promise<APIGatewayProxyResult> {
 	// Initialize firebase
 	const app = initializeApp()
-	const trainings = app.database().ref('trainings')
+	const trainings = app.database().ref(FirebaseKeys.Trainings)
 
 	// Get a unique id
 	let exists = true
@@ -38,10 +38,22 @@ async function baseHandler(event: Event): Promise<APIGatewayProxyResult> {
 		trainingId = await nanoid()
 		exists = (await trainings.child(trainingId).get()).exists()
 	}
+	trainingId = trainingId as string // Just for the typecast
 
 	// Insert a new training
 	const newTraining: Training = { id: trainingId, startedAt: new Date().toISOString(), subscribers: [] }
-	await trainings.child(trainingId).set(newTraining)
+
+	// Update statistics
+	const statisticsRef = app.database().ref(FirebaseKeys.Statistics)
+	const increment = (val = 0) => val + 1
+	const totalTrainingsCountKey: keyof Statistics = 'totalTrainingsCount'
+	const activeTrainingsCountKey: keyof Statistics = 'activeTrainingsCount'
+
+	await Promise.all([
+		trainings.child(trainingId).set(newTraining),
+		statisticsRef.child(totalTrainingsCountKey).transaction(increment),
+		statisticsRef.child(activeTrainingsCountKey).transaction(increment),
+	])
 
 	return {
 		statusCode: 200,

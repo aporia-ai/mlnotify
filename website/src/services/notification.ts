@@ -1,5 +1,5 @@
 export const notificationService = {
-	async requestNotificationPermission() {
+	async requestNotificationPermission(): Promise<void> {
 		const permission = await Notification.requestPermission()
 
 		if (permission !== 'granted') {

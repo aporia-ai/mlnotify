@@ -1,5 +1,7 @@
+import { Statistics } from '../types/Statistics'
+
 export const apiService = {
-	async subscribeToTraining(messagingRegistrationToken, trainingId) {
+	async subscribeToTraining(messagingRegistrationToken: string, trainingId: string): Promise<void> {
 		await fetch('/.netlify/functions/subscribe-to-training', {
 			method: 'POST',
 			headers: {
@@ -11,12 +13,15 @@ export const apiService = {
 			}),
 		})
 	},
-	async getStatistics() {
-		return await fetch('/.netlify/functions/statistics', {
+	async getStatistics(): Promise<Statistics> {
+		const response = await fetch('/.netlify/functions/statistics', {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
 			},
+			body: JSON.stringify({}),
 		})
+
+		return response.json()
 	},
 }

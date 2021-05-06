@@ -6,5 +6,6 @@ export interface Training {
 }
 
 export interface Statistics {
-	trainingsCount: number
+	activeTrainingsCount: number
+	totalTrainingsCount: number
 }

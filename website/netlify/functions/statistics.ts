@@ -1,5 +1,5 @@
 // Firebase
-import { initializeApp } from '../utils/firebase'
+import { initializeApp, FirebaseKeys } from '../utils/firebase'
 
 // Middy
 import middy from '@middy/core'
@@ -11,7 +11,7 @@ import validator from '@middy/validator'
 import { APIGatewayProxyEvent, APIGatewayProxyResult } from 'aws-lambda'
 import { Statistics } from '../utils/types'
 
-type Event = APIGatewayProxyEvent & { body: {} }
+type Event = APIGatewayProxyEvent & { body: Record<string, never> }
 
 const inputSchema = {
 	type: 'object',
@@ -22,16 +22,12 @@ const inputSchema = {
 	},
 }
 
-async function baseHandler({ body: {} }: Event): Promise<APIGatewayProxyResult> {
+async function baseHandler(_event: Event): Promise<APIGatewayProxyResult> {
 	// Initialize firebase
 	const app = initializeApp()
-	const trainings = app.database().ref('trainings')
+	const statisticsRef = app.database().ref(FirebaseKeys.Statistics)
 
-	const trainingsValue = await trainings.get()
-
-	const statistics: Statistics = {
-		trainingsCount: trainingsValue.numChildren(),
-	}
+	const statistics: Statistics = (await statisticsRef.get()).val()
 
 	return {
 		statusCode: 200,

@@ -1,23 +1,31 @@
 import * as admin from 'firebase-admin'
 
+export enum FirebaseKeys {
+	Statistics = 'statistics',
+	Trainings = 'trainings',
+}
 export function initializeApp(): admin.app.App {
-	// Initialize Firebase
-	return admin.initializeApp({
-		databaseURL: 'https://mlnotify-test-default-rtdb.firebaseio.com/',
-		credential: admin.credential.cert({
-			// @ts-ignore
-			type: 'service_account',
-			project_id: 'mlnotify-test',
-			private_key_id: '2064e75fa13f2366e99762b77a1eae585b6a1be9',
-			private_key:
-				'-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQD2urnuwdfCxD2/\nAUaV/jEwzyjy+cSldvjluUectMLvymPgX9OipHWl4MCNOPND+RqfO+VgOBZ9PMcC\niYsGy/2MeUUYuP4X3D3P+nfQRRm59E2Va5Akd+xJFzEOYbbHcAaDhJJZyCuSw7LY\nUE3GQE7fg3CBaytjNjd3aJ315smwfcnoEsICtqWy8VX3/SdvsRTr763HxR5lZ6gp\npx3t6tFcU/8qgA/tSjrQWdA/qRS3qWwoFjC2CtHFa9n0W30UU5lBR+p72Vu3way+\nvcZawl4IzdYWKGvIAcce+bMeEAGjX+txBGjSuTrzhpKCwF/wLT1ycMsEoX7omncr\nNnlso1qzAgMBAAECggEAC1RPrV2hTAQ5gZ0hYfR7dcOixxAeWNVkYHK9jb3kevZO\n18K5Xm0xfx3EObffvm311vynxQn487noDtRvWdnhbqMy6mEJlIw8b7cPQV+q6sBZ\nFP9iGF/uracu+CYXKoPuXfj8b2Wi+pOZ5sI+kAKWnJTV2bDTcTQldTTh6/oI+4hJ\nZE/qRpA5C7A7pNSD69Y57irNMbaL+wd6N9PErex8PQnRzAFBXMPSrvZnanPHi6/C\nAVG+Q6D5vpjIP2/yxerE7cbT+GFn1zpPjjUbmpKXTuO/nA3hUPwWcJAo7QcrW99p\ntupqmh5NwJ2deEERFtRFLQlApnn57ZBccC/jwuZDIQKBgQD9PTMNT0HHllJOsqE8\nfaM26g5btrmFsUQiVap9xrANBZjyt4Cn2v6DjmUrEKpSpOJo8NBCu5v8kmiNfPBa\nW7TkFl8HWGp4YgHe6CdMmhNh1jmkafuOixJ/ehIGjCCuwiAhEnYTC9acJcNy49Uq\n7+tXBHLdrcIvsFVyo1GPHeKjxQKBgQD5a1uvnOY2XSok5dd8qqQBP791+n7rQaAv\nHf9rCjUGcwZ2O50QcvJFQWjRHp3zO1RPO33FJFn1j85tdFbfEx2AYOuwDRW3nMwL\nRTvr/6yrijkgyf4hRq7nSoLTfLdfUx5sB1I0RWPvinENp2/MxbpbX35oUKMo69p0\nb0DLOAJUFwKBgQDPVYDr370yhM+EoVnDZfXwavcwfc0tOXJYTh0Vd0wCjVepOTZ7\nt5/z4+zOsolQurCoTKmmSWYwB0rUtLswr67No8dQA0LApzVy5E3wuKEv1C5Df4Y3\nMYQGnNIPTEEh88xMZ4oGlAW0uHJqKUEJM39SMlE9UBsR4mRDRJXtAAHkJQKBgFVa\nKs8G1zUFXrWvvbUYw/T1drSN2z7wfzuAfXaI0Kp7VFvDfLUzULroblEZtB2XUPuo\nNRrwnKRO6OpF5LCD3xWelSjy4VqrGpxEvgO9w74UGAajeQa0JIhb1DdBN5M0Y3W+\nb6AZmuBPNO7iPH0LsQExxZU2+w6231P2+mpQqWNTAoGBAMlti9KBk2oaiVGNtwE9\ny3vrvuEO6O2N+C4iqwhGCoymf5Oi+nAUJow0oF6zhWmSAXlEA6DDjeDw/i2HL3gj\n/j9SAWokOHScA3sIZaI4efmnSBi4eWWU38IjMfctLR+VAsDVIOK/2m2HvyPC/svw\njZwBzbUMl6+Xu3Ur/SDm0sAg\n-----END PRIVATE KEY-----\n',
-			client_email: 'firebase-adminsdk-qmsv3@mlnotify-test.iam.gserviceaccount.com',
-			client_id: '115608594952508182814',
-			auth_uri: 'https://accounts.google.com/o/oauth2/auth',
-			token_uri: 'https://oauth2.googleapis.com/token',
-			auth_provider_x509_cert_url: 'https://www.googleapis.com/oauth2/v1/certs',
-			client_x509_cert_url:
-				'https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-qmsv3%40mlnotify-test.iam.gserviceaccount.com',
-		}),
-	})
+	if (!admin.apps.length) {
+		admin.initializeApp({
+			databaseURL: 'https://mlnotify-default-rtdb.firebaseio.com/',
+			credential: admin.credential.cert({
+				// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+				// @ts-ignore
+				type: 'service_account',
+				project_id: 'mlnotify',
+				private_key_id: 'e931551a9c665795ddd827d3b55d00bbb13c65fe',
+				private_key:
+					'-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQC73z57a2Ia8oCf\nvbcpS4JkgrmXirUhv0P2SzO+kd2RfHW5IJ78q78PNLc6jbsASv4REMQBnlVEe8GV\nCRJ9B2Ir20gaGYM5uCVSMvBcH9ICPLEhSPy6PPa43dVx1kzNS+aNTcXW1M4gzBGY\nA64eyZSvFS03iXXXRHPbpeh38Oe3GRlCIQ1kPxCAcqExwsvMKyWW7YXby5I+zmI8\nhnwz5UrOWRt8+QTbyktlDUdYr9Io2mmoojEc6kLoQ8VxBgNVjPPr8Jf5zgJtGrpW\n/H1Pwi5NHQPrfsgS3gBUu/CRhhW/Z1C+mdOP2hdJcQOs2MDM5EXbNjJNbjKRZSj9\nDS9WN6r9AgMBAAECggEACDbjIv9Xe0kmIZXod8hC68Uhe0RH1jFoNdEk8oyrLOzN\nsun/uZmC0ZXi+w7uYb1lrXZXs6BqJwPoO215nvjfLH66gNWjvLbV/umWQ9jqVEm2\nDvgDgNsgiIW+iustUX6jloMThuioGJwDmutyRgtXUm5xGzAJ9H8cN7rh1ri0UPeX\nSplTiWIxpykvs4FOs5Qw9WgXAiecQ1XhcPFzZxB7BKQqTEtWKfwXu+8Df2wV2apj\ntDof0UsZerz19tki42h3bGjwybcICq2tfqj9j0L+EdUySA31cb2N9j3ny0SZo7mx\nF2Zf6mCrY5qQwJI8WE9QjCSjWfqS69jrWzlqzXTqmwKBgQDeazAaBtnQnbK22FM+\n64RsmGAeZBkWl/1+S6T/wPnjCO5C9Kx569W8ahtxaA0OJQdfimFafUAiIrx06Nvl\nv06adIFgCTJsayHqHegmSakjQrDTz/7w1l6VQGUTbTjuaGTNHlYAxi4iFiYiX8at\nFOasLVQRkFlSOcHuI+uK7xUCLwKBgQDYPMbcKaXWkYKvowFgk2IEkO3xNLosab16\nq8l3wdxYK7GbhIjlDSVoP+RaCG/oWnYjkb0mL+jGVKeMOimxQoBixNBbTdlLyw2/\ncRibysW0iCSeD5iLAztS+egrhWCX1Tc9iBoS9ICD8G0y8cR+bgECB9Su0kLweZm9\n5SruV4a2kwKBgQCh5pJQD7aTlYcWc6c9AMEXL1+gH6rneGGMglGr3XPIYKLW2DWI\nVjPx/6bUSTJfnnKciCVPciax8mkODMasmTIFWlMmbetnYiCAw55N6IaW5R/EPv5L\nny+gIwywNGwhlpnxeWiPDbNdGpRNpzv+l11F7YTpeBKcuPBCgaEeM+Qt/wKBgEJv\nUc18gjYNGLCrjRXF0jyC5ofP4k8Y4Z0ZwFkp12/DZNrZ+lEdG9wOnTLIGtGxUVCW\nSx27ZHHiumNLz1lljBpMS5NxtIwjw4KI1b2vq9ROa6mgMwaqpIRWwWz1mnqriEBA\nW3ptYjqnGHWpb+xEEc006LQZZ3WIdqKwEOOPQpU/AoGARo3hk26lprSZGfgE9LAc\nul2q9CIcPoYWSUqOnnPlMQIyvsUs5EeS86H5OCWnizz+UbvKNlGaRe8FdOjObEsE\nzMZdp99Oci1LGQIakv3fovxAy1DpaUfAqAl+OaTEpatr4V4XQP2WjuvXc/o0H8q0\nJMruWNUa/6BAam9CrZAGmuY=\n-----END PRIVATE KEY-----\n',
+				client_email: 'firebase-adminsdk-7tmzb@mlnotify.iam.gserviceaccount.com',
+				client_id: '109589242022278133604',
+				auth_uri: 'https://accounts.google.com/o/oauth2/auth',
+				token_uri: 'https://oauth2.googleapis.com/token',
+				auth_provider_x509_cert_url: 'https://www.googleapis.com/oauth2/v1/certs',
+				client_x509_cert_url:
+					'https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-7tmzb%40mlnotify.iam.gserviceaccount.com',
+			}),
+		})
+	}
+
+	return admin.app()
 }
