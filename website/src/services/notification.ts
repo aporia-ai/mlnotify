@@ -6,4 +6,7 @@ export const notificationService = {
 			throw new Error('Unable to get permissions to notifications')
 		}
 	},
+	hasApprovedNotifications(): boolean {
+		return Notification.permission === 'granted'
+	},
 }

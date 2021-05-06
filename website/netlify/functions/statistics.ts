@@ -29,9 +29,15 @@ async function baseHandler(_event: Event): Promise<APIGatewayProxyResult> {
 
 	const statistics: Statistics = (await statisticsRef.get()).val()
 
+	// Ensures that the statistics are returned in full (just in case some is null etc.)
+	const ensuredStatistics: Statistics = {
+		activeTrainingsCount: statistics?.activeTrainingsCount || 0,
+		totalTrainingsCount: statistics?.totalTrainingsCount || 0
+	}
+
 	return {
 		statusCode: 200,
-		body: JSON.stringify(statistics),
+		body: JSON.stringify(ensuredStatistics),
 	}
 }
 

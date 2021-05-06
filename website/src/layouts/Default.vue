@@ -1,21 +1,19 @@
 <template>
-	<div class="layout">
-		<header class="header">
-			<strong>
-				<g-link to="/">ML Notify</g-link>
-			</strong>
-			<nav class="nav">
-				<g-link to="/">Home</g-link>
-			</nav>
-		</header>
+	<div class="layout text-black">
+		<AppHeader />
+		<slot />
 	</div>
 </template>
 
 <script>
 import Vue from 'vue'
+import AppHeader from '../components/AppHeader.vue'
 
 export default Vue.extend({
 	name: 'Default',
+	components: {
+		AppHeader,
+	},
 })
 </script>
-<style></style>
+<style lang="scss"></style>

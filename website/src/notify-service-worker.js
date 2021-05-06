@@ -1,3 +1,7 @@
+/*
+	NOTE: This file is copied as-is into the generated service worker using the appendToServiceWorker script
+*/
+
 /*global importScripts*/
 
 importScripts('https://www.gstatic.com/firebasejs/8.4.1/firebase-app.js')
