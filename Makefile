@@ -32,7 +32,7 @@ dependencies-safety:
 # Bump version
 bump-version:
 	@cd sdk
-	
+
 	$(eval CURRENT_VERSION=$(shell git for-each-ref --sort=-v:refname --count=1 refs/tags/[0-9]*.[0-9]*.[0-9]* refs/tags/v[0-9]*.[0-9]*.[0-9]* | cut -d / -f 3-))
 	$(eval NEW_VERSION=v$(shell \
 		if [ -z $(CURRENT_VERSION) ]; then \
