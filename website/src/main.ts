@@ -5,7 +5,9 @@ import DefaultLayout from './layouts/Default.vue'
 import './styles/index.scss'
 import { VuexStore } from './store'
 
-const client: ClientApiConstructor = async function(Vue: Vue.VueConstructor, { appOptions }): Promise<void> {
+const client: ClientApiConstructor = async function(Vue: Vue.VueConstructor, { appOptions, head }): Promise<void> {
+	head.htmlAttrs = { lang: 'en-US',class:'font-heebo' } 
+
 	Vue.component('Layout', DefaultLayout)
 
 	Vue.use(Vuex)

@@ -2,4 +2,6 @@ import os
 from pathlib import Path
 import sys
 
-os.system(f"cd {Path(__file__).resolve().parent.parent} && {sys.argv[1]}")  # noqa: S605
+sdk_base_path = Path(__file__).resolve().parent.parent
+command = sys.argv[1]
+os.system(f"cd {sdk_base_path} && {command}")  # noqa: S605

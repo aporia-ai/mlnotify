@@ -9,10 +9,3 @@ package = "netlify-plugin-gridsome-cache"
 
 [[plugins]]
 package = "@netlify/plugin-lighthouse"
-
-[dev]
-autoLaunch = true
-command = "gridsome develop"
-framework = "gridsome"
-port = 3850
-publish = "dist"
