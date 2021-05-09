@@ -1,1 +1,1 @@
-import mlnotify.mlnotify  # noqa: F401
+import mlnotify.mlnotify  # type: ignore # noqa: F401

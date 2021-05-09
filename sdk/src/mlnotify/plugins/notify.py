@@ -1,5 +1,3 @@
-from uuid import uuid4
-
 import qrcode
 import requests
 
@@ -56,10 +54,10 @@ class NotifyPlugin(BasePlugin):
         qr.print_ascii()
 
     def report_training_start(self) -> str:
-        """Reports training start to the server
+        """Reports training start to the server.
 
         Returns:
-        * trainingId (str): the training id created by the server
+            trainingId (str): the training id created by the server
         """
         response = requests.post(f"{BASE_URL}/.netlify/functions/training-start")
 
