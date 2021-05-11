@@ -4,12 +4,8 @@
 			<div :key="num + idx" class="card font-orelega text-5xl px-4 py-3 rounded inline-block">
 				{{ num }}
 			</div>
-			<div
-				:key="num + idx + 'comma'"
-				class="inline-block text-2xl align-bottom comma mx-1 mb-1"
-				:class="{ 'text-transparent': !shouldShowComma(displayedNumber, idx) }"
-			>
-				,
+			<div :key="num + idx + 'comma'" class="inline-block text-2xl align-bottom comma mx-1 mb-1">
+				{{ shouldShowComma(displayedNumber, idx) ? ',' : '' }}
 			</div>
 		</template>
 	</div>
@@ -43,7 +39,6 @@ export default Vue.extend({
 		shouldShowComma(displayedNumber: string[], idx: number): boolean {
 			const isLast = displayedNumber.length === idx + 1
 			const shouldShowComma = (displayedNumber.length - (idx + 1)) % 3 === 0
-			console.log(isLast, shouldShowComma, idx)
 			return shouldShowComma && !isLast
 		},
 	},
@@ -57,5 +52,6 @@ export default Vue.extend({
 }
 .comma {
 	line-height: 0;
+	width: 5px;
 }
 </style>

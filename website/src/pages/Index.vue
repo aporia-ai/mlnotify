@@ -1,30 +1,42 @@
 <template>
-	<Layout>
-		<main class="p-4">
-			<h1 class="font-orelega text-center text-6xl mt-16">Get notified when fit() is complete</h1>
-			<!-- // TODO -->
-			<h2 class="text-xl text-center mt-4">Lorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsum</h2>
-			<Count class="mt-10" :count="1002"></Count>
-		</main>
-	</Layout>
+	<main class="p-4 flex flex-col justify-between">
+		<div>
+			<h1 class="font-orelega text-center text-6xl mt-16 mb-4">Get notified when fit() is complete</h1>
+			<h2 class="text-xl text-center mb-10">Lorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsum</h2>
+			<Count class="mb-6" :count="statistics.totalTrainingsCount"></Count>
+			<div class="text-center text-grey-1 text-xl">
+				The amount of training so far
+			</div>
+		</div>
+		<div>
+			<div class="flex justify-around">
+				<UsageInstructionsSection class="mx-4" />
+				<EnterCodeSection v-model="code" class="mx-4" />
+			</div>
+		</div>
+	</main>
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
+import { mapGetters } from 'vuex'
 
 import Count from '../components/Count.vue'
+import EnterCodeSection from '../components/EnterCodeSection.vue'
+import UsageInstructionsSection from '../components/UsageInstructionsSection.vue'
 
 export default Vue.extend({
 	name: 'Index',
 	components: {
 		Count,
+		EnterCodeSection,
+		UsageInstructionsSection,
+	},
+	data() {
+		return { code: '' }
+	},
+	computed: {
+		...mapGetters({ statistics: 'statistics' }),
 	},
 })
 </script>
-<style lang="scss" scoped>
-.num {
-	box-shadow: 0px 0px 0.8383233547210693px 0px rgba(0, 0, 0, 0.04),
-		0px 6.706586837768555px 5.029940128326416px 0px rgba(0, 0, 0, 0.04),
-		0px 0px 20.119760513305664px 0px rgba(0, 0, 0, 0.06);
-}
-</style>

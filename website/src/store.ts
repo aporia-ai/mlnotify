@@ -14,6 +14,11 @@ export const VuexStore: StoreOptions<{ statistics: Statistics }> = {
 			state.statistics = statistics
 		},
 	},
+	getters: {
+		statistics(state) {
+			return state.statistics
+		},
+	},
 	actions: {
 		periodicallyFetchStatistics({ commit }): void {
 			let refreshRate = 1000

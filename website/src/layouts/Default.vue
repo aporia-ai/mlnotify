@@ -1,5 +1,5 @@
 <template>
-	<div class="layout text-black min-h-screen flex flex-col bg-grey-1 hover:layout-small">
+	<div class="layout text-black min-h-screen flex flex-col bg-grey-2 hover:layout-small">
 		<AppHeader class="flex-grow-0" />
 		<div class="flex-1">
 			<slot />

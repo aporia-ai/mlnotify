@@ -5,9 +5,9 @@
 import Vue from 'vue'
 
 export default Vue.extend({
-	name: '404',
+	name: 'Page404',
 	beforeMount() {
-		this.$router.replace({ name: 'Index' })
+		this.$router.replace({ name: 'home' })
 	},
 })
 </script>

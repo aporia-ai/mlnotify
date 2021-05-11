@@ -1,7 +1,7 @@
 <template>
-	<Layout>
+	<main class="p-4">
 		Training Page
-	</Layout>
+	</main>
 </template>
 
 <script lang="ts">
