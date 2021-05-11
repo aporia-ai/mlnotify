@@ -1,13 +1,15 @@
 <template>
-	<section class="enter-code-section bg-white-0 py-8 px-4">
-		<h3 class="font-orelega text-2xl mb-10 text-center">Enter the ID Training Code here</h3>
-		<PinCodeInput v-model="code" class="mb-10" @keyup.enter.native="submit" />
-		<button
-			class="rounded-lg bg-blue-1 w-full p-2 text-white-0 text-2xl hover:opacity-70 transition-opacity"
-			@click="submit"
-		>
-			Get Notified
-		</button>
+	<section class="enter-code-section bg-white-0 md:py-8 py-6 px-4 flex flex-col justify-between">
+		<h3 class="font-orelega md:text-2xl text-lg md:mb-10 mb-6 text-center">Enter the ID Training Code here</h3>
+		<PinCodeInput v-model="code" class="md:mb-10 mb-6" @keyup.enter.native="submit" />
+		<div class="px-4 w-full">
+			<button
+				class="rounded-lg bg-blue-1 w-full p-2 text-white-0 md:text-2xl text-sm hover:opacity-70 transition-opacity"
+				@click="submit"
+			>
+				Get Notified
+			</button>
+		</div>
 	</section>
 </template>
 <script lang="ts">

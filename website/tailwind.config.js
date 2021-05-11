@@ -14,6 +14,7 @@ module.exports = {
 			blue: ['', '#53A7EE', 'rgba(236, 245, 255, 0.5)'],
 			red: '#F23B27',
 			grey: ['#828282', '#828282', '#E5E5E5', '', '', '#F1F1F1', '', '#717C89'],
+			'black-05-opacity': 'rgba(38, 42, 51, 0.7)',
 		},
 		fontFamily: {
 			heebo: ['Heebo', 'sans-serif'],

@@ -13,18 +13,6 @@ export const firebaseMessagingService = {
 
 		return _firebase
 	},
-	async subscribeToTraining(
-		messaging: Firebase.messaging.Messaging,
-		serviceWorkerRegistration: ServiceWorkerRegistration,
-	): Promise<string> {
-		const currentToken = await messaging.getToken({ serviceWorkerRegistration })
-
-		if (!currentToken) {
-			throw new Error('No registration token available. Request permission to generate one.')
-		}
-
-		return currentToken
-	},
 	async initializeFirebaseMessaging(): Promise<Firebase.messaging.Messaging> {
 		const firebase = await firebaseMessagingService.getFirebase()
 
@@ -41,8 +29,12 @@ export const firebaseMessagingService = {
 
 		return messaging
 	},
-	async init(serviceWorkerRegistration: ServiceWorkerRegistration): Promise<string> {
+	async init(serviceWorkerRegistration?: ServiceWorkerRegistration): Promise<string> {
 		const messaging = await firebaseMessagingService.initializeFirebaseMessaging()
+		// NOTE: getToken asks the user for notifications permission
 		return await messaging.getToken({ serviceWorkerRegistration })
+	},
+	hasApprovedNotifications(): boolean {
+		return Notification.permission === 'granted'
 	},
 }

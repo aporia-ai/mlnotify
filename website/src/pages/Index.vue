@@ -1,17 +1,26 @@
 <template>
-	<main class="p-4 flex flex-col justify-between">
+	<main class="p-4 flex-1 flex flex-col justify-around">
 		<div>
-			<h1 class="font-orelega text-center text-6xl mt-16 mb-4">Get notified when fit() is complete</h1>
-			<h2 class="text-xl text-center mb-10">Lorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsum</h2>
-			<Count class="mb-6" :count="statistics.totalTrainingsCount"></Count>
-			<div class="text-center text-grey-1 text-xl">
+			<h1 class="font-orelega text-center md:text-6xl text-3xl mb-2 md:mb-4">
+				Get notified when fit() is complete
+			</h1>
+			<h2 class="md:text-xl text-xs text-center mb-7 px-4">
+				Lorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsum
+			</h2>
+			<Count class="md:mb-6 mb-3" :count="statistics.totalTrainingsCount"></Count>
+			<div class="text-center text-grey-1 md:text-xl text-xs md:mb-6 mb-8">
 				The amount of training so far
 			</div>
 		</div>
 		<div>
-			<div class="flex justify-around">
-				<UsageInstructionsSection class="mx-4" />
-				<EnterCodeSection v-model="code" class="mx-4" />
+			<div
+				class="mx-auto flex justify-around max-w-7xl bottom-section-container md:flex-row-reverse flex-col space-y-10 md:space-y-0 items-center mb-10"
+			>
+				<EnterCodeSection v-model="code" class="md:mx-4 bottom-section" />
+				<div class="md:mx-4 bottom-section">
+					<h3 class="font-orelega text-lg text-center md:hidden mb-7">How to do it yourself</h3>
+					<UsageInstructionsSection />
+				</div>
 			</div>
 		</div>
 	</main>
@@ -40,3 +49,14 @@ export default Vue.extend({
 	},
 })
 </script>
+<style lang="scss" scoped>
+.bottom-section {
+	flex: 1 1 auto;
+	width: 280px;
+
+	@media (min-width: 768px) {
+		flex: 1 1 450px;
+		max-width: 480px;
+	}
+}
+</style>

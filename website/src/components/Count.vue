@@ -1,11 +1,18 @@
 <template>
 	<div class="text-center">
 		<template v-for="(num, idx) in displayedNumber">
-			<div :key="num + idx" class="card font-orelega text-5xl px-4 py-3 rounded inline-block">
+			<div
+				:key="num + idx"
+				class="card font-orelega md:text-5xl md:px-4 md:py-3 text-xl px-3 py-1 rounded inline-block mb-1"
+			>
 				{{ num }}
 			</div>
-			<div :key="num + idx + 'comma'" class="inline-block text-2xl align-bottom comma mx-1 mb-1">
-				{{ shouldShowComma(displayedNumber, idx) ? ',' : '' }}
+			<div
+				v-if="!(idx + 1 === displayedNumber.length)"
+				:key="num + idx + 'comma'"
+				class="inline-block text-lg md:text-2xl align-bottom comma md:mx-1 mb-2"
+			>
+				{{ (displayedNumber.length - (idx + 1)) % 3 === 0 ? ',' : '' }}
 			</div>
 		</template>
 	</div>
@@ -35,13 +42,6 @@ export default Vue.extend({
 			return arr
 		},
 	},
-	methods: {
-		shouldShowComma(displayedNumber: string[], idx: number): boolean {
-			const isLast = displayedNumber.length === idx + 1
-			const shouldShowComma = (displayedNumber.length - (idx + 1)) % 3 === 0
-			return shouldShowComma && !isLast
-		},
-	},
 })
 </script>
 <style lang="scss" scoped>
@@ -52,6 +52,6 @@ export default Vue.extend({
 }
 .comma {
 	line-height: 0;
-	width: 5px;
+	width: 8px;
 }
 </style>

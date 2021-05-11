@@ -1,14 +1,20 @@
 <template>
-	<div class="pin-code-input flex">
-		<div v-for="(_, index) in codeLength" :key="index" class="digit-container bg-blue-2 p-5 mr-3 rounded-lg">
+	<div class="pin-code-input flex justify-center md:space-x-3 space-x-1 sm:space-x-2">
+		<div
+			v-for="(_, index) in codeLength"
+			:key="index"
+			class="digit-container py-3 md:py-5 flex justify-center bg-blue-2 rounded-lg flex-1"
+		>
 			<input
 				ref="digits"
 				v-model="digitsArray[index]"
-				class="digit outline-none bg-transparent font-orelega text-4xl"
+				class="digit outline-none bg-transparent font-orelega text-3xl md:text-4xl text-center"
 				type="tel"
 				pattern="[0-9]"
-				:autofocus="autoFocus && !loading && index === 0"
+				:autofocus="autoFocus && index === 0"
 				maxlength="1"
+				autocomplete="off"
+				spellcheck="false"
 				:disabled="disabled"
 				@input="onValueChange(index)"
 				@focus="onFocus($event, index)"
@@ -46,10 +52,6 @@ export default Vue.extend({
 		autoFocus: {
 			type: Boolean,
 			default: true,
-		},
-		loading: {
-			type: Boolean,
-			default: false,
 		},
 		disabled: {
 			type: Boolean,
@@ -135,6 +137,10 @@ export default Vue.extend({
 </script>
 <style lang="scss" scoped>
 .digit {
-	width: 22px;
+	width: 100%;
+	max-width: 2.75rem;
+}
+.digit-container {
+	aspect-ratio: 58/90;
 }
 </style>

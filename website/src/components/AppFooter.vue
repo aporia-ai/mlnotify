@@ -1,13 +1,13 @@
 <template>
 	<div class="flex justify-center p-2">
-		<div class="text-grey-7 flex justify-center items-center">
+		<div class="text-grey-7 flex justify-center items-center text-xs md:text-base">
 			<div>Made with</div>
 			<div>
-				<HeartIcon class="heart block w-5 h-5 mx-2 text-red fill-current" />
+				<HeartIcon class="heart block w-5 h-3 md:h-5 md:mx-1 text-red fill-current" />
 			</div>
 			<div>by</div>
 			<a href="https://aporia.com" target="_blank" class="block transition-opacity hover:opacity-70">
-				<AporiaLogo alt="Aporia" class="block ml-3" />
+				<AporiaLogo alt="Aporia" class="block ml-2 h-5 md:h-7" />
 			</a>
 		</div>
 	</div>

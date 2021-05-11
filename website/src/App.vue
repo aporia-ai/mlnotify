@@ -23,6 +23,9 @@ export default Vue.extend({
 			],
 		}
 	},
+	beforeMount() {
+		this.$store.dispatch('initServiceWorker')
+	},
 })
 </script>
 

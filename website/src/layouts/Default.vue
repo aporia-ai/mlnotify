@@ -1,14 +1,14 @@
 <template>
 	<div class="layout text-black min-h-screen flex flex-col bg-grey-2 hover:layout-small">
 		<AppHeader class="flex-grow-0" />
-		<div class="flex-1">
+		<div class="flex-1 flex">
 			<slot />
 		</div>
 		<AppFooter class="flex-grow-0" />
 	</div>
 </template>
 
-<script>
+<script lang="ts">
 import Vue from 'vue'
 import AppHeader from '../components/AppHeader.vue'
 import AppFooter from '../components/AppFooter.vue'
