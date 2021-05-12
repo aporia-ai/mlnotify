@@ -35,6 +35,8 @@ export const firebaseMessagingService = {
 		return await messaging.getToken({ serviceWorkerRegistration })
 	},
 	hasApprovedNotifications(): boolean {
+		if (typeof window === 'undefined' || !("Notification" in window)) return false
+
 		return Notification.permission === 'granted'
 	},
 }

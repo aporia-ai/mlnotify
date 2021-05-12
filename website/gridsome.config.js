@@ -3,7 +3,7 @@ module.exports = {
 	siteName: 'ML Notify',
 	siteDescription: 'ML Notify',
 	siteUrl: 'https://mlnotify.com',
-	icon: './src/assets/images/logo.png',
+	icon: './src/assets/logo.png',
 	chainWebpack: config => {
 		const svgRule = config.module.rule('svg')
 		svgRule.uses.clear()
@@ -25,7 +25,7 @@ module.exports = {
 				statusBarStyle: 'default',
 				themeColor: '#ffffff',
 				backgroundColor: '#ffffff',
-				icon: './src/assets/images/logo.png',
+				icon: './src/assets/logo.png',
 				shortName: 'ML Notify',
 				description: 'ML Notify is a little tool to help you know when your model finished training',
 				categories: ['work', 'machine learning', 'artificial intelligence'],
@@ -41,19 +41,10 @@ module.exports = {
 				//         type: 'image/png',
 				//     },
 				// ],
-				// shortcuts: [
-				//     {
-				//         name: "View Subscriptions",
-				//         short_name: "Subscriptions",
-				//         description: "View the list of podcasts you listen to",
-				//         url: "/subscriptions?utm_source=homescreen",
-				//         icons: [{ src: "/icons/subscriptions.png", sizes: "192x192" }]
-				//     }
-				// ],
 
-				svgFavicon: './src/assets/images/logo.svg',
+				svgFavicon: './src/assets/logo.svg',
 				msTileColor: '#ffffff',
-				appleMaskIcon: './src/assets/images/logo.svg',
+				appleMaskIcon: './src/assets/logo.svg',
 				appleMaskIconColor: '#ffffff',
 			},
 		},
