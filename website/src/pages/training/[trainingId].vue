@@ -11,6 +11,7 @@
 		</div>
 		<main class="p-4">
 			Training Page
+			<Qrcode :size="200" :value="url"></Qrcode>
 		</main>
 		<MobileNotificationDialog
 			v-model="isMobileNotificationDialogOpen"
@@ -27,12 +28,14 @@ import Vue from 'vue'
 import MobileNotificationDialog from '../../components/MobileNotificationDialog.vue'
 import DesktopNotificationDialog from '../../components/DesktopNotificationDialog.vue'
 import { firebaseMessagingService } from '../../services/firebase'
+import Qrcode from 'qrcode.vue'
 
 export default Vue.extend({
 	name: 'Training',
 	components: {
 		MobileNotificationDialog,
 		DesktopNotificationDialog,
+		Qrcode,
 	},
 	data() {
 		return {
@@ -40,6 +43,7 @@ export default Vue.extend({
 			isMobileNotificationDialogOpen: false,
 			isDesktopNotificationDialogOpen: false,
 			areNotificationsApproved: firebaseMessagingService.hasApprovedNotifications(),
+			url: typeof window !== 'undefined' ? window.location.href : '',
 		}
 	},
 	computed: {
