@@ -17,6 +17,7 @@
 				spellcheck="false"
 				:disabled="disabled"
 				@input="onValueChange(index)"
+				@paste="onPaste($event, index)"
 				@focus="onFocus($event, index)"
 				@keydown="onKeyDown($event, index)"
 			/>
@@ -89,6 +90,24 @@ export default Vue.extend({
 		},
 	},
 	methods: {
+		onPaste(event: ClipboardEvent, index: number) {
+			if (!event.clipboardData) return
+
+			const remainingInputLength = this.codeLength - index
+			const pastedText = event.clipboardData
+				.getData('text')
+				.split('')
+				.filter(char => {
+					return !isNaN(+char) && char !== ' '
+				})
+				.map(char => +char + '') // Make sure they are indeed all numbers
+				.slice(0, remainingInputLength)
+
+			this.digitsArray.splice(index, pastedText.length, ...pastedText)
+
+			const element = (this.$refs.digits as HTMLInputElement[])[pastedText.length - 1 + index]
+			element.focus()
+		},
 		onFocus(e: FocusEvent): void {
 			const target = e.target as HTMLInputElement
 			target.select()

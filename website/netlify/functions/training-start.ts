@@ -41,7 +41,12 @@ async function baseHandler(_event: Event): Promise<APIGatewayProxyResult> {
 	trainingId = trainingId as string // Just for the typecast
 
 	// Insert a new training
-	const newTraining: Training = { id: trainingId, startedAt: new Date().toISOString(), subscribers: [] }
+	const newTraining: Training = {
+		id: trainingId,
+		startedAt: new Date().toISOString(),
+		notificationsSubscribers: [],
+		emailSubscribers: [],
+	}
 
 	// Update statistics
 	const statisticsRef = app.database().ref(FirebaseKeys.Statistics)

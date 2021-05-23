@@ -1,7 +1,8 @@
 export interface Training {
 	id: string
 	startedAt: string
-	subscribers: { messagingRegistrationToken: string }[]
+	notificationsSubscribers: string[]
+	emailSubscribers: string[]
 	endedAt?: string
 }
 

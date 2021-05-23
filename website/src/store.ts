@@ -14,7 +14,7 @@ export const VuexStore: StoreOptions<StoreState> = {
 	state: {
 		statistics: {
 			activeTrainingsCount: 0,
-			totalTrainingsCount: 1232323,
+			totalTrainingsCount: 0,
 		},
 		messaging: {
 			serviceWorkerRegistration: undefined,
@@ -38,7 +38,7 @@ export const VuexStore: StoreOptions<StoreState> = {
 		},
 	},
 	actions: {
-		periodicallyFetchStatistics({ commit }): void {
+		async periodicallyFetchStatistics({ commit }): Promise<void> {
 			let refreshRate = 1000
 
 			const envRefreshRate = process.env.GRIDSOME_STATISTICS_REFRESH_RATE
@@ -46,9 +46,10 @@ export const VuexStore: StoreOptions<StoreState> = {
 				refreshRate = +envRefreshRate
 			}
 
+			commit('setStatistics', await apiService.getStatistics())
 			setInterval(async () => {
 				commit('setStatistics', await apiService.getStatistics())
-			}, 234234234)
+			}, refreshRate)
 		},
 		async initServiceWorker({ commit }): Promise<void> {
 			// Register service worker
@@ -61,7 +62,9 @@ export const VuexStore: StoreOptions<StoreState> = {
 			if (state.messaging.token) return
 			if (!state.messaging.serviceWorkerRegistration) throw new Error('No service worker')
 
-			const token = await firebaseMessagingService.init(state.messaging.serviceWorkerRegistration)
+			const token = await firebaseMessagingService.askNotificationPermission(
+				state.messaging.serviceWorkerRegistration,
+			)
 			commit('setMessagingToken', token)
 		},
 		async subscribeToTraining({ state: { messaging } }, { trainingId }): Promise<void> {
@@ -69,6 +72,22 @@ export const VuexStore: StoreOptions<StoreState> = {
 			if (!trainingId) throw new Error('No trainingId received')
 
 			await apiService.subscribeToTraining(messaging.token, trainingId)
+		},
+		async showSuccessNotification(
+			{ state },
+			{
+				data,
+				notification: notificationOptions,
+			}: { data: Record<string, string>; notification: Record<string, string> },
+		) {
+			if (!state.messaging.serviceWorkerRegistration) throw new Error('No service worker')
+
+			// new Notification(notificationOptions.title, notificationOptions)
+			// TODO
+			await state.messaging.serviceWorkerRegistration.showNotification(
+				notificationOptions.title,
+				notificationOptions,
+			)
 		},
 	},
 }

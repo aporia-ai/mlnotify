@@ -42,12 +42,18 @@ async function baseHandler({
 	if (!training) throw new createError.NotFound()
 	else if (training.endedAt) throw new createError.BadRequest('Training already ended')
 
-	// Add subscriber to database
-	training.subscribers.push({ messagingRegistrationToken })
-	await trainings.child(trainingId).set(training)
+	training.notificationsSubscribers = training.notificationsSubscribers || []
+	const notificationsSubscribersSet = new Set(training.notificationsSubscribers)
 
-	// Subscribe to topic
-	await app.messaging().subscribeToTopic(messagingRegistrationToken, trainingId)
+	if (!notificationsSubscribersSet.has(messagingRegistrationToken)) {
+		// Add subscriber to database
+		notificationsSubscribersSet.add(messagingRegistrationToken)
+		training.notificationsSubscribers = Array.from(notificationsSubscribersSet)
+		await trainings.child(trainingId).set(training)
+
+		// Subscribe to topic
+		await app.messaging().subscribeToTopic(messagingRegistrationToken, trainingId)
+	}
 
 	return {
 		statusCode: 200,

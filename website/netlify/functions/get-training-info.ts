@@ -32,11 +32,15 @@ async function baseHandler({ body: { trainingId } }: Event): Promise<APIGatewayP
 	const trainings = app.database().ref(FirebaseKeys.Trainings)
 
 	// Validate training
-	const training: Training = (await trainings.child(trainingId).get()).val()
+	const training: Training | null = (await trainings.child(trainingId).get()).val()
 
+	const response: Partial<Training> = {}
+	if (training) response.startedAt = training.startedAt
+	if (training?.endedAt) response.endedAt = training.endedAt
+	
 	return {
 		statusCode: 200,
-		body: JSON.stringify({ startedAt: training.startedAt }),
+		body: JSON.stringify(response),
 	}
 }
 

@@ -2,7 +2,7 @@
 	<Transition name="fade">
 		<div
 			v-if="modelValue"
-			class="fixed top-0 left-0 h-screen w-screen flex justify-center items-center bg-black-05-opacity"
+			class="fixed top-0 left-0 z-50 h-screen w-screen flex justify-center items-center bg-black-05-opacity"
 			@click="$emit('close')"
 		>
 			<div class="bg-white-0 rounded-lg text-center m-8 p-4" @click.stop>
@@ -31,7 +31,7 @@ import NotificationIcon from '../assets/icons/notification.svg'
 import XIcon from '../assets/icons/x.svg'
 
 export default Vue.extend({
-	name: 'MobileNotificationDialog',
+	name: 'NotificationDialog',
 	components: {
 		NotificationIcon,
 		XIcon,

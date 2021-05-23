@@ -33,18 +33,9 @@ module.exports = {
 				dir: 'auto',
 				maskableIcon: true,
 				gcmSenderId: '103953800507',
-				// TODO
-				// screenshots: [
-				//     {
-				//         src: 'src/screenshot1.png',
-				//         sizes: '1280x720',
-				//         type: 'image/png',
-				//     },
-				// ],
-
-				svgFavicon: './src/assets/logo.svg',
+				svgFavicon: '/logo.svg',
 				msTileColor: '#ffffff',
-				appleMaskIcon: './src/assets/logo.svg',
+				appleMaskIcon: '/logo.svg',
 				appleMaskIconColor: '#ffffff',
 			},
 		},

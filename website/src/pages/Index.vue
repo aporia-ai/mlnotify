@@ -2,9 +2,11 @@
 	<main class="p-4 flex-1 flex flex-col justify-around">
 		<div>
 			<h1 class="font-orelega text-center md:text-6xl text-3xl mb-2 md:mb-4">
-				Get notified when fit() is complete
+				Get notified when
+				<ChangingText class="text-left" :options="['train()', 'fit()']"></ChangingText><br />
+				is complete
 			</h1>
-			<h2 class="md:text-xl text-xs text-center mb-7 px-4">
+			<h2 class="md:text-base text-xs text-center mb-7 px-4">
 				Lorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsum
 			</h2>
 			<Count class="md:mb-6 mb-3" :count="statistics.totalTrainingsCount"></Count>
@@ -33,6 +35,7 @@ import { mapGetters } from 'vuex'
 import Count from '../components/Count.vue'
 import EnterCodeSection from '../components/EnterCodeSection.vue'
 import UsageInstructionsSection from '../components/UsageInstructionsSection.vue'
+import ChangingText from '../components/ChangingText.vue'
 
 export default Vue.extend({
 	name: 'Index',
@@ -40,9 +43,12 @@ export default Vue.extend({
 		Count,
 		EnterCodeSection,
 		UsageInstructionsSection,
+		ChangingText,
 	},
 	data() {
-		return { code: '' }
+		return {
+			code: '',
+		}
 	},
 	computed: {
 		...mapGetters({ statistics: 'statistics' }),

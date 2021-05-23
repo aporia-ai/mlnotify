@@ -45,13 +45,18 @@ async function baseHandler({ body: { trainingId } }: Event): Promise<APIGatewayP
 
 	// Send notification by topic
 	await app.messaging().sendToTopic(trainingId, {
-		data: {},
+		data: {
+			event: 'training-end',
+			id: training.id,
+			endedAt: training.endedAt,
+			startedAt: training.startedAt,
+		},
 		notification: {
 			// https://firebase.google.com/docs/cloud-messaging/send-message#admin_sdk_error_reference
 			title: 'Training Over',
 			body: `Training #${trainingId} is over`,
-			// 'icon': 'firebase-logo.png',
-			click_action: `https://mlnotify.com?${trainingId}`,
+			icon: 'https://mlnotify.aporia.com/logo.svg',
+			clickAction: `https://mlnotify.aporia.com/training/${trainingId}`,
 		},
 	})
 
@@ -60,9 +65,10 @@ async function baseHandler({ body: { trainingId } }: Event): Promise<APIGatewayP
 	const decrement = (val = 1) => Math.max(val - 1, 0)
 	const activeTrainingsCountKey: keyof Statistics = 'activeTrainingsCount'
 
-	// Unsubscribe all subscribers
+	// Unsubscribe all notificationsSubscribers
+	training.notificationsSubscribers = training.notificationsSubscribers || []
 	await Promise.all([
-		...training.subscribers.map(({ messagingRegistrationToken }) =>
+		...training.notificationsSubscribers.map(messagingRegistrationToken =>
 			app.messaging().unsubscribeFromTopic(messagingRegistrationToken, trainingId),
 		),
 		statisticsRef.child(activeTrainingsCountKey).transaction(decrement),

@@ -1,58 +1,254 @@
 <template>
-	<div class="flex-1">
+	<div class="flex-1 flex flex-col">
+		<!-- Notifications permission bar -->
 		<div
 			class="bg-blue-1 transition-all text-white-0 h-0 flex justify-center items-center overflow-hidden"
-			:class="{ 'h-14': !shouldHideNotificationsBanner }"
+			:class="{ 'h-14': shouldShowNotificationsBar }"
 		>
-			<div>
+			<div v-if="notificationPermission === 'default'">
 				<span class="font-bold">MLNotify</span> needs your permission to
-				<button class="underline">enable desktop notifications</button>
+				<button class="underline" @click="askForNotificationPermission">enable desktop notifications</button>
+			</div>
+			<div v-if="notificationPermission === 'denied'">
+				Please enable notifications in your browser to be notified when your training is over
 			</div>
 		</div>
-		<main class="p-4">
-			Training Page
-			<Qrcode :size="200" :value="url"></Qrcode>
-		</main>
-		<MobileNotificationDialog
-			v-model="isMobileNotificationDialogOpen"
-			@close="isMobileNotificationDialogOpen = false"
-			@approve="askForNotificationPermission"
+		<Transition name="fade" mode="out-in">
+			<main v-if="!!training.startedAt" class="p-4 flex-1 flex flex-col justify-around">
+				<div>
+					<h1 class="font-orelega text-center md:text-6xl text-3xl mb-2 md:mb-4">
+						<transition name="fade" mode="out-in">
+							<span v-if="!trainingFinished" key="in-progress">
+								Waiting for training #{{ trainingId }} to complete
+							</span>
+							<span v-else key="training-finished">Hurray! </span>
+						</transition>
+					</h1>
+					<h2 class="md:text-base text-xs text-center mb-10 px-4">
+						<transition name="fade" mode="out-in">
+							<span v-if="!trainingFinished" key="in-progress">
+								When fit() is completed, a notification will be raised.<br />
+								<span class="hidden sm:inline">
+									In the meantime, you can have coffee&nbsp;&nbsp;☕,
+									<a class="text-blue-1 whitespace-nowrap" href="https://aporia.com" target="_blank"
+										>play traininvaders 👾</a
+									>, or
+									<a class="text-blue-1 whitespace-nowrap" href="https://aporia.com" target="_blank"
+										>read something 📖</a
+									>
+								</span>
+							</span>
+							<span v-else key="training-finished">
+								Your training is finished.<br />
+								The training finished at {{ training.endedAt }}.</span
+							>
+						</transition>
+					</h2>
+				</div>
+				<div class="flex justify-center items-center">
+					<!-- Left -->
+					<transition name="fade-left">
+						<div
+							v-if="!trainingFinished"
+							class="hidden lg:flex px-14 py-7 circle-side-section bg-white-0 h-52 w-84 left-section flex-col justify-between items-center"
+						>
+							<div class="text-lg text-grey-1">Get notified by email</div>
+							<div>
+								<input
+									class="py-2 px-4 bg-grey-5 rounded-lg"
+									type="email"
+									autocomplete="email"
+									placeholder="Email Address"
+									@keyup.enter="submitEmail"
+								/>
+							</div>
+							<div>
+								<button
+									class="bg-blue-1 text-white-0 rounded-3xl py-1 px-6"
+									@keyup.enter="submitEmail"
+									@click="submitEmail"
+								>
+									Submit
+								</button>
+							</div>
+						</div>
+					</transition>
+					<!-- Circle -->
+					<div
+						class="max-h-full max-w-full circle-container z-10 bg-white-0 relative flex justify-center xl:w-120 xl:h-120 sm:w-96 sm:h-96 h-72 w-72 items-center rounded-full"
+					>
+						<!-- Spinner -->
+						<CircleLoader
+							class="z-0 h-full w-full absolute"
+							:class="{ 'circle-loader-success': trainingFinished }"
+						></CircleLoader>
+
+						<!-- Dashed circle -->
+						<CircleCounter
+							class="z-0 absolute rounded-full"
+							:dash-count="60"
+							:active-count="trainingFinished ? 60 : timer.displayedTime.seconds"
+							v-bind="trainingFinished ? { activeStroke: 'rgba(72, 207, 173, 1)' } : {}"
+						></CircleCounter>
+
+						<!-- Inner circle -->
+						<div class="circle z-10 rounded-full flex justify-center items-center text-center">
+							<transition name="fade" mode="out-in">
+								<SuccessConfetti v-if="trainingFinished" />
+								<div v-else class="flex">
+									<div>
+										<div class="font-orelega sm:text-6xl text-4xl w-12">
+											{{ (timer.displayedTime.hours + '').padStart(2, '0') }}
+										</div>
+										<div class="text-blue-1 sm:text-base text-xs">hours</div>
+									</div>
+									<div class="font-orelega sm:text-6xl text-3xl sm:mx-3 mx-1">:</div>
+									<div>
+										<div class="font-orelega sm:text-6xl text-4xl w-12">
+											{{ (timer.displayedTime.minutes + '').padStart(2, '0') }}
+										</div>
+										<div class="text-blue-1 sm:text-base text-xs">minutes</div>
+									</div>
+									<div class="font-orelega sm:text-6xl text-3xl sm:mx-3 mx-1">:</div>
+									<div>
+										<div class="font-orelega sm:text-6xl text-4xl w-12">
+											{{ (timer.displayedTime.seconds + '').padStart(2, '0') }}
+										</div>
+										<div class="text-blue-1 sm:text-base text-xs">seconds</div>
+									</div>
+								</div>
+							</transition>
+						</div>
+					</div>
+					<!-- Right -->
+					<transition name="fade-right">
+						<div
+							v-if="!trainingFinished"
+							class="hidden lg:flex px-14 py-7 bg-white-0 circle-side-section right-section h-52 w-84 flex-col justify-between items-center"
+						>
+							<div class="text-lg text-grey-1">Share to another device</div>
+							<div class="flex justify-between items-center">
+								<PhoneBarcodeIcon class="mr-3" />
+								<DoubleArrowLeftIcon class="mr-3" />
+								<Qrcode :size="85" :value="url"></Qrcode>
+							</div>
+						</div>
+					</transition>
+				</div>
+				<!-- Bottom (mobile only) -->
+				<div v-if="!trainingFinished" class="text-center mt-4 p-4">
+					<div class="mb-8 sm:hidden text-xs">
+						In the meantime, you can have <span class="whitespace-nowrap">coffee ☕</span>,
+						<a class="text-blue-1 whitespace-nowrap" href="https://aporia.com" target="_blank"
+							>play traininvaders 👾</a
+						>, or
+						<a class="text-blue-1 whitespace-nowrap" href="https://aporia.com" target="_blank"
+							>read something 📖</a
+						>
+					</div>
+					<div class="text-sm md:text-lg flex lg:hidden flex-col justify-between items-center">
+						<div class="mb-3 md:mb-6">Get notified by email</div>
+						<div>
+							<input
+								class="py-2 px-4 bg-grey-5 rounded-3xl mb-3 md:mb-6 w-56 md:w-80"
+								type="email"
+								autocomplete="email"
+								placeholder="Email Address"
+								@keyup.enter="submitEmail"
+							/>
+						</div>
+						<div>
+							<button
+								class="bg-blue-1 text-white-0 rounded-3xl py-1 px-6"
+								@keyup.enter="submitEmail"
+								@click="submitEmail"
+							>
+								Submit
+							</button>
+						</div>
+					</div>
+				</div>
+			</main>
+			<div v-else class="p-4 flex-1 flex flex-col justify-around items-center">
+				<DotLoader />
+			</div>
+		</Transition>
+
+		<NotificationDialog
+			v-model="isNotificationDialogOpen"
+			@close="isNotificationDialogOpen = false"
+			@approve="
+				isNotificationDialogOpen = false
+				askForNotificationPermission()
+			"
 		/>
-		<DesktopNotificationDialog v-model="isDesktopNotificationDialogOpen" />
 	</div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
 
-import MobileNotificationDialog from '../../components/MobileNotificationDialog.vue'
-import DesktopNotificationDialog from '../../components/DesktopNotificationDialog.vue'
+import NotificationDialog from '../../components/NotificationDialog.vue'
+import CircleCounter from '../../components/CircleCounter.vue'
+import CircleLoader from '../../assets/loaders/spinning-circle-loader.svg'
+import DotLoader from '../../assets/loaders/dot-loader.svg'
+import DoubleArrowLeftIcon from '../../assets/icons/double-arrow-left.svg'
+import PhoneBarcodeIcon from '../../assets/icons/phone-barcode.svg'
 import { firebaseMessagingService } from '../../services/firebase'
 import Qrcode from 'qrcode.vue'
+import dayjs from 'dayjs'
+import duration from 'dayjs/plugin/duration.js'
+import { apiService } from '../../services/api'
+import SuccessConfetti from '../../components/SuccessConfetti.vue'
+dayjs.extend(duration)
 
 export default Vue.extend({
 	name: 'Training',
 	components: {
-		MobileNotificationDialog,
-		DesktopNotificationDialog,
+		NotificationDialog,
 		Qrcode,
+		CircleCounter,
+		CircleLoader,
+		DoubleArrowLeftIcon,
+		PhoneBarcodeIcon,
+		SuccessConfetti,
+		DotLoader,
 	},
 	data() {
 		return {
-			isInitializing: true,
-			isMobileNotificationDialogOpen: false,
-			isDesktopNotificationDialogOpen: false,
-			areNotificationsApproved: firebaseMessagingService.hasApprovedNotifications(),
+			isInitializingNotifications: true,
+			isNotificationDialogOpen: false,
+			notificationPermission: firebaseMessagingService.getNotificationPermissionStatus(),
+			firebaseMessagingUnsubscribeFunction: null as (() => void) | null,
 			url: typeof window !== 'undefined' ? window.location.href : '',
+			training: {
+				startedAt: '',
+				endedAt: '',
+			} as { startedAt: string; endedAt?: string },
+			timer: {
+				// eslint-disable-next-line @typescript-eslint/no-explicit-any
+				intervalToken: null as any,
+				displayedTime: {
+					seconds: 0,
+					minutes: 0,
+					hours: 0,
+				},
+			},
 		}
 	},
 	computed: {
 		trainingId(): string {
 			return (this.$route.params.trainingId || '') as string
 		},
-		shouldHideNotificationsBanner(): boolean {
-			const isDialogOpen = this.isMobileNotificationDialogOpen || this.isDesktopNotificationDialogOpen
-			return this.isInitializing || isDialogOpen || this.areNotificationsApproved
+		trainingFinished(): boolean {
+			return !!this.training.endedAt
+		},
+		shouldShowNotificationsBar(): boolean {
+			return (
+				!(this.notificationPermission === 'granted') &&
+				!this.isNotificationDialogOpen &&
+				!this.isInitializingNotifications
+			)
 		},
 	},
 	async beforeMount(): Promise<void> {
@@ -61,30 +257,32 @@ export default Vue.extend({
 			return
 		}
 
+		await this.fetchTraining()
+		this.firebaseMessagingUnsubscribeFunction = await firebaseMessagingService.onMessage(payload => {
+			if (payload.data.id === this.trainingId) {
+				this.training.endedAt = payload.data.endedAt
+			}
+			this.$store.dispatch('showSuccessNotification', payload)
+		})
 		this.checkNotificationPermission()
+		this.initTimer()
+	},
+	beforeDestroy() {
+		if (this.firebaseMessagingUnsubscribeFunction) {
+			this.firebaseMessagingUnsubscribeFunction()
+		}
 	},
 	methods: {
 		async checkNotificationPermission() {
 			await this.$store.dispatch('initServiceWorker')
 
-			if (firebaseMessagingService.hasApprovedNotifications()) {
-				try {
-					await this.askForNotificationPermission()
-				} finally {
-					this.isInitializing = false
-				}
-				return
+			const permission = firebaseMessagingService.getNotificationPermissionStatus()
+			if (permission === 'granted') {
+				this.askForNotificationPermission()
+			} else if (permission === 'default') {
+				this.isNotificationDialogOpen = true
 			}
-
-			if (window.innerWidth < 768) {
-				this.isMobileNotificationDialogOpen = true
-				this.isInitializing = false
-			} else {
-				this.isDesktopNotificationDialogOpen = true
-				this.isInitializing = false
-				await this.askForNotificationPermission()
-				this.isDesktopNotificationDialogOpen = false
-			}
+			this.isInitializingNotifications = false
 		},
 		async askForNotificationPermission(): Promise<void> {
 			try {
@@ -92,11 +290,106 @@ export default Vue.extend({
 
 				this.$store.dispatch('subscribeToTraining', { trainingId: this.trainingId })
 			} finally {
-				this.areNotificationsApproved = firebaseMessagingService.hasApprovedNotifications()
-				this.isMobileNotificationDialogOpen = false
-				this.isDesktopNotificationDialogOpen = false
+				this.notificationPermission = firebaseMessagingService.getNotificationPermissionStatus()
 			}
+		},
+		initTimer() {
+			this.timer.displayedTime = this.calcTimerDisplayedTime(this.training.startedAt)
+			this.timer.intervalToken = setInterval(
+				() => (this.timer.displayedTime = this.calcTimerDisplayedTime(this.training.startedAt)),
+				1000,
+			)
+		},
+		calcTimerDisplayedTime(startedAt: string) {
+			const diff = dayjs().diff(startedAt)
+
+			// Hours
+			const totalHours = dayjs.duration(diff).asHours()
+			const hours = Math.floor(totalHours) // Rounded
+
+			// Minutes
+			const totalRemainingMinutes = dayjs.duration({ hours: totalHours % 1 }).asMinutes()
+			const minutes = Math.floor(totalRemainingMinutes) // Rounded
+
+			// Seconds
+			const seconds = Math.floor(dayjs.duration({ minutes: totalRemainingMinutes % 1 }).asSeconds())
+
+			return { hours, minutes, seconds }
+		},
+		submitEmail() {
+			// TODO
+			console.log('Email submitted')
+		},
+		async fetchTraining(): Promise<void> {
+			const training = await apiService.getTrainingInfo(this.trainingId)
+			if (!training) {
+				this.$router.replace('/')
+				return
+			}
+			this.training.startedAt = training.startedAt
+			this.training.endedAt = training.endedAt
 		},
 	},
 })
 </script>
+<style lang="scss" scoped>
+.circle-container {
+	box-shadow: 10px 10px 30px 0px rgba(174, 174, 192, 0.5), -10px -10px 30px 0px rgba(255, 255, 255, 1);
+}
+.circle {
+	box-shadow: 10px 10px 30px 0px rgba(174, 174, 192, 0.5), -10px -10px 30px 0px rgba(255, 255, 255, 1);
+	height: 80%;
+	width: 80%;
+}
+
+.circle-counter {
+	width: 89.5%;
+	height: 89.5%;
+}
+
+.circle-side-section {
+	&.left-section {
+		margin-right: -2.25rem;
+		border-radius: 190px 0 0 190px;
+	}
+	&.right-section {
+		margin-left: -2.25rem;
+		border-radius: 0 190px 190px 0;
+	}
+	box-shadow: 0px 0px 1px 0px rgba(0, 0, 0, 0.04), 0px 8px 6px 0px rgba(0, 0, 0, 0.04),
+		0px 0px 24px 0px rgba(0, 0, 0, 0.06);
+}
+
+.circle-loader-success {
+	circle {
+		stroke-dasharray: 300;
+		stroke: rgba(72, 207, 173, 1);
+	}
+}
+
+.fade-right-enter-active,
+.fade-right-leave-active {
+	transition: opacity 0.3s ease, transform 0.3s ease;
+}
+.fade-right-enter {
+	opacity: 0;
+	transform: translateX(-10rem);
+}
+.fade-right-leave-to {
+	opacity: 0;
+	transform: translateX(-10rem);
+}
+
+.fade-left-enter-active,
+.fade-left-leave-active {
+	transition: opacity 0.3s ease, transform 0.3s ease;
+}
+.fade-left-enter {
+	opacity: 0;
+	transform: translateX(10rem);
+}
+.fade-left-leave-to {
+	opacity: 0;
+	transform: translateX(10rem);
+}
+</style>
