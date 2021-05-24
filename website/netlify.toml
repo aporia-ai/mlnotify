@@ -9,3 +9,9 @@ package = "netlify-plugin-gridsome-cache"
 
 [[plugins]]
 package = "@netlify/plugin-lighthouse"
+
+[[redirects]]
+force = true
+from = "/training/*"
+status = 200
+to = "/training/_training_id.html"
