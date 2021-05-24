@@ -19,7 +19,7 @@
 	</div>
 </template>
 
-<script>
+<script lang="ts">
 import Vue from 'vue'
 import LogoWithText from '../assets/logo-with-text.svg'
 import GithubIcon from '../assets/icons/github.svg'

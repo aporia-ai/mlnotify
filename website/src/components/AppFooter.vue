@@ -6,14 +6,19 @@
 				<HeartIcon class="heart block w-5 h-3 md:h-5 md:mx-1 text-red fill-current" />
 			</div>
 			<div>by</div>
-			<a href="https://aporia.com" target="_blank" class="block transition-opacity hover:opacity-70">
+			<a
+				href="https://aporia.com"
+				target="_blank"
+				class="block transition-opacity hover:opacity-70"
+				@click.prevent="goTo('https://aporia.com')"
+			>
 				<AporiaLogo alt="Aporia" class="block ml-2 h-5 md:h-7" />
 			</a>
 		</div>
 	</div>
 </template>
 
-<script>
+<script lang="ts">
 import Vue from 'vue'
 import HeartIcon from '../assets/icons/heart.svg'
 import AporiaLogo from '../assets/aporia/logo-with-text.svg'
@@ -24,33 +29,20 @@ export default Vue.extend({
 		HeartIcon,
 		AporiaLogo,
 	},
+	methods: {
+		goTo(url: string) {
+			this.$gtag.event('click', {
+				event_category: 'outbound',
+				event_label: url,
+				transport_type: 'beacon',
+				event_callback() {
+					window.open(url, '_blank')
+				},
+			})
+		},
+	},
 })
 </script>
 <style lang="scss" scoped>
-.heart {
-	@keyframes heartbeat {
-		0% {
-			transform: scale(0.75);
-		}
-		10% {
-			transform: scale(1);
-		}
-		20% {
-			transform: scale(0.75);
-		}
-		30% {
-			transform: scale(1);
-		}
-		40% {
-			transform: scale(0.75);
-		}
-		50% {
-			transform: scale(0.75);
-		}
-		100% {
-			transform: scale(0.75);
-		}
-	}
-	animation: heartbeat 2s infinite ease;
-}
+
 </style>

@@ -13,6 +13,7 @@ import createError from 'http-errors'
 // Types
 import { APIGatewayProxyEvent, APIGatewayProxyResult } from 'aws-lambda'
 import { Statistics, Training } from '../utils/types'
+import { sendTrainingEndedEmail } from '../utils/email'
 
 type Event = APIGatewayProxyEvent & { body: { trainingId: string } }
 
@@ -44,7 +45,7 @@ async function baseHandler({ body: { trainingId } }: Event): Promise<APIGatewayP
 	await trainings.child(trainingId).set(training)
 
 	// Send notification by topic
-	await app.messaging().sendToTopic(trainingId, {
+	const sendToTopicPromise = app.messaging().sendToTopic(trainingId, {
 		data: {
 			event: 'training-end',
 			id: training.id,
@@ -52,13 +53,15 @@ async function baseHandler({ body: { trainingId } }: Event): Promise<APIGatewayP
 			startedAt: training.startedAt,
 		},
 		notification: {
-			// https://firebase.google.com/docs/cloud-messaging/send-message#admin_sdk_error_reference
+			// https://firebase.google.com/docs/cloud-messaging/send-message
 			title: 'Training Over',
 			body: `Training #${trainingId} is over`,
 			icon: 'https://mlnotify.aporia.com/logo.svg',
 			clickAction: `https://mlnotify.aporia.com/training/${trainingId}`,
 		},
 	})
+
+	await Promise.allSettled([sendToTopicPromise, sendTrainingEndedEmail(training.emailSubscribers, { trainingId })])
 
 	// Update statistics
 	const statisticsRef = app.database().ref(FirebaseKeys.Statistics)

@@ -18,9 +18,10 @@ export default Vue.extend({
 		}
 	},
 	mounted() {
+		party.confetti(this.$el as HTMLElement)
 		this.intervalToken = setInterval(() => {
-			party.sparkles(this.$el as HTMLElement)
-		}, 500)
+			party.confetti(this.$el as HTMLElement)
+		}, 1500)
 	},
 	destroyed() {
 		if (this.intervalToken) clearInterval(this.intervalToken)

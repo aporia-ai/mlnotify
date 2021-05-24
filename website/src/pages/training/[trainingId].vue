@@ -21,7 +21,7 @@
 							<span v-if="!trainingFinished" key="in-progress">
 								Waiting for training #{{ trainingId }} to complete
 							</span>
-							<span v-else key="training-finished">Hurray! </span>
+							<span v-else key="training-finished">All Done!</span>
 						</transition>
 					</h1>
 					<h2 class="md:text-base text-xs text-center mb-10 px-4">
@@ -30,17 +30,25 @@
 								When fit() is completed, a notification will be raised.<br />
 								<span class="hidden sm:inline">
 									In the meantime, you can have coffee&nbsp;&nbsp;☕,
-									<a class="text-blue-1 whitespace-nowrap" href="https://aporia.com" target="_blank"
+									<a
+										class="text-blue-1 whitespace-nowrap"
+										href="https://aporia.com"
+										target="_blank"
+										@click.prevent="goTo('https://aporia.com')"
 										>play traininvaders 👾</a
 									>, or
-									<a class="text-blue-1 whitespace-nowrap" href="https://aporia.com" target="_blank"
+									<a
+										class="text-blue-1 whitespace-nowrap"
+										href="https://www.aporia.com/blog/"
+										target="_blank"
+										@click.prevent="goTo('https://www.aporia.com/blog/')"
 										>read something 📖</a
 									>
 								</span>
 							</span>
 							<span v-else key="training-finished">
 								Your training is finished.<br />
-								The training finished at {{ training.endedAt }}.</span
+								The training finished at {{ training.endedAt }} and took X time.</span
 							>
 						</transition>
 					</h2>
@@ -48,30 +56,34 @@
 				<div class="flex justify-center items-center">
 					<!-- Left -->
 					<transition name="fade-left">
-						<div
+						<form
 							v-if="!trainingFinished"
 							class="hidden lg:flex px-14 py-7 circle-side-section bg-white-0 h-52 w-84 left-section flex-col justify-between items-center"
+							@submit.prevent="submitEmail"
 						>
 							<div class="text-lg text-grey-1">Get notified by email</div>
 							<div>
 								<input
-									class="py-2 px-4 bg-grey-5 rounded-lg"
+									v-model="email"
+									:disabled="isSubmittingEmail"
+									class="email-input py-2 px-4 bg-grey-5 rounded-lg invalid:px-6"
 									type="email"
 									autocomplete="email"
 									placeholder="Email Address"
-									@keyup.enter="submitEmail"
 								/>
 							</div>
 							<div>
 								<button
-									class="bg-blue-1 text-white-0 rounded-3xl py-1 px-6"
-									@keyup.enter="submitEmail"
-									@click="submitEmail"
+									class="bg-blue-1 text-white-0 rounded-3xl py-1 px-6 h-9 w-24 flex justify-center items-center text-center"
+									@submit.prevent="submitEmail"
 								>
-									Submit
+									<transition name="fade" mode="out-in">
+										<span v-if="!isSubmittingEmail">Submit</span>
+										<TailSpinLoader v-else />
+									</transition>
 								</button>
 							</div>
-						</div>
+						</form>
 					</transition>
 					<!-- Circle -->
 					<div
@@ -139,34 +151,48 @@
 				<div v-if="!trainingFinished" class="text-center mt-4 p-4">
 					<div class="mb-8 sm:hidden text-xs">
 						In the meantime, you can have <span class="whitespace-nowrap">coffee ☕</span>,
-						<a class="text-blue-1 whitespace-nowrap" href="https://aporia.com" target="_blank"
+						<a
+							class="text-blue-1 whitespace-nowrap"
+							href="https://aporia.com"
+							target="_blank"
+							@click.prevent="goTo('https://aporia.com')"
 							>play traininvaders 👾</a
 						>, or
-						<a class="text-blue-1 whitespace-nowrap" href="https://aporia.com" target="_blank"
+						<a
+							class="text-blue-1 whitespace-nowrap"
+							href="https://aporia.com"
+							target="_blank"
+							@click.prevent="goTo('https://www.aporia.com/blog/')"
 							>read something 📖</a
 						>
 					</div>
-					<div class="text-sm md:text-lg flex lg:hidden flex-col justify-between items-center">
+					<form
+						class="text-sm md:text-lg flex lg:hidden flex-col justify-between items-center"
+						@submit.prevent="submitEmail"
+					>
 						<div class="mb-3 md:mb-6">Get notified by email</div>
 						<div>
 							<input
-								class="py-2 px-4 bg-grey-5 rounded-3xl mb-3 md:mb-6 w-56 md:w-80"
+								v-model="email"
+								:disabled="isSubmittingEmail"
+								class="email-input py-2 px-4 bg-grey-5 rounded-3xl mb-3 md:mb-6 w-56 md:w-80"
 								type="email"
 								autocomplete="email"
 								placeholder="Email Address"
-								@keyup.enter="submitEmail"
 							/>
 						</div>
 						<div>
 							<button
-								class="bg-blue-1 text-white-0 rounded-3xl py-1 px-6"
-								@keyup.enter="submitEmail"
-								@click="submitEmail"
+								class="bg-blue-1 text-white-0 rounded-3xl py-1 px-6 h-8 w-24 flex justify-center items-center text-center"
+								@submit.prevent="submitEmail"
 							>
-								Submit
+								<transition name="fade" mode="out-in">
+									<span v-if="!isSubmittingEmail">Submit</span>
+									<TailSpinLoader2 v-else />
+								</transition>
 							</button>
 						</div>
-					</div>
+					</form>
 				</div>
 			</main>
 			<div v-else class="p-4 flex-1 flex flex-col justify-around items-center">
@@ -192,6 +218,8 @@ import NotificationDialog from '../../components/NotificationDialog.vue'
 import CircleCounter from '../../components/CircleCounter.vue'
 import CircleLoader from '../../assets/loaders/spinning-circle-loader.svg'
 import DotLoader from '../../assets/loaders/dot-loader.svg'
+import TailSpinLoader from '../../assets/loaders/tail-spin-loader.svg'
+import TailSpinLoader2 from '../../assets/loaders/tail-spin-loader-2.svg'
 import DoubleArrowLeftIcon from '../../assets/icons/double-arrow-left.svg'
 import PhoneBarcodeIcon from '../../assets/icons/phone-barcode.svg'
 import { firebaseMessagingService } from '../../services/firebase'
@@ -200,6 +228,7 @@ import dayjs from 'dayjs'
 import duration from 'dayjs/plugin/duration.js'
 import { apiService } from '../../services/api'
 import SuccessConfetti from '../../components/SuccessConfetti.vue'
+
 dayjs.extend(duration)
 
 export default Vue.extend({
@@ -213,14 +242,19 @@ export default Vue.extend({
 		PhoneBarcodeIcon,
 		SuccessConfetti,
 		DotLoader,
+		TailSpinLoader,
+		TailSpinLoader2,
 	},
 	data() {
 		return {
+			email: '',
+			isSubmittingEmail: false,
 			isInitializingNotifications: true,
 			isNotificationDialogOpen: false,
 			notificationPermission: firebaseMessagingService.getNotificationPermissionStatus(),
 			firebaseMessagingUnsubscribeFunction: null as (() => void) | null,
 			url: typeof window !== 'undefined' ? window.location.href : '',
+			fetchTrainingIntervalToken: null as any,
 			training: {
 				startedAt: '',
 				endedAt: '',
@@ -258,22 +292,51 @@ export default Vue.extend({
 		}
 
 		await this.fetchTraining()
-		this.firebaseMessagingUnsubscribeFunction = await firebaseMessagingService.onMessage(payload => {
-			if (payload.data.id === this.trainingId) {
-				this.training.endedAt = payload.data.endedAt
-			}
-			this.$store.dispatch('showSuccessNotification', payload)
-		})
+		this.startTrainingUpdates()
 		this.checkNotificationPermission()
 		this.initTimer()
 	},
-	beforeDestroy() {
+	destroyed() {
+		if (this.fetchTrainingIntervalToken) {
+			clearInterval(this.fetchTrainingIntervalToken)
+		}
 		if (this.firebaseMessagingUnsubscribeFunction) {
 			this.firebaseMessagingUnsubscribeFunction()
 		}
 	},
 	methods: {
+		goTo(url: string) {
+			this.$gtag.event('click', {
+				event_category: 'outbound',
+				event_label: url,
+				transport_type: 'beacon',
+				event_callback() {
+					window.open(url, '_blank')
+				},
+			})
+		},
+		async startTrainingUpdates() {
+			try {
+				// Register service worker
+				await this.$store.dispatch('initServiceWorker')
+
+				// Add a message listener
+				this.firebaseMessagingUnsubscribeFunction = await firebaseMessagingService.onMessage(payload => {
+					if (payload.data.id === this.trainingId) {
+						this.training.endedAt = payload.data.endedAt
+					}
+					this.$store.dispatch('showSuccessNotification', payload)
+				})
+			} catch {
+				// If service worker or message listener did not register, fallback to interval
+				this.fetchTrainingIntervalToken = setInterval(() => {
+					if (this.trainingFinished) clearInterval(this.fetchTrainingIntervalToken)
+					else this.fetchTraining()
+				}, 5000)
+			}
+		},
 		async checkNotificationPermission() {
+			// Make sure the service worker registered
 			await this.$store.dispatch('initServiceWorker')
 
 			const permission = firebaseMessagingService.getNotificationPermissionStatus()
@@ -288,7 +351,7 @@ export default Vue.extend({
 			try {
 				await this.$store.dispatch('getNotificationPermission')
 
-				this.$store.dispatch('subscribeToTraining', { trainingId: this.trainingId })
+				this.$store.dispatch('subscribeToTrainingNotification', { trainingId: this.trainingId })
 			} finally {
 				this.notificationPermission = firebaseMessagingService.getNotificationPermissionStatus()
 			}
@@ -316,9 +379,18 @@ export default Vue.extend({
 
 			return { hours, minutes, seconds }
 		},
-		submitEmail() {
-			// TODO
-			console.log('Email submitted')
+		async submitEmail() {
+			this.isSubmittingEmail = true
+			try {
+				await apiService.subscribeToTrainingEmail(this.email, this.trainingId)
+				this.$gtag.event('submit', {
+					event_category: 'form',
+					event_label: 'email',
+				})
+			} finally {
+				this.isSubmittingEmail = false
+				this.email = ''
+			}
 		},
 		async fetchTraining(): Promise<void> {
 			const training = await apiService.getTrainingInfo(this.trainingId)

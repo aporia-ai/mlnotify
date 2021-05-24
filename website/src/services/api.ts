@@ -1,14 +1,26 @@
 import { Statistics } from '../types/Statistics'
 
 export const apiService = {
-	async subscribeToTraining(messagingRegistrationToken: string, trainingId: string): Promise<void> {
-		await fetch('/.netlify/functions/subscribe-to-training', {
+	async subscribeToTrainingNotification(messagingRegistrationToken: string, trainingId: string): Promise<void> {
+		await fetch('/.netlify/functions/subscribe-to-training-notification', {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
 			},
 			body: JSON.stringify({
 				messagingRegistrationToken,
+				trainingId,
+			}),
+		})
+	},
+	async subscribeToTrainingEmail(email: string, trainingId: string): Promise<void> {
+		await fetch('/.netlify/functions/subscribe-to-training-email', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify({
+				email,
 				trainingId,
 			}),
 		})

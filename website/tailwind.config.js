@@ -1,9 +1,6 @@
 module.exports = {
 	purge: {
 		content: ['./src/**/*.vue', './src/**/*.scss', './src/**/*.js', './src/**/*.html'],
-		options: {
-			safelist: [/^fade-/],
-		},
 	},
 	darkMode: false,
 	theme: {

@@ -52,11 +52,10 @@ export const VuexStore: StoreOptions<StoreState> = {
 			}, refreshRate)
 		},
 		async initServiceWorker({ commit }): Promise<void> {
-			// Register service worker
-			if ('serviceWorker' in navigator) {
-				const serviceWorkerRegistration = await navigator.serviceWorker.register('/sw.js')
-				commit('setMessagingServiceWorkerRegistration', serviceWorkerRegistration)
-			}
+			if (!('serviceWorker' in navigator)) throw new Error('Service workers not supported')
+
+			const serviceWorkerRegistration = await navigator.serviceWorker.register('/sw.js')
+			commit('setMessagingServiceWorkerRegistration', serviceWorkerRegistration)
 		},
 		async getNotificationPermission({ state, commit }): Promise<void> {
 			if (state.messaging.token) return
@@ -67,11 +66,11 @@ export const VuexStore: StoreOptions<StoreState> = {
 			)
 			commit('setMessagingToken', token)
 		},
-		async subscribeToTraining({ state: { messaging } }, { trainingId }): Promise<void> {
+		async subscribeToTrainingNotification({ state: { messaging } }, { trainingId }): Promise<void> {
 			if (!messaging.token) throw new Error('No messaging token')
 			if (!trainingId) throw new Error('No trainingId received')
 
-			await apiService.subscribeToTraining(messaging.token, trainingId)
+			await apiService.subscribeToTrainingNotification(messaging.token, trainingId)
 		},
 		async showSuccessNotification(
 			{ state },
@@ -82,8 +81,6 @@ export const VuexStore: StoreOptions<StoreState> = {
 		) {
 			if (!state.messaging.serviceWorkerRegistration) throw new Error('No service worker')
 
-			// new Notification(notificationOptions.title, notificationOptions)
-			// TODO
 			await state.messaging.serviceWorkerRegistration.showNotification(
 				notificationOptions.title,
 				notificationOptions,

@@ -33,7 +33,4 @@ export default Vue.extend({
 			url('../assets/bg/mobile/bottom-right.png') right no-repeat;
 	}
 }
-.layout-small {
-	background: red;
-}
 </style>

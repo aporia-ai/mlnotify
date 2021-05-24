@@ -42,6 +42,10 @@ export default Vue.extend({
 		submit() {
 			if (this.code.length < 6) return
 
+			this.$gtag.event('submit', {
+				event_category: 'form',
+				event_label: 'training code',
+			})
 			this.$router.push(`/training/${this.code}`)
 		},
 	},
