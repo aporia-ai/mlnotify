@@ -18,8 +18,8 @@ install-deps:
 
 # Run tests
 test:
-	@cd sdk
 	@echo [!] Running tests
+	@cd sdk
 	@nox
 
 # Scan dependencies for insecure packages.
