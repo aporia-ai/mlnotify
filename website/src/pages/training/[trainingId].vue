@@ -140,7 +140,7 @@
 						>
 							<div class="text-lg text-grey-1">Share to another device</div>
 							<div class="flex justify-between items-center">
-								<PhoneBarcodeIcon class="mr-3" />
+								<img :src="phoneBarcodeImg" class="mr-3" />
 								<DoubleArrowLeftIcon class="mr-3" />
 								<Qrcode :size="85" :value="url"></Qrcode>
 							</div>
@@ -221,7 +221,7 @@ import DotLoader from '../../assets/loaders/dot-loader.svg'
 import TailSpinLoader from '../../assets/loaders/tail-spin-loader.svg'
 import TailSpinLoader2 from '../../assets/loaders/tail-spin-loader-2.svg'
 import DoubleArrowLeftIcon from '../../assets/icons/double-arrow-left.svg'
-import PhoneBarcodeIcon from '../../assets/icons/phone-barcode.svg'
+import phoneBarcodeImg from '../../assets/icons/phone-barcode.png'
 import { firebaseMessagingService } from '../../services/firebase'
 import Qrcode from 'qrcode.vue'
 import dayjs from 'dayjs'
@@ -239,7 +239,6 @@ export default Vue.extend({
 		CircleCounter,
 		CircleLoader,
 		DoubleArrowLeftIcon,
-		PhoneBarcodeIcon,
 		SuccessConfetti,
 		DotLoader,
 		TailSpinLoader,
@@ -248,6 +247,7 @@ export default Vue.extend({
 	data() {
 		return {
 			email: '',
+			phoneBarcodeImg,
 			isSubmittingEmail: false,
 			isInitializingNotifications: true,
 			isNotificationDialogOpen: false,

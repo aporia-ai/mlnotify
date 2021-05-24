@@ -21,4 +21,4 @@ publish = "dist"
 force = true
 from = "/training/*"
 status = 200
-to = "/training/_training_id.html"
+to = "/index.html"
