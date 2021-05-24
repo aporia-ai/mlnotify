@@ -12,6 +12,8 @@ class PluginsManager:
     """
 
     plugins: List[BasePlugin] = []
+    has_ran_before: bool = False
+    has_ran_after: bool = False
 
     def register_plugin(self, plugin: BasePlugin):
         """Adds a plugin.
@@ -28,6 +30,9 @@ class PluginsManager:
     def run_before(self):
         """Runs all registered plugins' before function."""
         logger.debug("Running before functions")
+        if(self.has_ran_before):
+            return
+        self.has_ran_before = True
 
         for plugin in self.plugins:
             if hasattr(plugin, "before"):
@@ -39,6 +44,9 @@ class PluginsManager:
     def run_after(self):
         """Runs all registered plugins' after function."""
         logger.debug("Running after functions")
+        if(self.has_ran_after):
+            return
+        self.has_ran_after = True
 
         for plugin in self.plugins:
             if hasattr(plugin, "after"):

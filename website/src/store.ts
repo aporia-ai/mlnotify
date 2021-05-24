@@ -81,10 +81,23 @@ export const VuexStore: StoreOptions<StoreState> = {
 		) {
 			if (!state.messaging.serviceWorkerRegistration) throw new Error('No service worker')
 
-			await state.messaging.serviceWorkerRegistration.showNotification(
-				notificationOptions.title,
-				notificationOptions,
-			)
+			const notification = new Notification(notificationOptions.title, notificationOptions)
+
+			// TODO add gtag to events
+			notification.addEventListener('click', event => {
+				console.log('notification clicked')
+				// TODO
+				console.log(event)
+			})
+			notification.addEventListener('close', event => {
+				console.log('notification closed')
+			})
+			notification.addEventListener('error', event => {
+				console.log('notification error')
+			})
+			notification.addEventListener('show', event => {
+				console.log('notification show')
+			})
 		},
 	},
 }

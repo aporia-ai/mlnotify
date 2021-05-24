@@ -1,1 +1,3 @@
-import mlnotify.mlnotify  # type: ignore # noqa: F401
+from mlnotify.mlnotify import start, end  # type: ignore # noqa: F401
+
+__all__ = [start, end]
