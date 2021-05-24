@@ -6,7 +6,7 @@ export const createTrainingEndEmail = ({ trainingId }: { trainingId: string }) =
 	<body>
 		<!-- Header -->
 		<header>
-			<a class="logo" href="https://mlnotify.aporia.com" target="_blank">
+			<a class="logo" href="${process.env.GRIDSOME_BASE_URL}" target="_blank">
 				<!-- Logo -->
 				<svg viewBox="0 0 188 48" fill="none" xmlns="http://www.w3.org/2000/svg">
 					<path
@@ -55,7 +55,7 @@ export const createTrainingEndEmail = ({ trainingId }: { trainingId: string }) =
 		<!-- Main -->
 		<main>
 			<h1>MLNotify | Training #${trainingId} ended</h1>
-			<h4>Click <a href="https://mlnotify.aporia.com/training/${trainingId}">here</a> to go to training page</h4>
+			<h4>Click <a href="${process.env.GRIDSOME_BASE_URL}/training/${trainingId}">here</a> to go to training page</h4>
 		</main>
 		<!-- Footer -->
 		<footer>
@@ -128,15 +128,15 @@ export const createTrainingEndEmail = ({ trainingId }: { trainingId: string }) =
 			color: rgb(38, 42, 51);
 		}
 		body {
-			background: url('https://mlnotify.aporia.com/static-assets/bg/desktop/top-left.png') 0% 100px no-repeat,
-				url('https://mlnotify.aporia.com/static-assets/bg/desktop/bottom-left.png') bottom left no-repeat,
-				url('https://mlnotify.aporia.com/static-assets/bg/desktop/bottom-right.png') bottom right no-repeat;
+			background: url('${process.env.GRIDSOME_BASE_URL}/static-assets/bg/desktop/top-left.png') 0% 100px no-repeat,
+				url('${process.env.GRIDSOME_BASE_URL}/static-assets/bg/desktop/bottom-left.png') bottom left no-repeat,
+				url('${process.env.GRIDSOME_BASE_URL}/static-assets/bg/desktop/bottom-right.png') bottom right no-repeat;
 		}
 		@media only screen and (max-width: 800px) {
 			body {
-				background: url('https://mlnotify.aporia.com/static-static-assets/bg/mobile/top-left.png') 0% 100px no-repeat,
-					url('https://mlnotify.aporia.com/static-assets/bg/mobile/bottom-left.png') bottom left no-repeat,
-					url('https://mlnotify.aporia.com/static-assets/bg/mobile/bottom-right.png') right no-repeat;
+				background: url('${process.env.GRIDSOME_BASE_URL}/static-static-assets/bg/mobile/top-left.png') 0% 100px no-repeat,
+					url('${process.env.GRIDSOME_BASE_URL}/static-assets/bg/mobile/bottom-left.png') bottom left no-repeat,
+					url('${process.env.GRIDSOME_BASE_URL}/static-assets/bg/mobile/bottom-right.png') right no-repeat;
 			}
 		}
 

@@ -57,8 +57,8 @@ async function baseHandler({ body: { trainingId } }: Event): Promise<APIGatewayP
 			// https://firebase.google.com/docs/cloud-messaging/send-message
 			title: 'Training Over',
 			body: `Training #${trainingId} is over`,
-			icon: 'https://mlnotify.aporia.com/logo.svg',
-			clickAction: `https://mlnotify.aporia.com/training/${trainingId}`,
+			icon: `${process.env.GRIDSOME_BASE_URL}/logo.png`,
+			clickAction: `${process.env.GRIDSOME_BASE_URL}/training/${trainingId}`,
 		},
 	})
 

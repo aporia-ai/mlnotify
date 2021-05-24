@@ -2,7 +2,7 @@ module.exports = {
 	titleTemplate: 'ML Notify',
 	siteName: 'ML Notify',
 	siteDescription: 'ML Notify',
-	siteUrl: 'https://mlnotify.com',
+	siteUrl: process.env.GRIDSOME_BASE_URL,
 	icon: './src/assets/logo.png',
 	chainWebpack: config => {
 		const svgRule = config.module.rule('svg')

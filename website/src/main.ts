@@ -27,7 +27,6 @@ const client: ClientApiConstructor = async function(
 	Vue.use(Vuex)
 	const store = new Vuex.Store(VuexStore)
 	appOptions.store = store
-	store.dispatch('periodicallyFetchStatistics')
 }
 
 export default client
