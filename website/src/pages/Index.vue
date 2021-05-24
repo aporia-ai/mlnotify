@@ -30,12 +30,13 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import { mapGetters } from 'vuex'
 
 import Count from '../components/Count.vue'
 import EnterCodeSection from '../components/EnterCodeSection.vue'
 import UsageInstructionsSection from '../components/UsageInstructionsSection.vue'
 import ChangingText from '../components/ChangingText.vue'
+import { apiService } from '../services/api'
+import { Statistics } from '../../netlify/utils/types'
 
 export default Vue.extend({
 	name: 'Index',
@@ -48,10 +49,33 @@ export default Vue.extend({
 	data() {
 		return {
 			code: '',
+			statistics: {
+				activeTrainingsCount: 0,
+				totalTrainingsCount: 0,
+			} as Statistics,
+			statisticsIntervalToken: null as any,
 		}
 	},
-	computed: {
-		...mapGetters({ statistics: 'statistics' }),
+	beforeMount() {
+		this.periodicallyFetchStatistics()
+	},
+	beforeDestroy() {
+		if (this.statisticsIntervalToken) clearInterval(this.statisticsIntervalToken)
+	},
+	methods: {
+		async periodicallyFetchStatistics() {
+			let refreshRate = 1000
+
+			const envRefreshRate = process.env.GRIDSOME_STATISTICS_REFRESH_RATE
+			if (envRefreshRate && +envRefreshRate) {
+				refreshRate = +envRefreshRate
+			}
+
+			this.statistics = await apiService.getStatistics()
+			this.statisticsIntervalToken = setInterval(async () => {
+				this.statistics = await apiService.getStatistics()
+			}, refreshRate)
+		},
 	},
 })
 </script>

@@ -22,9 +22,10 @@ const inputSchema = {
 		body: {
 			type: 'object',
 			properties: {
-				email: { type: 'string' },
-				trainingId: { type: 'string' },
+				email: { type: 'string', minLength: 1 },
+				trainingId: { type: 'string', minLength: 1 },
 			},
+			required: ['email', 'trainingId'],
 		},
 	},
 	required: ['body'],

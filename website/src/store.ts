@@ -1,10 +1,8 @@
-import Vuex, { StoreOptions } from 'vuex'
+import { StoreOptions } from 'vuex'
 import { apiService } from './services/api'
 import { firebaseMessagingService } from './services/firebase'
-import { Statistics } from './types/Statistics'
 
 export type StoreState = {
-	statistics: Statistics
 	messaging: {
 		serviceWorkerRegistration?: ServiceWorkerRegistration
 		token: string
@@ -12,19 +10,12 @@ export type StoreState = {
 }
 export const VuexStore: StoreOptions<StoreState> = {
 	state: {
-		statistics: {
-			activeTrainingsCount: 0,
-			totalTrainingsCount: 0,
-		},
 		messaging: {
 			serviceWorkerRegistration: undefined,
 			token: '',
 		},
 	},
 	mutations: {
-		setStatistics(state, statistics: Statistics) {
-			state.statistics = statistics
-		},
 		setMessagingServiceWorkerRegistration(state, serviceWorkerRegistration: ServiceWorkerRegistration) {
 			state.messaging.serviceWorkerRegistration = serviceWorkerRegistration
 		},
@@ -32,25 +23,7 @@ export const VuexStore: StoreOptions<StoreState> = {
 			state.messaging.token = token
 		},
 	},
-	getters: {
-		statistics(state) {
-			return state.statistics
-		},
-	},
 	actions: {
-		async periodicallyFetchStatistics({ commit }): Promise<void> {
-			let refreshRate = 1000
-
-			const envRefreshRate = process.env.GRIDSOME_STATISTICS_REFRESH_RATE
-			if (envRefreshRate && +envRefreshRate) {
-				refreshRate = +envRefreshRate
-			}
-
-			commit('setStatistics', await apiService.getStatistics())
-			setInterval(async () => {
-				commit('setStatistics', await apiService.getStatistics())
-			}, refreshRate)
-		},
 		async initServiceWorker({ commit }): Promise<void> {
 			if (!('serviceWorker' in navigator)) throw new Error('Service workers not supported')
 
@@ -73,13 +46,12 @@ export const VuexStore: StoreOptions<StoreState> = {
 			await apiService.subscribeToTrainingNotification(messaging.token, trainingId)
 		},
 		async showSuccessNotification(
-			{ state },
+			context,
 			{
-				data,
 				notification: notificationOptions,
 			}: { data: Record<string, string>; notification: Record<string, string> },
 		) {
-			if (!state.messaging.serviceWorkerRegistration) throw new Error('No service worker')
+			if (!('Notification' in window)) throw new Error('Notifications not supported')
 
 			const notification = new Notification(notificationOptions.title, notificationOptions)
 

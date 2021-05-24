@@ -291,7 +291,16 @@ export default Vue.extend({
 			return
 		}
 
-		await this.fetchTraining()
+		try {
+			await this.fetchTraining()
+		} catch (e) {
+			this.$router.replace('/')
+			this.$toast.open({
+				message: 'Training does not exist',
+				type: 'error',
+			})
+			return
+		}
 		this.startTrainingUpdates()
 		this.checkNotificationPermission()
 		this.initTimer()
@@ -393,18 +402,9 @@ export default Vue.extend({
 			}
 		},
 		async fetchTraining(): Promise<void> {
-			try {
-				const training = await apiService.getTrainingInfo(this.trainingId)
-				if (!training) {
-					this.$router.replace('/')
-					return
-				}
-				this.training.startedAt = training.startedAt
-				this.training.endedAt = training.endedAt
-			} catch (e) {
-				this.$router.replace('/')
-				return
-			}
+			const training = await apiService.getTrainingInfo(this.trainingId)
+			this.training.startedAt = training.startedAt
+			this.training.endedAt = training.endedAt
 		},
 	},
 })

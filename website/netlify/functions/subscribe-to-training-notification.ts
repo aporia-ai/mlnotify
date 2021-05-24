@@ -22,9 +22,10 @@ const inputSchema = {
 		body: {
 			type: 'object',
 			properties: {
-				messagingRegistrationToken: { type: 'string' },
-				trainingId: { type: 'string' },
+				messagingRegistrationToken: { type: 'string', minLength: 1 },
+				trainingId: { type: 'string', minLength: 1 },
 			},
+			required: ['messagingRegistrationToken', 'trainingId'],
 		},
 	},
 	required: ['body'],

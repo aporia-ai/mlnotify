@@ -36,7 +36,7 @@ export const apiService = {
 
 		return await response.json()
 	},
-	async getTrainingInfo(trainingId: string): Promise<{ startedAt: string; endedAt?: string } | null> {
+	async getTrainingInfo(trainingId: string): Promise<{ startedAt: string; endedAt?: string }> {
 		const response = await fetch('/.netlify/functions/get-training-info', {
 			method: 'POST',
 			headers: {
@@ -47,9 +47,12 @@ export const apiService = {
 			}),
 		})
 
-		const training: { startedAt: string } | {} = await response.json()
+		const training: { startedAt: string; endedAt?: string } = await response.json()
 
-		if (!('startedAt' in training)) return null
+		if (!training || !training.startedAt) {
+			throw new Error('Server did not return a valid training')
+		}
+
 		return training
 	},
 }

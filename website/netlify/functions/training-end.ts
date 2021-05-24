@@ -23,8 +23,9 @@ const inputSchema = {
 		body: {
 			type: 'object',
 			properties: {
-				trainingId: { type: 'string' },
+				trainingId: { type: 'string', minLength: 1 },
 			},
+			required: ['trainingId'],
 		},
 	},
 	required: ['body'],
