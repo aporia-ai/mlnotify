@@ -11,7 +11,7 @@ export const firebaseMessagingService = {
 			
 			_firebase = firebase.default
 
-			if (process.env.GRIDSOME_FIREBASE_APP_CONFIG) {
+			if (process.env.GRIDSOME_FIREBASE_APP_CONFIG && _firebase.apps.length === 0) {
 				_firebase.initializeApp(JSON.parse(process.env.GRIDSOME_FIREBASE_APP_CONFIG))
 			} else {
 				throw new Error('No Firebase app config found')
