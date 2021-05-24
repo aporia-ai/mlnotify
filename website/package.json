@@ -4,7 +4,7 @@
 	"scripts": {
 		"develop": "gridsome develop",
 		"explore": "gridsome explore",
-		"build": "gridsome build && node scripts/appendToServiceWorker.js",
+		"build": "gridsome build && node scripts/appendToServiceWorker.js && npm run functions:build",
 		"functions:build": "netlify-lambda build netlify/functions --config webpack.functions.js",
 		"lint": "tsc --noEmit && eslint {src,scripts,netlify}/**/*.{ts,vue,js}",
 		"lint:fix": "npm run lint -- --fix"
