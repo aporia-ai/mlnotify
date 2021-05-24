@@ -11,11 +11,13 @@ SKLearnSampleData = Any
 
 @pytest.fixture
 def sample_data() -> SKLearnSampleData:
+    
     return datasets.load_digits()
 
 
 # svm
 def test_sklearn_svm_svc_fit(sample_data: SKLearnSampleData, mocked_notify_plugin: MockedNotifyPlugin):
+
     clf = svm.SVC()
     clf.fit(sample_data.data[:-1], sample_data.target[:-1])
 
