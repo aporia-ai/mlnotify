@@ -57,17 +57,7 @@ module.exports = {
 			options: {
 				purgeConfig: {
 					content: ['./src/**/*.vue', './src/**/*.scss', './src/**/*.js', './src/**/*.html'],
-					whitelist: [
-						'body',
-						'html',
-						'img',
-						'a',
-						'g-image',
-						'g-image--lazy',
-						'g-image--loaded',
-						'active',
-						'font-heebo',
-					],
+					whitelist: ['body', 'html', 'img', 'a', 'g-image', 'g-image--lazy', 'g-image--loaded', 'active'],
 					defaultExtractor: content => content.match(/[\w-/:]+(?<!:)/g) || [],
 				},
 			},

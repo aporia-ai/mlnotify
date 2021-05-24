@@ -10,7 +10,7 @@ const client: ClientApiConstructor = async function(
 	Vue: Vue.VueConstructor,
 	{ appOptions, head, router },
 ): Promise<void> {
-	head.htmlAttrs = { lang: 'en-US', class: 'font-heebo' }
+	head.htmlAttrs = { lang: 'en-US' }
 
 	// GTag (Analytics)
 	Vue.use(VueGtag, { config: { id: 'G-1C7PHXXTFE' } }, router)
