@@ -16,3 +16,8 @@ command = "gridsome develop"
 framework = "gridsome"
 port = 3850
 publish = "dist"
+
+[[redirects]]
+from = "/training/*"
+status = 200
+to = "/training"

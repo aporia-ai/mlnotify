@@ -13,7 +13,7 @@
 				class="cursor-pointer hover:opacity-80 transition-colors"
 				:class="{ 'text-blue-1': shouldShowCopyText }"
 			>
-				<CopyIcon class="inline-block md:h-8 h-6" @click="copy" />
+				<CopyIcon class="fill-current inline-block md:h-8 h-6" @click="copy" />
 			</button>
 		</div>
 	</div>
