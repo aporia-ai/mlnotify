@@ -395,12 +395,15 @@ export default Vue.extend({
 		async fetchTraining(): Promise<void> {
 			try {
 				const training = await apiService.getTrainingInfo(this.trainingId)
-				if (!training) return this.$router.replace('/')
-
+				if (!training) {
+					this.$router.replace('/')
+					return
+				}
 				this.training.startedAt = training.startedAt
 				this.training.endedAt = training.endedAt
 			} catch (e) {
-				return this.$router.replace('/')
+				this.$router.replace('/')
+				return
 			}
 		},
 	},
