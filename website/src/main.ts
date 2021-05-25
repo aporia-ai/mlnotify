@@ -5,8 +5,8 @@ import VueGtag from 'vue-gtag'
 import DefaultLayout from './layouts/Default.vue'
 import './styles/index.scss'
 import { VuexStore } from './store'
-// import VueToast from 'vue-toast-notification'
-// import 'vue-toast-notification/dist/theme-sugar.css'
+import VueToast from 'vue-toast-notification'
+import 'vue-toast-notification/dist/theme-sugar.css'
 
 const client: ClientApiConstructor = async function(
 	Vue: Vue.VueConstructor,
@@ -18,7 +18,7 @@ const client: ClientApiConstructor = async function(
 	Vue.use(VueGtag, { config: { id: 'G-1C7PHXXTFE' } }, router)
 
 	// Toasts
-	// Vue.use(VueToast)
+	Vue.use(VueToast)
 
 	// Layout
 	Vue.component('Layout', DefaultLayout)
