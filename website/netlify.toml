@@ -14,4 +14,4 @@ package = "@netlify/plugin-lighthouse"
 force = true
 from = "/training/*"
 status = 200
-to = "/index.html"
+to = "/training/_training_id"

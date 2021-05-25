@@ -7,11 +7,11 @@
 				is complete
 			</h1>
 			<h2 class="md:text-base text-xs text-center mb-7 px-4">
-				Lorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsum
+				No need to keep checking your training, we’ll let you know the second it’s done
 			</h2>
 			<Count class="md:mb-6 mb-3" :count="statistics.totalTrainingsCount"></Count>
 			<div class="text-center text-grey-1 md:text-xl text-xs md:mb-6 mb-8">
-				The amount of training so far
+				Models have been trained with MLNotify
 			</div>
 		</div>
 		<div>
