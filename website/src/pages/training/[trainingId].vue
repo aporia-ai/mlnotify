@@ -295,10 +295,10 @@ export default Vue.extend({
 			await this.fetchTraining()
 		} catch (e) {
 			this.$router.replace('/')
-			// this.$toast.open({
-			// 	message: 'Training does not exist',
-			// 	type: 'error',
-			// })
+			this.$toast.open({
+				message: 'Training does not exist',
+				type: 'error',
+			})
 			return
 		}
 		this.startTrainingUpdates()
