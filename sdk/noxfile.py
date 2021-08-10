@@ -49,6 +49,6 @@ def tests(session: Session) -> None:
     """Run the test suite."""
     tensorflow = "tensorflow==2.1.4" if ((session.python == "3.6") or (session.python == "3.7")) else "tensorflow"
     print(session.python + " " + tensorflow)
-    install_with_constraints(session, "pytest", tensorflow, "xgboost", "lightgbm")
+    install_with_constraints(session, "pytest", tensorflow, "xgboost", "lightgbm", "scikit-learn")
     session.install(".", "--upgrade")
     session.run("pytest", *session.posargs)
