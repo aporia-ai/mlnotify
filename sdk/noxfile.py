@@ -47,8 +47,8 @@ def install_with_constraints(session: Session, *args: str, **kwargs: Any):
 @nox.session(python=["3.9", "3.8", "3.7", "3.6"])
 def tests(session: Session) -> None:
     """Run the test suite."""
-    numpy = "numpy==1.16.1" if (session.python == "3.6") else "numpy"
-    print(session.python + " " + numpy)
-    install_with_constraints(session, "pytest", numpy, "keras", "xgboost", "tensorflow", "lightgbm")
+    tensorflow = "tensorflow==2.1.4" if (session.python == "3.6" or session.python == "3.7") else "tensorflow"
+    print(session.python + " " + tensorflow)
+    install_with_constraints(session, "pytest", tensorflow, "keras", "xgboost", "lightgbm")
     session.install(".", "--upgrade")
     session.run("pytest", *session.posargs)
