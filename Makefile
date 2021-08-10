@@ -2,24 +2,6 @@ SHELL := /bin/bash
 
 DEFAULT_VERSION=1.0.0
 
-# Install dependencies
-install-deps:
-	@echo [!] Installing Semver
-	@sudo wget https://raw.githubusercontent.com/fsaintjacques/semver-tool/master/src/semver -O /usr/bin/semver
-	@sudo chmod +x /usr/bin/semver
-
-	@echo [!] Installing yq
-	@sudo wget https://github.com/mikefarah/yq/releases/download/v4.6.1/yq_linux_amd64 -O /usr/bin/yq && sudo chmod +x /usr/bin/yq
-
-	@echo [!] Installing Poetry + Nox
-	@sudo apt install python3-setuptools
-	@sudo pip3 install poetry nox --upgrade
-
-# Run tests
-test:
-	@echo [!] Running tests
-	@nox
-
 # Bump version
 bump-version:
 	$(eval CURRENT_VERSION=$(shell git for-each-ref --sort=-v:refname --count=1 refs/tags/[0-9]*.[0-9]*.[0-9]* refs/tags/v[0-9]*.[0-9]*.[0-9]* | cut -d / -f 3-))
