@@ -1,9 +1,9 @@
 from typing import Any, Dict, Union
 
-from keras.models import Sequential
 from numpy import random
 import pytest
 import tensorflow
+from tensorflow.keras.models import Sequential
 
 import mlnotify  # noqa: F401
 from tests.utils import MockedNotifyPlugin
