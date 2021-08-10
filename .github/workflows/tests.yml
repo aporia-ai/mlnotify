@@ -9,12 +9,12 @@ jobs:
     name: Python ${{ matrix.python-version }}
     strategy:
       matrix:
-        python-version: ['3.6.x', '3.7.x', '3.8.x']
+        python-version: ['3.6.x', '3.7.x', '3.8.x', '3.9.x']
     steps:
       - name: Checkout
         uses: actions/checkout@master
       - name: Install dependencies
-      
+        working-directory: sdk
         run: make install-deps
       - name: Setup python
         uses: actions/setup-python@v2
@@ -22,4 +22,5 @@ jobs:
           python-version: ${{ matrix.python-version }}
           architecture: x64
       - name: Test
+        working-directory: sdk
         run: make test
