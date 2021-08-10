@@ -35,7 +35,6 @@ def test_keras_train_on_batch(sample_data: KerasSampleData, mocked_notify_plugin
         sample_weight=None,
         class_weight=None,
         reset_metrics=True,
-        return_dict=False,
     )
 
     mocked_notify_plugin.before.assert_called_once()
@@ -60,7 +59,6 @@ def test_tensorflow_keras_train_on_batch(sample_data: KerasSampleData, mocked_no
         sample_weight=None,
         class_weight=None,
         reset_metrics=True,
-        return_dict=False,
     )
 
     mocked_notify_plugin.before.assert_called_once()
