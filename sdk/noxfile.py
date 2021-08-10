@@ -44,17 +44,9 @@ def install_with_constraints(session: Session, *args: str, **kwargs: Any):
         shutil.rmtree(dirname)
 
 
-@nox.session(python=["3.8", "3.7", "3.6"])
+@nox.session(python=["3.9", "3.8", "3.7", "3.6"])
 def tests(session: Session) -> None:
     """Run the test suite."""
-    install_with_constraints(
-        session,
-        "pytest",
-        "numpy",
-        "xgboost",
-        "lightgbm",
-        "keras",
-        "tensorflow",
-    )
+    # install_with_constraints(session)
     session.install(".", "--upgrade")
     session.run("pytest", *session.posargs)
