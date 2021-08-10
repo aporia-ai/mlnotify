@@ -44,7 +44,7 @@ def install_with_constraints(session: Session, *args: str, **kwargs: Any):
         shutil.rmtree(dirname)
 
 
-@nox.session(python=["3.9", "3.8", "3.7", "3.6"])
+@nox.session(python=["3.8", "3.7", "3.6"])
 def tests(session: Session) -> None:
     """Run the test suite."""
     tensorflow = "tensorflow==2.1.4" if ((session.python == "3.6") or (session.python == "3.7")) else "tensorflow"
