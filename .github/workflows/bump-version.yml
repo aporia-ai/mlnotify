@@ -2,31 +2,29 @@ name: Bump Version
 on:
   push:
     branches:
-      - master
+      - main
 jobs:
   bump-version:
     runs-on: ubuntu-20.04
     steps:
       - name: Checkout
-        uses: actions/checkout@master
+        uses: actions/checkout@main
         with:
           ref: ${{ github.ref }}
           fetch-depth: 0
           token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Configure git
-        working-directory: sdk
         run: |
           git config --global user.email "camparibot@aporia.com"
           git config --global user.name "camparibot"
           git config --global push.followTags true
 
-      - name: Install dependencies
+      - name: Install SDK dependencies
         working-directory: sdk
         run: make install-deps
 
       - name: Bump Version
-        working-directory: sdk
         id: bump-version
         run: make bump-version
         env:
@@ -37,7 +35,6 @@ jobs:
           CAMPARIBOT_TOKEN: ${{ secrets.CAMPARIBOT_TOKEN }}
 
       - name: Create check run
-        working-directory: sdk
         id: create-check-run
         run: |
           CHECK_RUN_ID=`curl -X POST https://api.github.com/repos/${{ github.repository }}/check-runs \
@@ -48,7 +45,6 @@ jobs:
           echo "::set-output name=check_run_id::$CHECK_RUN_ID";
 
       - name: Update check run to success
-        working-directory: sdk
         run: |
           curl -X PATCH https://api.github.com/repos/${{ github.repository }}/check-runs/${{ steps.create-check-run.outputs.check_run_id }} \
             -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \

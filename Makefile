@@ -25,16 +25,16 @@ bump-version:
 
 	git tag -a -m "Version $(NEW_VERSION)" $(NEW_VERSION)
 
-	@BRANCH_PROTECTION=`curl https://api.github.com/repos/$(GITHUB_REPOSITORY)/branches/master/protection \
+	@BRANCH_PROTECTION=`curl https://api.github.com/repos/$(GITHUB_REPOSITORY)/branches/main/protection \
 		-H "Authorization: token $(CAMPARIBOT_TOKEN)" -H "Accept:application/vnd.github.luke-cage-preview+json" -X GET -s`; \
 	if [ "`echo $$BRANCH_PROTECTION | jq -r '.message'`" != "Branch not protected" ]; \
 	then \
-		echo [!] Disabling GitHub master branch protection; \
-		curl https://api.github.com/repos/$(GITHUB_REPOSITORY)/branches/master/protection \
+		echo [!] Disabling GitHub main branch protection; \
+		curl https://api.github.com/repos/$(GITHUB_REPOSITORY)/branches/main/protection \
 			-H "Authorization: token $(CAMPARIBOT_TOKEN)" -H "Accept:application/vnd.github.luke-cage-preview+json" -X DELETE; \
 		trap '\
-			echo [!] Re-enabling GitHub master branch protection; \
-			curl https://api.github.com/repos/$(GITHUB_REPOSITORY)/branches/master/protection -H "Authorization: token $(CAMPARIBOT_TOKEN)" \
+			echo [!] Re-enabling GitHub main branch protection; \
+			curl https://api.github.com/repos/$(GITHUB_REPOSITORY)/branches/main/protection -H "Authorization: token $(CAMPARIBOT_TOKEN)" \
 				-H "Accept:application/vnd.github.luke-cage-preview+json" -X PUT -d "{\"required_status_checks\":{\"strict\":false,\"contexts\":`echo $$BRANCH_PROTECTION | jq '.required_status_checks.contexts'`},\"restrictions\":{\"users\":[],\"teams\":[],\"apps\":[]},\"required_pull_request_reviews\":{\"dismiss_stale_reviews\":false,\"require_code_owner_reviews\":false},\"enforce_admins\":true,\"required_linear_history\":false,\"allow_force_pushes\":true,\"allow_deletions\":false}"; \
 		' EXIT; \
 	fi; \

@@ -4,7 +4,7 @@ on:
     paths:
         - 'sdk'
     branches-ignore:
-      - master
+      - main
 defaults:
   run:
     working-directory: sdk
@@ -17,7 +17,7 @@ jobs:
         python-version: ['3.7.x', '3.8.x']
     steps:
       - name: Checkout
-        uses: actions/checkout@master
+        uses: actions/checkout@main
       - name: Install dependencies
         run: make install-deps
       - name: Setup python
