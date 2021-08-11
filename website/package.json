@@ -15,6 +15,7 @@
 		"@middy/http-json-body-parser": "^2.1.0",
 		"@middy/validator": "^2.1.0",
 		"@sendgrid/mail": "^7.4.4",
+		"crypto-random-string": "^4.0.0",
 		"dayjs": "^1.10.4",
 		"firebase": "^8.4.1",
 		"firebase-admin": "^9.6.0",

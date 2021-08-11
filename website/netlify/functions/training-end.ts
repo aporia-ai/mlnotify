@@ -15,7 +15,7 @@ import { APIGatewayProxyEvent, APIGatewayProxyResult } from 'aws-lambda'
 import { Statistics, Training } from '../utils/types'
 import { sendTrainingEndedEmail } from '../utils/email'
 
-type Event = APIGatewayProxyEvent & { body: { trainingId: string } }
+type Event = APIGatewayProxyEvent & { body: { trainingId: string; trainingToken: string } }
 
 const inputSchema = {
 	type: 'object',
@@ -24,14 +24,15 @@ const inputSchema = {
 			type: 'object',
 			properties: {
 				trainingId: { type: 'string', minLength: 1 },
+				trainingToken: { type: 'string', minLength: 1 },
 			},
-			required: ['trainingId'],
+			required: ['trainingId', 'trainingToken'],
 		},
 	},
 	required: ['body'],
 }
 
-async function baseHandler({ body: { trainingId } }: Event): Promise<APIGatewayProxyResult> {
+async function baseHandler({ body: { trainingId, trainingToken } }: Event): Promise<APIGatewayProxyResult> {
 	// Initialize firebase
 	const app = initializeApp()
 	const trainings = app.database().ref(FirebaseKeys.Trainings)
@@ -39,6 +40,7 @@ async function baseHandler({ body: { trainingId } }: Event): Promise<APIGatewayP
 	// Validate training
 	const training: Training = (await trainings.child(trainingId).get()).val()
 	if (!training) throw new createError.NotFound()
+	else if (training.token !== trainingToken) throw new createError.Unauthorized()
 	else if (training.endedAt) throw new createError.BadRequest('Training already ended')
 
 	// Update training

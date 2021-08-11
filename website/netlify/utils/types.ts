@@ -1,5 +1,6 @@
 export interface Training {
 	id: string
+	token: string
 	startedAt: string
 	notificationsSubscribers: string[]
 	emailSubscribers: string[]

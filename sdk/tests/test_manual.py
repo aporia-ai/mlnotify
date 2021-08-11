@@ -1,9 +1,4 @@
-from pathlib import Path
 from typing import Any, Dict, Union
-
-from numpy import random
-import pytest
-import xgboost
 
 import mlnotify  # noqa: F401
 from tests.utils import MockedNotifyPlugin
