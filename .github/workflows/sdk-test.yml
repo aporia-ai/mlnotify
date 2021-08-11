@@ -3,6 +3,9 @@ on:
   push:
     branches-ignore:
       - master
+defaults:
+  run:
+    working-directory: sdk
 jobs:
   test:
     runs-on: ubuntu-20.04
@@ -14,7 +17,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@master
       - name: Install dependencies
-        working-directory: sdk
         run: make install-deps
       - name: Setup python
         uses: actions/setup-python@v2
@@ -22,5 +24,4 @@ jobs:
           python-version: ${{ matrix.python-version }}
           architecture: x64
       - name: Test
-        working-directory: sdk
         run: make test

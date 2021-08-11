@@ -1,7 +1,10 @@
-name: Release
+name: SDK Release
 on:
   release:
     types: [published]
+defaults:
+  run:
+    working-directory: sdk
 jobs:
   test:
     runs-on: ubuntu-20.04
@@ -13,7 +16,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
       - name: Install dependencies
-        working-directory: sdk
         run: make install-deps
       - name: Setup python
         uses: actions/setup-python@v2
@@ -21,7 +23,6 @@ jobs:
           python-version: ${{ matrix.python-version }}
           architecture: x64
       - name: Test
-        working-directory: sdk
         run: make test
   release:
     runs-on: ubuntu-20.04
@@ -34,8 +35,5 @@ jobs:
         python-version: '3.8'
         architecture: x64
     - run: pip3 install poetry
-      working-directory: sdk
     - run: poetry build
-      working-directory: sdk
     - run: poetry publish --username=__token__ --password=${{ secrets.PYPI_TOKEN }}
-      working-directory: sdk
