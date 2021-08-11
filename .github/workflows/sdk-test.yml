@@ -1,6 +1,8 @@
 name: SDK Tests
 on:
   push:
+    paths:
+        - 'sdk'
     branches-ignore:
       - master
 defaults:
