@@ -1,9 +1,9 @@
 from typing import Any, Dict, Union
 
-from keras.models import Sequential
 from numpy import random
 import pytest
 import tensorflow
+from tensorflow.keras.models import Sequential
 
 import mlnotify  # noqa: F401
 from tests.utils import MockedNotifyPlugin
@@ -35,7 +35,6 @@ def test_keras_train_on_batch(sample_data: KerasSampleData, mocked_notify_plugin
         sample_weight=None,
         class_weight=None,
         reset_metrics=True,
-        return_dict=False,
     )
 
     mocked_notify_plugin.before.assert_called_once()
@@ -60,7 +59,6 @@ def test_tensorflow_keras_train_on_batch(sample_data: KerasSampleData, mocked_no
         sample_weight=None,
         class_weight=None,
         reset_metrics=True,
-        return_dict=False,
     )
 
     mocked_notify_plugin.before.assert_called_once()

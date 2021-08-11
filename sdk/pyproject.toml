@@ -24,11 +24,6 @@ flake8-annotations = {version = "^2.0.0", python = "^3.7"}
 flake8-docstrings = "^1.5.0"
 darglint = "^1.1.2"
 isort = ">=4.3.21,<6.0.0"
-lightgbm = "^3.2.1"
-xgboost = "^1.4.0"
-tensorflow = "^2.4.1"
-keras = "^2.4.3"
-scikit-learn = "^0.24.1"
 autopep8 = "^1.5.6"
 black = {version = "^20.8b1", allow-prereleases = true}
 

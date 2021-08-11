@@ -8,3 +8,4 @@ import-order-style = google
 docstring-convention = google
 per-file-ignores = tests/*:D101,D102,D103,D107,S101,S106
 suppress_none_returning = True
+exclude = __pycache__,.nox,.pytest_cache

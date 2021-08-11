@@ -1,9 +1,17 @@
+from dataclasses import dataclass
+
 import qrcode
 import requests
 
 from mlnotify.plugins.base import BasePlugin
 
 BASE_URL = "https://mlnotify.aporia.com"
+
+
+@dataclass
+class TrainingInfo:
+    id: str
+    token: str
 
 
 class NotifyPlugin(BasePlugin):
@@ -20,14 +28,14 @@ class NotifyPlugin(BasePlugin):
     def before(self):
         """The function to run prior to the hooked function.
 
-        Reports the training start to the server and saves the created id & url.
+        Reports the training start to the server and saves the created id, token & url.
         Then it prints:
         * The stored url
         * A QR code of the stored url
         * A text explaining how to get a notification via the above url & qr
         """
-        self.id = self.report_training_start()
-        self.url = f"{BASE_URL}/training/{self.id}"
+        self.training_info = self.report_training_start()
+        self.url = f"{BASE_URL}/training/{self.training_info.id}"
 
         self.print_qr()
         print(self.url)
@@ -53,21 +61,27 @@ class NotifyPlugin(BasePlugin):
 
         qr.print_ascii()
 
-    def report_training_start(self) -> str:
+    def report_training_start(self) -> TrainingInfo:
         """Reports training start to the server.
 
         Returns:
-            trainingId (str): the training id created by the server
+            trainingInfo (TrainingInfo): the training info created by the server
         """
         response = requests.post(f"{BASE_URL}/.netlify/functions/training-start")
 
         response.raise_for_status()
 
         body = response.json()
-        return body["trainingId"]
+        return TrainingInfo(id=body["id"], token=body["token"])
 
     def report_training_end(self):
         """Reports training end to the server."""
-        response = requests.post(f"{BASE_URL}/.netlify/functions/training-end", data={"trainingId": self.id})
+        response = requests.post(
+            f"{BASE_URL}/.netlify/functions/training-end",
+            data={
+                "trainingId": self.training_info.id,
+                "trainingToken": self.training_info.token,
+            },
+        )
 
         response.raise_for_status()

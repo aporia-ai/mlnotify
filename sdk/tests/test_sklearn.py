@@ -11,7 +11,7 @@ SKLearnSampleData = Any
 
 @pytest.fixture
 def sample_data() -> SKLearnSampleData:
-    
+
     return datasets.load_digits()
 
 

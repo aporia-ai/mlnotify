@@ -7,8 +7,9 @@ import jsonBodyParser from '@middy/http-json-body-parser'
 import httpErrorHandler from '@middy/http-error-handler'
 import validator from '@middy/validator'
 
-// Id
+// Id & token generation
 import { customAlphabet } from 'nanoid/async'
+import cryptoRandomString from 'crypto-random-string'
 
 // Types
 import { APIGatewayProxyEvent, APIGatewayProxyResult } from 'aws-lambda'
@@ -39,10 +40,12 @@ async function baseHandler(_event: Event): Promise<APIGatewayProxyResult> {
 		exists = (await trainings.child(trainingId).get()).exists()
 	}
 	trainingId = trainingId as string // Just for the typecast
+	const trainingToken = cryptoRandomString({ length: 32 })
 
 	// Insert a new training
 	const newTraining: Training = {
 		id: trainingId,
+		token: trainingToken,
 		startedAt: new Date().toISOString(),
 		notificationsSubscribers: [],
 		emailSubscribers: [],
@@ -64,6 +67,7 @@ async function baseHandler(_event: Event): Promise<APIGatewayProxyResult> {
 		statusCode: 200,
 		body: JSON.stringify({
 			trainingId,
+			trainingToken,
 		}),
 	}
 }
