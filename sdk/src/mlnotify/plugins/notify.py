@@ -72,13 +72,13 @@ class NotifyPlugin(BasePlugin):
         response.raise_for_status()
 
         body = response.json()
-        return TrainingInfo(id=body["id"], token=body["token"])
+        return TrainingInfo(id=body["trainingId"], token=body["trainingToken"])
 
     def report_training_end(self):
         """Reports training end to the server."""
         response = requests.post(
             f"{BASE_URL}/.netlify/functions/training-end",
-            data={
+            json={
                 "trainingId": self.training_info.id,
                 "trainingToken": self.training_info.token,
             },
