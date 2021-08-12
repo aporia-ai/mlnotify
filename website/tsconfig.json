@@ -13,7 +13,8 @@
 		"strict": true,
 		"outDir": "./built/",
 		"baseUrl": ".",
-		"lib": ["esnext", "dom", "dom.iterable"]
+		"lib": ["esnext", "dom", "dom.iterable"],
+		"types": ["aws-lambda"]
 	},
 	"exclude": ["node_modules"]
 }
