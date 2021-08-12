@@ -1,2 +1,2 @@
 # Website
-The ML Notify website & app.
+The ML Notify website & app. Deployed on Netlify
