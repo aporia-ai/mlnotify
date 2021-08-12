@@ -19,12 +19,27 @@ const inputSchema = {
 		body: {
 			type: 'object',
 			properties: {
-				trainingId: { type: 'string', "minLength": 1 },
+				trainingId: { type: 'string', minLength: 1 },
 			},
 			required: ['trainingId'],
 		},
 	},
 	required: ['body'],
+}
+
+const outputSchema = {
+	type: 'object',
+	properties: {
+		statusCode: { type: 'number' },
+		body: {
+			type: 'object',
+			properties: {
+				startedAt: { type: 'string' },
+				endedAt: { type: 'string' },
+			},
+		},
+	},
+	required: ['statusCode', 'body'],
 }
 
 async function baseHandler({ body: { trainingId } }: Event): Promise<APIGatewayProxyResult> {
@@ -38,7 +53,7 @@ async function baseHandler({ body: { trainingId } }: Event): Promise<APIGatewayP
 	const response: Partial<Training> = {}
 	if (training) response.startedAt = training.startedAt
 	if (training?.endedAt) response.endedAt = training.endedAt
-	
+
 	return {
 		statusCode: 200,
 		body: JSON.stringify(response),
@@ -47,7 +62,7 @@ async function baseHandler({ body: { trainingId } }: Event): Promise<APIGatewayP
 
 const handler = middy(baseHandler)
 	.use(jsonBodyParser())
-	.use(validator({ inputSchema }))
+	.use(validator({ inputSchema, outputSchema }))
 	.use(httpErrorHandler())
 
 export { handler }

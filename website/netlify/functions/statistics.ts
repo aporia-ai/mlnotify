@@ -11,15 +11,25 @@ import validator from '@middy/validator'
 import { APIGatewayProxyEvent, APIGatewayProxyResult } from 'aws-lambda'
 import { Statistics } from '../utils/types'
 
-type Event = APIGatewayProxyEvent & { body: Record<string, never> }
+type Event = APIGatewayProxyEvent & {}
 
 const inputSchema = {
 	type: 'object',
+}
+const outputSchema = {
+	type: 'object',
 	properties: {
+		statusCode: { type: 'number' },
 		body: {
 			type: 'object',
+			properties: {
+				activeTrainingsCount: { type: 'number' },
+				totalTrainingsCount: { type: 'number' },
+			},
+			required: ['activeTrainingsCount', 'totalTrainingsCount'],
 		},
 	},
+	required: ['statusCode', 'body'],
 }
 
 async function baseHandler(_event: Event): Promise<APIGatewayProxyResult> {
@@ -32,7 +42,7 @@ async function baseHandler(_event: Event): Promise<APIGatewayProxyResult> {
 	// Ensures that the statistics are returned in full (just in case some is null etc.)
 	const ensuredStatistics: Statistics = {
 		activeTrainingsCount: statistics?.activeTrainingsCount || 0,
-		totalTrainingsCount: statistics?.totalTrainingsCount || 0
+		totalTrainingsCount: statistics?.totalTrainingsCount || 0,
 	}
 
 	return {
@@ -43,7 +53,7 @@ async function baseHandler(_event: Event): Promise<APIGatewayProxyResult> {
 
 const handler = middy(baseHandler)
 	.use(jsonBodyParser())
-	.use(validator({ inputSchema }))
+	.use(validator({ inputSchema, outputSchema }))
 	.use(httpErrorHandler())
 
 export { handler }
