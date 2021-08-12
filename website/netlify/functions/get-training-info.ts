@@ -27,21 +27,6 @@ const inputSchema = {
 	required: ['body'],
 }
 
-const outputSchema = {
-	type: 'object',
-	properties: {
-		statusCode: { type: 'number' },
-		body: {
-			type: 'object',
-			properties: {
-				startedAt: { type: 'string' },
-				endedAt: { type: 'string' },
-			},
-		},
-	},
-	required: ['statusCode', 'body'],
-}
-
 async function baseHandler({ body: { trainingId } }: Event): Promise<APIGatewayProxyResult> {
 	// Initialize firebase
 	const app = initializeApp()
@@ -62,7 +47,7 @@ async function baseHandler({ body: { trainingId } }: Event): Promise<APIGatewayP
 
 const handler = middy(baseHandler)
 	.use(jsonBodyParser())
-	.use(validator({ inputSchema, outputSchema }))
+	.use(validator({ inputSchema }))
 	.use(httpErrorHandler())
 
 export { handler }

@@ -15,25 +15,10 @@ import cryptoRandomString from 'crypto-random-string'
 import { APIGatewayProxyEvent, APIGatewayProxyResult } from 'aws-lambda'
 import { Statistics, Training } from '../utils/types'
 
-type Event = APIGatewayProxyEvent & { body: Record<string, never> }
+type Event = APIGatewayProxyEvent & { }
 
 const inputSchema = {
 	type: 'object',
-}
-const outputSchema = {
-	type: 'object',
-	properties: {
-		statusCode: { type: 'number' },
-		body: {
-			type: 'object',
-			properties: {
-				trainingId: { type: 'string' },
-				trainingToken: { type: 'string' },
-			},
-			required: ['trainingId', 'trainingToken'],
-		},
-	},
-	required: ['statusCode', 'body'],
 }
 
 const nanoid = customAlphabet('0123456789', 6)
@@ -85,7 +70,7 @@ async function baseHandler(_event: Event): Promise<APIGatewayProxyResult> {
 
 const handler = middy(baseHandler)
 	.use(jsonBodyParser())
-	.use(validator({ inputSchema, outputSchema }))
+	.use(validator({ inputSchema }))
 	.use(httpErrorHandler())
 
 export { handler }
