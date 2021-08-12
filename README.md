@@ -1,6 +1,6 @@
 # ML Notify
 <p align="center">
-  <img alt="SDK Build" src="https://img.shields.io/github/workflow/status/aporia-ai/mlnotify/Bump%20Version/main">
+  <img alt="SDK Build" src="https://img.shields.io/github/workflow/status/aporia-ai/mlnotify/Bump%20Version/main?label=sdk%20build">
   <a href="https://app.netlify.com/sites/mlnotify/deploys" alt="Website Deploy Status"><img src="https://api.netlify.com/api/v1/badges/a832ff7a-83aa-4c70-99b1-f812ae4bc3d8/deploy-status"/></a>
   <a href="https://app.fossa.com/projects/git%2Bgithub.com%2Faporia-ai%2Fmlnotify?ref=badge_shield" alt="FOSSA Status"><img src="https://app.fossa.com/api/projects/git%2Bgithub.com%2Faporia-ai%2Fmlnotify.svg?type=shield"/></a>
   <img src="https://img.shields.io/github/license/aporia-ai/mlnotify" alt="License">
