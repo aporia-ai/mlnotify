@@ -3,3 +3,4 @@
 !.vscode/settings.json
 .netlify
 .test-scripts
+.playground.py

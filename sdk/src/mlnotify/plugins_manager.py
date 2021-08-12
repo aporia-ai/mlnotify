@@ -34,7 +34,7 @@ class PluginsManager:
                 try:
                     plugin.before()
                 except Exception as e:
-                    logger.debug(f"Failed to run plugin {plugin} before function", e)
+                    print(f"Failed to run a plugin's `before` function [{plugin}]: {e}")
 
     def run_after(self):
         """Runs all registered plugins' after function."""
@@ -45,4 +45,4 @@ class PluginsManager:
                 try:
                     plugin.after()
                 except Exception as e:
-                    logger.debug(f"Failed to run plugin {plugin} after function", e)
+                    print(f"Failed to run a plugin's `after` function [{plugin}]: {e}")
