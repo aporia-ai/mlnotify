@@ -257,7 +257,7 @@ export default Vue.extend({
 			isSubmittingEmail: false,
 			isInitializingNotifications: true,
 			isNotificationDialogOpen: false,
-			notificationPermission: firebaseMessagingService.getNotificationPermissionStatus(),
+			notificationPermission: null as string | null,
 			firebaseMessagingUnsubscribeFunction: null as (() => void) | null,
 			url: typeof window !== 'undefined' ? window.location.href : '',
 			fetchTrainingIntervalToken: null as any,
@@ -299,6 +299,7 @@ export default Vue.extend({
 		},
 	},
 	async mounted(): Promise<void> {
+		this.notificationPermission = firebaseMessagingService.getNotificationPermissionStatus()
 		this.now.intervalToken = setInterval(() => (this.now.time = Date.now()), 30 * 1000)
 
 		if (!this.trainingId) {
