@@ -1,5 +1,5 @@
 {
-	"name": "gridsome-playground",
+	"name": "mlnotify",
 	"private": true,
 	"scripts": {
 		"develop": "gridsome develop",

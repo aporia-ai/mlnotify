@@ -48,7 +48,8 @@
 							</span>
 							<span v-else key="training-finished">
 								Your training is finished.<br />
-								The training finished at {{ training.endedAt }} and took X time.</span
+								The training finished at {{ training.endedAt }} and took
+								{{ totalTrainingDuration }}.</span
 							>
 						</transition>
 					</h2>
@@ -224,12 +225,16 @@ import DoubleArrowLeftIcon from '../../assets/icons/double-arrow-left.svg'
 import phoneBarcodeImg from '../../assets/icons/phone-barcode.png'
 import { firebaseMessagingService } from '../../services/firebase'
 import Qrcode from 'qrcode.vue'
-import dayjs from 'dayjs'
-import duration from 'dayjs/plugin/duration.js'
+
 import { apiService } from '../../services/api'
 import SuccessConfetti from '../../components/SuccessConfetti.vue'
 
+// Dayjs
+import dayjs from 'dayjs'
+import duration from 'dayjs/plugin/duration.js'
+import relativeTime from 'dayjs/plugin/relativeTime.js'
 dayjs.extend(duration)
+dayjs.extend(relativeTime)
 
 export default Vue.extend({
 	name: 'Training',
@@ -283,6 +288,9 @@ export default Vue.extend({
 				!this.isNotificationDialogOpen &&
 				!this.isInitializingNotifications
 			)
+		},
+		totalTrainingDuration(): string {
+			return dayjs(this.training.startedAt).to(this.training.endedAt, true)
 		},
 	},
 	async beforeMount(): Promise<void> {
