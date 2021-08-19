@@ -24,7 +24,7 @@
 							<span v-else key="training-finished">All Done!</span>
 						</transition>
 					</h1>
-					<h2 class="md:text-base text-xs text-center mb-10 px-4">
+					<h2 class="md:text-base text-sm text-center mb-10 px-4">
 						<transition name="fade" mode="out-in">
 							<span v-if="!trainingFinished" key="in-progress">
 								When fit() is completed, a notification will be raised.<br />
@@ -48,7 +48,7 @@
 							</span>
 							<span v-else key="training-finished">
 								Your training is finished.<br />
-								The training finished at {{ training.endedAt }} and took
+								The training finished {{ dayjs(training.endedAt).from(now.time) }} and took
 								{{ totalTrainingDuration }}.</span
 							>
 						</transition>
@@ -251,6 +251,7 @@ export default Vue.extend({
 	},
 	data() {
 		return {
+			dayjs,
 			email: '',
 			phoneBarcodeImg,
 			isSubmittingEmail: false,
@@ -264,6 +265,10 @@ export default Vue.extend({
 				startedAt: '',
 				endedAt: '',
 			} as { startedAt: string; endedAt?: string },
+			now: {
+				time: Date.now(),
+				intervalToken: null as any,
+			},
 			timer: {
 				// eslint-disable-next-line @typescript-eslint/no-explicit-any
 				intervalToken: null as any,
@@ -293,7 +298,9 @@ export default Vue.extend({
 			return dayjs(this.training.startedAt).to(this.training.endedAt, true)
 		},
 	},
-	async beforeMount(): Promise<void> {
+	async mounted(): Promise<void> {
+		this.now.intervalToken = setInterval(() => (this.now.time = Date.now()), 30 * 1000)
+
 		if (!this.trainingId) {
 			this.$router.replace('/')
 			return
@@ -316,6 +323,9 @@ export default Vue.extend({
 	destroyed() {
 		if (this.fetchTrainingIntervalToken) {
 			clearInterval(this.fetchTrainingIntervalToken)
+		}
+		if (this.now.intervalToken) {
+			clearInterval(this.now.intervalToken)
 		}
 		if (this.firebaseMessagingUnsubscribeFunction) {
 			this.firebaseMessagingUnsubscribeFunction()
