@@ -14,7 +14,7 @@
 
 A little tool to help you know when your model finished training.
 
-Features
+**Features**
 
 - Out-of-the-box push notifications on desktop and mobile, and email notifications
 - Minimal setup (just install & import it into your code)
@@ -28,23 +28,28 @@ Features
 ## Quickstart
 
 - `pip install mlnotify`
-- `import mlnotify` in your model-training code. The import will automagically hook into your fit/train method.
+- `import mlnotify`
+
+The import will automagically hook into your fit/train method.
 - Once you start training your model a tracking url & QR code will be printed to the console.
   ![Printed tracking URL & QR code](docs/assets/printed-tracking-url-and-qr-code.png)
-- The tracking url notifies you when the training is complete and allows for desktop, mobile, and email notifications.
+- Enter the tracking url
+- Grab a coffee and chill, the tracking url will notify you when the training is complete. It allows for desktop, mobile, and email notifications.
 
 ## Usage
 
 ### Simple
 
 `import mlnotify`
-This will hook into your fit/train method.
+
+This will automagically hook into your fit/train method.
+
 Supported ML frameworks:
 
 - [Keras](https://keras.io/)
 - [LightGBM](https://github.com/microsoft/LightGBM)
 - [SKLearn](http://scikit-learn.org/stable/)
-- [XGBoost](https://xgboost.readthedocs.io/en/latest/) (Partially)
+- [XGBoost](https://xgboost.readthedocs.io/en/latest/) (partially)
 - [Tensorflow](https://www.tensorflow.org/)
 
 ### Manual
@@ -61,7 +66,7 @@ mlnotify.end() # End tracking
 
 ### Advanced
 
-The library uses a simple plugin architecture. You can register your own plugins to extend the functionality.
+The library uses a simple plugin architecture. You can register your own plugins to extend the library's functionality.
 
 ```python
 from mlnotify import BasePlugin, plugins_manager
