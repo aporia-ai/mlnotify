@@ -161,7 +161,7 @@
 						>, or
 						<a
 							class="text-blue-1 whitespace-nowrap"
-							href="https://aporia.com"
+							href="https://aporia.com/blog/"
 							target="_blank"
 							@click.prevent="goTo('https://www.aporia.com/blog/')"
 							>read something 📖</a
