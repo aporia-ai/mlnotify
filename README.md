@@ -12,7 +12,7 @@
   <!-- <a href="https://app.netlify.com/sites/mlnotify/deploys" alt="Website Deploy Status"><img src="https://api.netlify.com/api/v1/badges/a832ff7a-83aa-4c70-99b1-f812ae4bc3d8/deploy-status"/></a> -->
 </p>
 
-A little tool to help you know when your model finished training.
+A useful tool that notifies you when your model is finished training
 
 **Features**
 
@@ -34,7 +34,7 @@ The import will automagically hook into your fit/train method.
 - Once you start training your model a tracking url & QR code will be printed to the console.
   ![Printed tracking URL & QR code](docs/assets/printed-tracking-url-and-qr-code.png)
 - Enter the tracking url
-- Grab a coffee and chill, the tracking url will notify you when the training is complete. It allows for desktop, mobile, and email notifications.
+- Grab a coffee and relax, the tracking url will notify you when the training is complete via desktop, mobile, or email notifications
 
 ## Usage
 

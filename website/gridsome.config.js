@@ -1,7 +1,7 @@
 module.exports = {
 	titleTemplate: 'ML Notify',
 	siteName: 'ML Notify',
-	siteDescription: 'ML Notify is a little tool to help you know when your model finished training',
+	siteDescription: 'ML Notify is a useful tool that notifies you when your model is finished training',
 	siteUrl: process.env.GRIDSOME_BASE_URL,
 	icon: './src/assets/logo.png',
 	chainWebpack: config => {
@@ -37,7 +37,7 @@ module.exports = {
 				backgroundColor: '#ffffff',
 				icon: './src/assets/logo-maskable.png',
 				shortName: 'ML Notify',
-				description: 'ML Notify is a little tool to help you know when your model finished training',
+				description: 'ML Notify is a useful tool that notifies you when your model is finished training',
 				categories: ['work', 'machine learning', 'artificial intelligence'],
 				lang: 'en-US',
 				dir: 'auto',
