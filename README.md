@@ -85,7 +85,9 @@ model.fit(...)
 ## API
 
 The library exports four items:
-
+```python
+from mlnotify import start, end, plugins_manager, BasePlugin
+```
 ### `start() -> None`
 
 Starts tracking.
