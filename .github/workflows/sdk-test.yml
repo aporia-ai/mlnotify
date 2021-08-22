@@ -3,8 +3,6 @@ on:
   push:
     paths:
         - 'sdk/**'
-    branches-ignore:
-      - main
 defaults:
   run:
     working-directory: sdk

@@ -23,7 +23,7 @@ def init_logger():
     )
     logger = logging.getLogger(LOGGER_NAME)
 
-    logger.debug(f"Logger is set to level {logger.level}")
+    logger.debug(f"Logger level is set to {logger.level}")
     return logger
 
 
