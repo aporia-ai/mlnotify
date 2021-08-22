@@ -14,7 +14,7 @@
 		"outDir": "./built/",
 		"baseUrl": ".",
 		"lib": ["esnext", "dom", "dom.iterable"],
-		"types": ["aws-lambda"]
+		"types": ["aws-lambda", "node"]
 	},
 	"exclude": ["node_modules"]
 }
