@@ -2,8 +2,7 @@
 name = "mlnotify"
 version = "1.0.0"
 description = "ML Notify - A useful tool that notifies you when your model is finished training"
-authors = []
-readme = "README.md"
+authors = ['Aporia']
 repository = "https://github.com/aporia-ai/mlnotify"
 
 [tool.poetry.dependencies]
@@ -11,6 +10,7 @@ python = "^3.6"
 gorilla = "^0.4.0"
 qrcode = "^6.1"
 requests = "^2.25.1"
+dataclasses = { version = "0.8", python = "<3.7" }
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.3.2"
@@ -37,7 +37,7 @@ lexicographical = true
 order_by_type = false
 group_by_package = true
 no_lines_before = ['LOCALFOLDER']
-line_length = 120
+line_length = 100
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]

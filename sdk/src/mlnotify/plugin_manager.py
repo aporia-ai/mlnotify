@@ -4,20 +4,21 @@ from mlnotify.logger import logger
 from mlnotify.plugins.base import BasePlugin
 
 
-class PluginsManager:
+class PluginManager:
     """Manages the plugins.
 
-    The PluginsManager allows registering and clearing plugins,
+    The PluginManager allows registering and clearing plugins,
     as well as invoking their hooks (before, after) serially.
     """
 
-    plugins: List[BasePlugin] = []
+    def __init__(self) -> None:
+        self.plugins: List[BasePlugin] = []
 
     def register_plugin(self, plugin: BasePlugin):
         """Adds a plugin.
 
         Args:
-            plugin (BasePlugin): The plugin to add
+            plugin: The plugin to add
         """
         self.plugins.append(plugin)
 
@@ -33,8 +34,8 @@ class PluginsManager:
             if hasattr(plugin, "before"):
                 try:
                     plugin.before()
-                except Exception as e:
-                    print(f"Failed to run a plugin's `before` function [{plugin}]: {e}")
+                except Exception:
+                    logger.error(f"Failed to run a plugin's `before` function [{plugin}]", exc_info=True)
 
     def run_after(self):
         """Runs all registered plugins' after function."""
@@ -44,5 +45,5 @@ class PluginsManager:
             if hasattr(plugin, "after"):
                 try:
                     plugin.after()
-                except Exception as e:
-                    print(f"Failed to run a plugin's `after` function [{plugin}]: {e}")
+                except Exception:
+                    logger.error(f"Failed to run a plugin's `after` function [{plugin}]", exc_info=True)

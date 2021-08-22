@@ -1,11 +1,18 @@
 from mlnotify.hooks import apply_hooks
+from mlnotify.plugin_manager import PluginManager
 from mlnotify.plugins.notify import NotifyPlugin
-from mlnotify.plugins_manager import PluginsManager
 
-plugins_manager = PluginsManager()
-plugins_manager.register_plugin(NotifyPlugin())
 
-apply_hooks(before=plugins_manager.run_before, after=plugins_manager.run_after)
+def init_plugin_manager():
+    """
+    Initialize the plugin manager.
+    """
+    plugin_manager = PluginManager()
+    plugin_manager.register_plugin(NotifyPlugin())
 
-start = plugins_manager.run_before
-end = plugins_manager.run_after
+    apply_hooks(before=plugin_manager.run_before, after=plugin_manager.run_after)
+
+    return plugin_manager
+
+
+plugin_manager = init_plugin_manager()
