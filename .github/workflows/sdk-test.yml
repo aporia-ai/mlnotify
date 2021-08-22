@@ -1,8 +1,8 @@
 name: SDK Tests
 on:
-  pull_request:
+  push:
     paths:
-        - sdk
+        - 'sdk/**'
     branches-ignore:
       - main
 defaults:
