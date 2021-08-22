@@ -2,7 +2,7 @@ name: SDK Tests
 on:
   push:
     paths:
-        - 'sdk'
+        - sdk
     branches-ignore:
       - main
 defaults:
