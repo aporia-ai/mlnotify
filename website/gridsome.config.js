@@ -35,7 +35,7 @@ module.exports = {
 				statusBarStyle: 'default',
 				themeColor: '#ffffff',
 				backgroundColor: '#ffffff',
-				icon: './src/assets/logo.png',
+				icon: './src/assets/logo-maskable.png',
 				shortName: 'ML Notify',
 				description: 'ML Notify is a little tool to help you know when your model finished training',
 				categories: ['work', 'machine learning', 'artificial intelligence'],
