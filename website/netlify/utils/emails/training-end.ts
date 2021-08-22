@@ -32,9 +32,6 @@ export const createTrainingEndEmail = ({ trainingId }: { trainingId: string }) =
 			font-size: 2.5rem;
 			line-height: 1;
 		}
-		.main h4 {
-			line-height: 1;
-		}
 		.button-container {
 			margin-top: 16px;
 		}
