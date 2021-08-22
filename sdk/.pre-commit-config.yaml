@@ -9,25 +9,25 @@ repos:
     hooks:
     -   id: isort
         name: sort imports
-        entry: python "./sdk/scripts/run_script.py" "poetry run isort --filter-files ./"
+        entry: python "./sdk/scripts/run_precommit_hook.py" "poetry run isort --filter-files ./"
         language: system
         types: [python]
         pass_filenames: false
     -   id: black
         name: black
-        entry: python "./sdk/scripts/run_script.py" "poetry run python -m black ./"
+        entry: python "./sdk/scripts/run_precommit_hook.py" "poetry run python -m black ./"
         language: system
         pass_filenames: false
         types: [python]
     -   id: flake8
         name: flake8
-        entry: python "./sdk/scripts/run_script.py" "poetry run flake8 ./"
+        entry: python "./sdk/scripts/run_precommit_hook.py" "poetry run flake8 ./"
         language: system
         types: [python]
         pass_filenames: false
     -   id: mypy
         name: mypy
-        entry: python "./sdk/scripts/run_script.py" "poetry run mypy ./"
+        entry: python "./sdk/scripts/run_precommit_hook.py" "poetry run mypy ./"
         language: system
         types: [python]
         pass_filenames: false

@@ -1,6 +1,6 @@
 from unittest.mock import Mock
 
-from mlnotify import plugins_manager
+from mlnotify import plugin_manager
 import mlnotify  # noqa: F401
 from mlnotify.plugins.base import BasePlugin
 
@@ -12,7 +12,7 @@ class DummyPlugin(BasePlugin):
 
 def test_manual():
     dummy_plugin = DummyPlugin()
-    plugins_manager.register_plugin(dummy_plugin)
+    plugin_manager.register_plugin(dummy_plugin)
 
     mlnotify.start()
     dummy_plugin.before.assert_called_once()

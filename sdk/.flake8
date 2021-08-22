@@ -1,7 +1,7 @@
 [flake8]
 select = ANN,B,B9,BLK,C,D,DAR,E,F,I,S,W
 ignore = E203,E501,W503,ANN002,ANN003,ANN101,D100,D104,DAR401,S104,C901
-max-line-length = 120
+max-line-length = 100
 max-complexity = 10
 application-import-names = mlnotify,tests
 import-order-style = google

@@ -13,7 +13,7 @@ SampleNpData = Dict[str, Union[list, Any]]
 
 @pytest.fixture
 def sample_data() -> xgboost.DMatrix:
-    sample_data_path = Path(Path(__file__).parent, "data", "xgboost.txt")
+    sample_data_path = Path(__file__).parent / Path("data", "xgboost.txt")
     return xgboost.DMatrix(sample_data_path)
 
 

@@ -129,7 +129,7 @@ python-versions = ">=3.6,<4.0"
 name = "dataclasses"
 version = "0.8"
 description = "A backport of the dataclasses module for Python 3.6"
-category = "dev"
+category = "main"
 optional = false
 python-versions = ">=3.6, <3.7"
 
@@ -623,7 +623,7 @@ testing = ["pytest (>=4.6)", "pytest-checkdocs (>=2.4)", "pytest-flake8", "pytes
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.6"
-content-hash = "fbdb09b52e2060ca8b1afa1b6673ac0c007f77bc7b612bda5032a40728edd1fb"
+content-hash = "e506c39bb4a90f01864cd12c85371194bd96076e707a8d5dba4ce04c9a70d3cf"
 
 [metadata.files]
 appdirs = [

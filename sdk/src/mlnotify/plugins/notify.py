@@ -10,6 +10,8 @@ BASE_URL = "https://mlnotify.aporia.com"
 
 @dataclass
 class TrainingInfo:
+    """The training information - the id - a 6 digits number, and token - a secret which allows to end the training."""
+
     id: str
     token: str
 
@@ -30,14 +32,14 @@ class NotifyPlugin(BasePlugin):
 
         Reports the training start to the server and saves the created id, token & url.
         Then it prints:
-        * The stored url
-        * A QR code of the stored url
-        * A text explaining how to get a notification via the above url & qr
+            * The stored url
+            * A QR code of the stored url
+            * A text explaining how to get a notification via the above url & qr
         """
         self.training_info = self.report_training_start()
         self.url = f"{BASE_URL}/training/{self.training_info.id}"
 
-        self.print_qr()
+        self.print_qr(self.url)
         print(self.url)
         print("\nScan the QR code or enter the url to get a notification when your training is done\n\n")
 
@@ -47,9 +49,10 @@ class NotifyPlugin(BasePlugin):
         Sends a 'training_complete' message to the server with
         This training's uuid
         """
-        self.report_training_end()
+        self.report_training_end(self.training_info)
 
-    def print_qr(self):
+    @staticmethod
+    def print_qr(url: str):
         """Generates and prints a QR of the stored url."""
         qr = qrcode.QRCode(
             version=1,
@@ -57,11 +60,12 @@ class NotifyPlugin(BasePlugin):
             box_size=10,
             border=4,
         )
-        qr.add_data(self.url)
+        qr.add_data(url)
 
         qr.print_ascii()
 
-    def report_training_start(self) -> TrainingInfo:
+    @staticmethod
+    def report_training_start() -> TrainingInfo:
         """Reports training start to the server.
 
         Returns:
@@ -74,13 +78,14 @@ class NotifyPlugin(BasePlugin):
         body = response.json()
         return TrainingInfo(id=body["trainingId"], token=body["trainingToken"])
 
-    def report_training_end(self):
+    @staticmethod
+    def report_training_end(training_info: TrainingInfo):
         """Reports training end to the server."""
         response = requests.post(
             f"{BASE_URL}/.netlify/functions/training-end",
             json={
-                "trainingId": self.training_info.id,
-                "trainingToken": self.training_info.token,
+                "trainingId": training_info.id,
+                "trainingToken": training_info.token,
             },
         )
 

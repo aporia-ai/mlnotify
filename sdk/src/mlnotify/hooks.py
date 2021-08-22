@@ -4,25 +4,24 @@ from typing import Any, Callable, Type, Union
 
 import gorilla
 
-from mlnotify.logger import logger
-
-HookFunction = Callable
+from mlnotify.logger import get_logger
 
 GORILLA_SETTINGS = gorilla.Settings(allow_hit=True, store_hit=True)
+logger = get_logger()
 
 
-def base_patch_func(*args, __original_func: Callable, __before: HookFunction, __after: HookFunction, **kwargs) -> Any:
+def base_patch_func(*args, __original_func: Callable, __before: Callable, __after: Callable, **kwargs) -> Any:
     """When patching a method, this function will run instead.
 
     Args:
-        __original_func (Callable): The original function before the patch
-        __before (HookFunction): The function to run before the original function
-        __after (HookFunction): The function to run after the original function
+        __original_func: The original function before the patch
+        __before: The function to run before the original function
+        __after: The function to run after the original function
         *args: positional args passed for the original function
         **kwargs: keyword args passed for the original function
 
     Returns:
-        result (Any): The original function's result
+        result: The original function's result
     """
     logger.debug("Running patched func", args, kwargs)
 
@@ -41,14 +40,14 @@ def base_patch_func(*args, __original_func: Callable, __before: HookFunction, __
     return res
 
 
-def patch(destination: Any, name: str, before: HookFunction, after: HookFunction) -> None:
+def patch(destination: Any, name: str, before: Callable, after: Callable) -> None:
     """This function patches the destination.name function and replaces it with the base_patch_func.
 
     Args:
-        destination (Any): The class/dict to patch
-        name (str): The function name to be replaced
-        before (HookFunction): The function to run before the original function
-        after (HookFunction): The function to run after the original function
+        destination: The class/dict to patch
+        name: The function name to be replaced
+        before: The function to run before the original function
+        after: The function to run after the original function
     """
     original_func: Callable = gorilla.get_attribute(destination, name)
 
@@ -59,19 +58,20 @@ def patch(destination: Any, name: str, before: HookFunction, after: HookFunction
     gorilla.apply(patch)
 
 
-def apply_hooks(before: HookFunction, after: HookFunction):
-    """Applys hooks.
+def apply_hooks(before: Callable, after: Callable):
+    """Applies hooks.
 
     This function applies all hooks - imports the relevant packages and patches
     the specified functions. Since usually not all packages exist, it runs on
     a best-effort assumption.
 
     Args:
-        before (HookFunction): The function to run before the original function
-        after (HookFunction): The function to run after the original function
+        before: The function to run before the original function
+        after: The function to run after the original function
     """
     logger.debug("Applying hooks")
 
+    # LightGBM
     try:
         import lightgbm
 
@@ -79,6 +79,8 @@ def apply_hooks(before: HookFunction, after: HookFunction):
         patch(lightgbm.sklearn, "train", before=before, after=after)
     except Exception as e:
         logger.debug("Could not import and patch lightgbm", e)
+
+    # XGBoost
     try:
         import xgboost
 
@@ -86,6 +88,8 @@ def apply_hooks(before: HookFunction, after: HookFunction):
         patch(xgboost.sklearn, "train", before=before, after=after)
     except Exception as e:
         logger.debug("Could not import and patch xgboost", e)
+
+    # Tensorflow & Keras
     try:
         import tensorflow
 
@@ -102,6 +106,8 @@ def apply_hooks(before: HookFunction, after: HookFunction):
             patch(keras.Model, "train_on_batch", before=before, after=after)
         except Exception as e:
             logger.debug("Could not import and patch keras", e)
+
+    # SKLearn
     try:
         import sklearn.svm
         import sklearn.tree
