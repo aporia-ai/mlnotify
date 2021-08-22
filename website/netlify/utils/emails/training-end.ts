@@ -21,7 +21,6 @@ export const createTrainingEndEmail = ({ trainingId }: { trainingId: string }) =
 		header {
 			background: rgba(38, 42, 51);
 			padding: 0.5rem 2.5rem;
-			text-align: center;
 		}
 
 		/* Main */
@@ -30,18 +29,26 @@ export const createTrainingEndEmail = ({ trainingId }: { trainingId: string }) =
 			padding: 2rem;
 		}
 		.main h1 {
-			text-align: center;
 			font-size: 2.5rem;
 			line-height: 1;
 		}
-		.main h4 {
-			text-align: center;
-			line-height: 1;
+		.button-container {
+			margin-top: 16px;
 		}
+		.comp-button {
+			display: inline-block;
+			padding: 3px 10px;
+			background: #53a7ee;
+			color: #ffffff !important;
+			border-radius: 100px;
+			text-decoration: none;
+
+			font-size: 12px;
+			font-weight: 400;
+      	}
 
 		/* Footer */
 		footer {
-		    text-align: center;
 			color: rgba(113, 124, 137);
 			flex-grow: 0;
 			padding: 0.5rem;
@@ -64,9 +71,11 @@ export const createTrainingEndEmail = ({ trainingId }: { trainingId: string }) =
 			padding: 0;
 		}
 		a {
-			color: currentColor;
+			color: currentColor !important;
+			text-decoration: none !important;
 		}
 		* {
+			text-align: center;
 			box-sizing: border-box;
 		}
 	</style>
@@ -79,11 +88,13 @@ export const createTrainingEndEmail = ({ trainingId }: { trainingId: string }) =
 		</header>
 		<div class="main">
 			<h1>Training #${trainingId} ended</h1>
-			<h4>Click <a href="${process.env.GRIDSOME_BASE_URL}/training/${trainingId}">here</a> to go to training page</h4>
+			<div class="button-container">
+				<a class="comp-button" href="${process.env.GRIDSOME_BASE_URL}/training/${trainingId}">Click to view</a>
+			</div>
 		</div>
 		<footer>
 			<a href="https://aporia.com" target="_blank" class="made-with-love" >
-				Made with ❤️ by <img class="aporia-logo" src="${process.env.GRIDSOME_BASE_URL}/static-assets/aporia.png" />
+				Made with ❤️ by <img class="aporia-logo" src="${process.env.GRIDSOME_BASE_URL}/static-assets/aporia.png" alt="Aporia" />
 				</a>
 		</footer>
 	</body>

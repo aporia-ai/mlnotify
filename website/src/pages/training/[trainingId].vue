@@ -29,13 +29,13 @@
 							<span v-if="!trainingFinished" key="in-progress">
 								When fit() is completed, a notification will be raised.<br />
 								<span class="hidden sm:inline">
-									In the meantime, you can have coffee&nbsp;&nbsp;☕,
+									In the meantime, you can have coffee&nbsp;&nbsp;☕, find new
 									<a
 										class="text-blue-1 whitespace-nowrap"
-										href="https://aporia.com"
+										href="https://mlops.toys"
 										target="_blank"
-										@click.prevent="goTo('https://aporia.com')"
-										>play traininvaders 👾</a
+										@click.prevent="goTo('https://mlops.toys')"
+										>MLOps Toys 🛠️</a
 									>, or
 									<a
 										class="text-blue-1 whitespace-nowrap"
@@ -151,13 +151,13 @@
 				<!-- Bottom (mobile only) -->
 				<div v-if="!trainingFinished" class="text-center mt-4 p-4">
 					<div class="mb-8 sm:hidden text-xs">
-						In the meantime, you can have <span class="whitespace-nowrap">coffee ☕</span>,
+						In the meantime, you can have <span class="whitespace-nowrap">coffee ☕</span>, find new
 						<a
 							class="text-blue-1 whitespace-nowrap"
-							href="https://aporia.com"
+							href="https://mlops.toys"
 							target="_blank"
-							@click.prevent="goTo('https://aporia.com')"
-							>play traininvaders 👾</a
+							@click.prevent="goTo('https://mlops.toys')"
+							>MLOps Toys 🛠️</a
 						>, or
 						<a
 							class="text-blue-1 whitespace-nowrap"

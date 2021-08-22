@@ -1,7 +1,7 @@
 [tool.poetry]
 name = "mlnotify"
 version = "1.0.0"
-description = "ML Notify - A little tool to help you know when your model finished training"
+description = "ML Notify - A useful tool that notifies you when your model is finished training"
 authors = []
 readme = "README.md"
 repository = "https://github.com/aporia-ai/mlnotify"

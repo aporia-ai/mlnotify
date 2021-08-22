@@ -10,8 +10,8 @@
 					<XIcon class="inline-block h-6 md:h-8 cursor-pointer" @click="$emit('close')" />
 				</div>
 				<div class="px-4 pb-2">
-					<div class="text-2xl mb-2 font-bold">Never miss a thing</div>
-					<div class="mb-11 text-grey-7">Get notified whenever there is a news alert in your area</div>
+					<div class="text-2xl mb-2 font-bold">Get notified</div>
+					<div class="mb-11 text-grey-7">Get notified via push notifications</div>
 					<NotificationIcon class="inline-block mb-11" />
 					<button
 						class="rounded-lg bg-blue-1 w-full p-2 text-white-0 md:text-lg text-sm hover:opacity-70 transition-opacity"
