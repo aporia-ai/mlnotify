@@ -1,9 +1,7 @@
 from typing import List
 
-from mlnotify.logger import get_logger
+from mlnotify.logger import logger
 from mlnotify.plugins.base import BasePlugin
-
-logger = get_logger()
 
 
 class PluginManager:

@@ -13,8 +13,8 @@ LightgbmSampleData = Any
 
 @pytest.fixture
 def sample_data() -> LightgbmSampleData:
-    sample_data_path = Path(Path(__file__).parent, "data", "lightgbm.bin").as_posix()
-    return lightgbm.Dataset(sample_data_path)
+    sample_data_path = Path(__file__).parent / Path("data", "lightgbm.bin")
+    return lightgbm.Dataset(sample_data_path.as_posix())
 
 
 def test_lightgbm_train(sample_data: LightgbmSampleData, mocked_notify_plugin: MockedNotifyPlugin):

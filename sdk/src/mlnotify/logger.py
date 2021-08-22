@@ -2,7 +2,6 @@ import logging
 import logging.config
 
 LOGGER_NAME = "mlnotify"
-is_logger_initiated = False
 
 
 def init_logger():
@@ -23,18 +22,10 @@ def init_logger():
             "disable_existing_loggers": False,
         }
     )
-    is_logger_initiated = True
     logger = logging.getLogger(LOGGER_NAME)
 
     logger.debug(f"Logger is set to level {logger.level}")
     return logger
 
 
-def get_logger():
-    """
-    Get the logger for the module.
-    """
-    global is_logger_initiated
-    if not is_logger_initiated:
-        init_logger()
-    return logging.getLogger(LOGGER_NAME)
+logger = init_logger()

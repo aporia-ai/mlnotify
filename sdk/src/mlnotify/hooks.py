@@ -4,10 +4,9 @@ from typing import Any, Callable, Type, Union
 
 import gorilla
 
-from mlnotify.logger import get_logger
+from mlnotify.logger import logger
 
 GORILLA_SETTINGS = gorilla.Settings(allow_hit=True, store_hit=True)
-logger = get_logger()
 
 
 def base_patch_func(*args, __original_func: Callable, __before: Callable, __after: Callable, **kwargs) -> Any:
@@ -27,15 +26,15 @@ def base_patch_func(*args, __original_func: Callable, __before: Callable, __afte
 
     try:
         __before()
-    except Exception as e:
-        logger.debug("Failed to run hook function (before)", e)
+    except Exception:
+        logger.debug("Failed to run hook function (before)", exc_info=True)
 
     res = __original_func(*args, **kwargs)
 
     try:
         __after()
-    except Exception as e:
-        logger.debug("Failed to run hook function (after)", e)
+    except Exception:
+        logger.debug("Failed to run hook function (after)", exc_info=True)
 
     return res
 
@@ -77,8 +76,8 @@ def apply_hooks(before: Callable, after: Callable):
 
         patch(lightgbm, "train", before=before, after=after)
         patch(lightgbm.sklearn, "train", before=before, after=after)
-    except Exception as e:
-        logger.debug("Could not import and patch lightgbm", e)
+    except Exception:
+        logger.debug("Could not import and patch lightgbm", exc_info=True)
 
     # XGBoost
     try:
@@ -86,8 +85,8 @@ def apply_hooks(before: Callable, after: Callable):
 
         patch(xgboost, "train", before=before, after=after)
         patch(xgboost.sklearn, "train", before=before, after=after)
-    except Exception as e:
-        logger.debug("Could not import and patch xgboost", e)
+    except Exception:
+        logger.debug("Could not import and patch xgboost", exc_info=True)
 
     # Tensorflow & Keras
     try:
@@ -95,8 +94,8 @@ def apply_hooks(before: Callable, after: Callable):
 
         patch(tensorflow.keras.Model, "fit", before=before, after=after)
         patch(tensorflow.keras.Model, "train_on_batch", before=before, after=after)
-    except Exception as e:
-        logger.debug("Could not import and patch tensorflow.keras", e)
+    except Exception:
+        logger.debug("Could not import and patch tensorflow.keras", exc_info=True)
         # If tensorflow.keras patching doesn't work, we can try
         # patching keras as a standalone
         try:
@@ -104,8 +103,8 @@ def apply_hooks(before: Callable, after: Callable):
 
             patch(keras.Model, "fit", before=before, after=after)
             patch(keras.Model, "train_on_batch", before=before, after=after)
-        except Exception as e:
-            logger.debug("Could not import and patch keras", e)
+        except Exception:
+            logger.debug("Could not import and patch keras", exc_info=True)
 
     # SKLearn
     try:
@@ -121,5 +120,5 @@ def apply_hooks(before: Callable, after: Callable):
         patch(sklearn.svm.LinearSVC, "fit", before=before, after=after)
         patch(sklearn.tree.DecisionTreeClassifier, "fit", before=before, after=after)
         patch(sklearn.tree.DecisionTreeRegressor, "fit", before=before, after=after)
-    except ImportError as e:
-        logger.debug("Could not import and patch sklearn", e)
+    except ImportError:
+        logger.debug("Could not import and patch sklearn", exc_info=True)
