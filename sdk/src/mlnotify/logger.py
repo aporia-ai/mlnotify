@@ -5,7 +5,6 @@ LOGGER_NAME = "mlnotify"
 
 
 def init_logger():
-    global is_logger_initiated
     logging.config.dictConfig(
         {
             "version": 1,
