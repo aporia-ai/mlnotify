@@ -69,7 +69,7 @@ mlnotify.end() # End tracking
 The library uses a simple plugin architecture. You can register your own plugins to extend the library's functionality.
 
 ```python
-from mlnotify import BasePlugin, plugins_manager
+from mlnotify import BasePlugin, plugin_manager
 
 # A plugin is simply a class with `before` and `after` methods
 class MyPlugin(BasePlugin):
@@ -81,7 +81,7 @@ class MyPlugin(BasePlugin):
         # Called after the fit/train method
         print("MyPlugin: training finished")
 
-plugins_manager.register_plugin(MyPlugin)
+plugin_manager.register_plugin(MyPlugin())
 
 # Use mlnotify as you normally would
 model.fit(...)
