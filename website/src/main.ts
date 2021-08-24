@@ -1,7 +1,7 @@
 import { ClientApiConstructor } from './types'
 import Vuex from 'vuex'
 import VueGtag from 'vue-gtag'
-import VueGtm from '@gtm-support/vue2-gtm'
+// import VueGtm from '@gtm-support/vue2-gtm'
 
 import DefaultLayout from './layouts/Default.vue'
 import './styles/index.scss'
@@ -54,7 +54,7 @@ const client: ClientApiConstructor = async function(
 	Vue.use(VueGtag, { config: { id: 'G-1C7PHXXTFE' } }, router)
 
 	// Google tag manager
-	Vue.use(VueGtm, { id: 'GTM-MBSTH6F', vueRouter: router })
+	// Vue.use(VueGtm, { id: 'GTM-MBSTH6F', vueRouter: router })
 
 	// Layout
 	Vue.component('Layout', DefaultLayout)
