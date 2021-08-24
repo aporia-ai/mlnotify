@@ -1,0 +1,11 @@
+[flake8]
+select = ANN,B,B9,BLK,C,D,DAR,E,F,I,S,W
+ignore = E203,E501,W503,ANN002,ANN003,ANN101,D100,D104,DAR401,S104,C901
+max-line-length = 100
+max-complexity = 10
+application-import-names = mlnotify,tests
+import-order-style = google
+docstring-convention = google
+per-file-ignores = tests/*:D101,D102,D103,D107,S101,S106
+suppress_none_returning = True
+exclude = __pycache__,.nox,.pytest_cache

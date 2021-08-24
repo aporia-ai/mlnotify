@@ -1,0 +1,16 @@
+<svg width="500px" height="500px" class="spinner" viewBox="0 0 66 66"
+    xmlns="http://www.w3.org/2000/svg">
+    <circle fill="transparent" stroke-width="1.5" cx="33" cy="33" r="32.25" stroke="rgba(113, 124, 137, 0.1)" stroke-opacity=".5" stroke-linecap="round">
+    </circle>
+    <circle style="stroke-dasharray: 170; stroke-dashoffset: 30; transform:rotateY(180deg)" fill="transparent" stroke-width="1.5" cx="33" cy="33" r="32.25" stroke="url(#linear_grad)" stroke-linecap="round">
+        <animateTransform attributeName="transform" type="rotate" to="360 33 33" from="0 33 33" dur="3s" repeatCount="indefinite" />
+    </circle>
+
+    <defs>
+        <linearGradient id="linear_grad">
+            <stop offset="50%" stop-color="#53A7EE" stop-opacity="1"/>
+            <stop offset="65%" stop-color="#53A7EE" stop-opacity=".5"/>
+            <stop offset="100%" stop-color="#53A7EE" stop-opacity="0"/>
+        </linearGradient>
+    </defs>
+</svg> 
