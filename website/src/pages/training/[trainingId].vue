@@ -2,7 +2,7 @@
 	<div class="flex-1 flex flex-col">
 		<!-- Notifications permission bar -->
 		<div
-			class="bg-blue-1 transition-all text-white-0 h-0 flex justify-center items-center overflow-hidden"
+			class="bg-blue-1 transition-all text-white-0 h-0 flex justify-center items-center overflow-hidden text-center"
 			:class="{ 'h-14': shouldShowNotificationsBar }"
 		>
 			<div v-if="notificationPermission === 'default'">
@@ -10,7 +10,11 @@
 				<button class="underline" @click="askForNotificationPermission">enable desktop notifications</button>
 			</div>
 			<div v-if="notificationPermission === 'denied'">
-				Please enable notifications in your browser to be notified when your training is over
+				Please
+				<a class="underline" href="https://support.google.com/chrome/answer/3220216" target="_blank"
+					>enable notifications in your browser</a
+				>
+				to be notified when your training is over
 			</div>
 		</div>
 		<Transition name="fade" mode="out-in">
@@ -149,51 +153,53 @@
 					</transition>
 				</div>
 				<!-- Bottom (mobile only) -->
-				<div v-if="!trainingFinished" class="text-center mt-4 p-4">
-					<div class="mb-8 sm:hidden text-xs">
-						In the meantime, you can have <span class="whitespace-nowrap">coffee ☕</span>, find new
-						<a
-							class="text-blue-1 whitespace-nowrap"
-							href="https://mlops.toys"
-							target="_blank"
-							@click.prevent="goTo('https://mlops.toys')"
-							>MLOps Toys 🛠️</a
-						>, or
-						<a
-							class="text-blue-1 whitespace-nowrap"
-							href="https://aporia.com/blog/"
-							target="_blank"
-							@click.prevent="goTo('https://www.aporia.com/blog/')"
-							>read something 📖</a
-						>
-					</div>
-					<form
-						class="text-sm md:text-lg flex lg:hidden flex-col justify-between items-center"
-						@submit.prevent="submitEmail"
-					>
-						<div class="mb-3 md:mb-6">Get notified by email</div>
-						<div>
-							<input
-								v-model="email"
-								:disabled="isSubmittingEmail"
-								class="email-input py-2 px-4 bg-grey-5 rounded-3xl mb-3 md:mb-6 w-56 md:w-80"
-								type="email"
-								autocomplete="email"
-								placeholder="Email Address"
-							/>
-						</div>
-						<div>
-							<button
-								class="bg-blue-1 text-white-0 rounded-3xl py-1 px-6 h-8 w-24 flex justify-center items-center text-center"
-								@submit.prevent="submitEmail"
+				<div class="mt-4">
+					<div v-if="!trainingFinished" class="text-center p-4">
+						<div class="mb-8 sm:hidden text-xs">
+							In the meantime, you can have <span class="whitespace-nowrap">coffee ☕</span>, find new
+							<a
+								class="text-blue-1 whitespace-nowrap"
+								href="https://mlops.toys"
+								target="_blank"
+								@click.prevent="goTo('https://mlops.toys')"
+								>MLOps Toys 🛠️</a
+							>, or
+							<a
+								class="text-blue-1 whitespace-nowrap"
+								href="https://aporia.com/blog/"
+								target="_blank"
+								@click.prevent="goTo('https://www.aporia.com/blog/')"
+								>read something 📖</a
 							>
-								<transition name="fade" mode="out-in">
-									<span v-if="!isSubmittingEmail">Submit</span>
-									<TailSpinLoader2 v-else />
-								</transition>
-							</button>
 						</div>
-					</form>
+						<form
+							class="text-sm md:text-lg flex lg:hidden flex-col justify-between items-center"
+							@submit.prevent="submitEmail"
+						>
+							<div class="mb-3 md:mb-6">Get notified by email</div>
+							<div>
+								<input
+									v-model="email"
+									:disabled="isSubmittingEmail"
+									class="email-input py-2 px-4 bg-grey-5 rounded-3xl mb-3 md:mb-6 w-56 md:w-80"
+									type="email"
+									autocomplete="email"
+									placeholder="Email Address"
+								/>
+							</div>
+							<div>
+								<button
+									class="bg-blue-1 text-white-0 rounded-3xl py-1 px-6 h-8 w-24 flex justify-center items-center text-center"
+									@submit.prevent="submitEmail"
+								>
+									<transition name="fade" mode="out-in">
+										<span v-if="!isSubmittingEmail">Submit</span>
+										<TailSpinLoader2 v-else />
+									</transition>
+								</button>
+							</div>
+						</form>
+					</div>
 				</div>
 			</main>
 			<div v-else class="p-4 flex-1 flex flex-col justify-around items-center">
@@ -344,24 +350,22 @@ export default Vue.extend({
 			})
 		},
 		async startTrainingUpdates() {
-			try {
-				// Register service worker
-				await this.$store.dispatch('initServiceWorker')
+			// If service worker or message listener did not register, fallback to interval
+			this.fetchTrainingIntervalToken = setInterval(() => {
+				if (this.trainingFinished) clearInterval(this.fetchTrainingIntervalToken)
+				else this.fetchTraining()
+			}, 2 * 1000)
 
-				// Add a message listener
-				this.firebaseMessagingUnsubscribeFunction = await firebaseMessagingService.onMessage(payload => {
-					if (payload.data.id === this.trainingId) {
-						this.training.endedAt = payload.data.endedAt
-					}
-					this.$store.dispatch('showSuccessNotification', payload)
-				})
-			} catch {
-				// If service worker or message listener did not register, fallback to interval
-				this.fetchTrainingIntervalToken = setInterval(() => {
-					if (this.trainingFinished) clearInterval(this.fetchTrainingIntervalToken)
-					else this.fetchTraining()
-				}, 5000)
-			}
+			// Register service worker
+			await this.$store.dispatch('initServiceWorker')
+
+			// Add a message listener
+			this.firebaseMessagingUnsubscribeFunction = await firebaseMessagingService.onMessage(payload => {
+				if (payload.data.id === this.trainingId) {
+					this.training.endedAt = payload.data.endedAt
+				}
+				this.$store.dispatch('showSuccessNotification', payload)
+			})
 		},
 		async checkNotificationPermission() {
 			// Make sure the service worker registered

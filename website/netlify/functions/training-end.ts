@@ -59,7 +59,7 @@ async function baseHandler({ body: { trainingId, trainingToken } }: Event): Prom
 			// https://firebase.google.com/docs/cloud-messaging/send-message
 			title: 'Training Over',
 			body: `Training #${trainingId} is over`,
-			icon: `${process.env.GRIDSOME_BASE_URL}/logo.png`,
+			icon: `${process.env.GRIDSOME_BASE_URL}/logo-dark.png`,
 			clickAction: `${process.env.GRIDSOME_BASE_URL}/training/${trainingId}`,
 		},
 	})

@@ -13,6 +13,8 @@ class PluginManager:
 
     def __init__(self) -> None:
         self.plugins: List[BasePlugin] = []
+        self.before_hook_called = False
+        self.after_hook_called = False
 
     def register_plugin(self, plugin: BasePlugin):
         """Adds a plugin.
@@ -29,6 +31,10 @@ class PluginManager:
     def run_before(self):
         """Runs all registered plugins' before function."""
         logger.debug("Running before functions")
+        if self.before_hook_called:
+            logger.warn("`before` hook was already called")
+            return
+        self.before_hook_called = True
 
         for plugin in self.plugins:
             if hasattr(plugin, "before"):
@@ -40,6 +46,13 @@ class PluginManager:
     def run_after(self):
         """Runs all registered plugins' after function."""
         logger.debug("Running after functions")
+        if not self.before_hook_called:
+            logger.warn("`after` hook was called prior to `before` hook")
+            return
+        if self.after_hook_called:
+            logger.warn("`after` hook was already called")
+            return
+        self.after_hook_called = True
 
         for plugin in self.plugins:
             if hasattr(plugin, "after"):
