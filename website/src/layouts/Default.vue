@@ -28,7 +28,7 @@ export default Vue.extend({
 		url('../assets/bg/desktop/bottom-right.png') bottom right no-repeat;
 
 	@media only screen and (max-width: 800px) {
-		background: url('../assets/bg/mobile/top-left.png') 0% 100px no-repeat,
+		background: url('../assets/bg/mobile/top-left.png') 0% 48px no-repeat,
 			url('../assets/bg/mobile/bottom-left.png') bottom left no-repeat,
 			url('../assets/bg/mobile/bottom-right.png') right no-repeat;
 	}
