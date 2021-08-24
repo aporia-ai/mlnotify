@@ -3,7 +3,7 @@ module.exports = {
 	siteName: 'ML Notify',
 	siteDescription: 'MLNotify is an open-source tool that keeps track of model training for you, and sends web, mobile, or email  notifications the second training is complete.',
 	siteUrl: process.env.GRIDSOME_BASE_URL,
-	icon: './src/assets/logo.png',
+	icon: './src/assets/logo-dark.png',
 	chainWebpack: config => {
 		const svgRule = config.module.rule('svg')
 		svgRule.uses.clear()
@@ -43,9 +43,9 @@ module.exports = {
 				dir: 'auto',
 				maskableIcon: true,
 				gcmSenderId: '103953800507',
-				svgFavicon: '/logo.svg',
+				svgFavicon: '/logo-dark.svg',
 				msTileColor: '#ffffff',
-				appleMaskIcon: '/logo.svg',
+				appleMaskIcon: '/logo-dark.svg',
 				appleMaskIconColor: '#ffffff',
 			},
 		},
