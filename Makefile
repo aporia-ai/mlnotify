@@ -18,7 +18,7 @@ bump-version:
 
 	@echo [!] Bumping version from $(CURRENT_VERSION) to $(NEW_VERSION)
 
-	@poetry version $(NEW_VERSION) || true
+	@cd sdk && poetry version $(NEW_VERSION) || true
 	@git add sdk/pyproject.toml || true
 
 	git commit -F /tmp/commit-message --amend --no-edit
