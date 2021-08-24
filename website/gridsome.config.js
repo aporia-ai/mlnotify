@@ -68,5 +68,12 @@ module.exports = {
 				cacheTime: 600000,
 			},
 		},
+		{
+			use: 'gridsome-plugin-gtm',
+			options: {
+				id: 'GTM-MBSTH6F',
+				enabled: true,
+			},
+		},
 	],
 }
