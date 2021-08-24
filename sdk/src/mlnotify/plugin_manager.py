@@ -41,7 +41,9 @@ class PluginManager:
                 try:
                     plugin.before()
                 except Exception:
-                    logger.error(f"Failed to run a plugin's `before` function [{plugin}]", exc_info=True)
+                    logger.error(
+                        f"Failed to run a plugin's `before` function [{plugin}]", exc_info=True
+                    )
 
     def run_after(self):
         """Runs all registered plugins' after function."""
@@ -59,4 +61,11 @@ class PluginManager:
                 try:
                     plugin.after()
                 except Exception:
-                    logger.error(f"Failed to run a plugin's `after` function [{plugin}]", exc_info=True)
+                    logger.error(
+                        f"Failed to run a plugin's `after` function [{plugin}]", exc_info=True
+                    )
+        self.reset()
+
+    def reset(self):
+        self.before_hook_called = False
+        self.after_hook_called = False
