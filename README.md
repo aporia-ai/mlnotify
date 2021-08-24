@@ -14,17 +14,17 @@
   <!-- <a href="https://app.netlify.com/sites/mlnotify/deploys" alt="Website Deploy Status"><img src="https://api.netlify.com/api/v1/badges/a832ff7a-83aa-4c70-99b1-f812ae4bc3d8/deploy-status"/></a> -->
 </p>
 
-A useful tool that notifies you when your model is finished training.
+Get notified when your model is finished training.
 
 **Features**
 
-- Out-of-the-box push notifications on desktop and mobile, and email notifications
+- Out-of-the-box email & push notifications on desktop, mobile
 - Minimal setup (just install & import it into your code)
-- Zero-configuration
 - A simple & intuitive UX
 - Installable (as a PWA)
-- Cutting-edge technologies
+- Super duper cutting-edge web technologies
 - Supports all major ML frameworks (as in Keras, LightGBM, SKLearn, XGBoost, Tensorflow)
+
 <p align="center">Made with :heart: by <a href="https://aporia.com" target="_blank">Aporia</a></p>
 
 ## Quickstart
