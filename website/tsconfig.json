@@ -1,0 +1,20 @@
+{
+	"compilerOptions": {
+		"target": "esnext",
+		"module": "esnext",
+		"noImplicitThis": true,
+		"importHelpers": true,
+		"moduleResolution": "node",
+		"allowSyntheticDefaultImports": true,
+		"experimentalDecorators": true,
+		"noImplicitReturns": true,
+		"preserveSymlinks": true,
+		"sourceMap": true,
+		"strict": true,
+		"outDir": "./built/",
+		"baseUrl": ".",
+		"lib": ["esnext", "dom", "dom.iterable"],
+		"types": ["aws-lambda", "node"]
+	},
+	"exclude": ["node_modules"]
+}
