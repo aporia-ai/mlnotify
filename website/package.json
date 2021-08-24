@@ -10,7 +10,6 @@
 		"lint:fix": "npm run lint -- --fix"
 	},
 	"dependencies": {
-		"@gtm-support/vue2-gtm": "^1.1.0",
 		"@middy/core": "^2.5.1",
 		"@middy/http-error-handler": "^2.5.1",
 		"@middy/http-json-body-parser": "^2.5.1",
@@ -21,6 +20,7 @@
 		"firebase": "^8.4.1",
 		"firebase-admin": "^9.6.0",
 		"gridsome": "^0.7.0",
+		"gridsome-plugin-gtm": "^0.1.1",
 		"gridsome-plugin-pwa": "^0.0.18",
 		"http-errors": "^1.7.2",
 		"lodash": "^4.17.21",
