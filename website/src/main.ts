@@ -39,7 +39,7 @@ const client: ClientApiConstructor = async function(
 			content: `${process.env.GRIDSOME_BASE_URL}/seo/image.png`
 		}
 	]
-	metaObjects.forEach(e => head.meta.push(e))
+	metaObjects.forEach(e => head.meta?.push(e))
 
 	// Toasts
 	if (isClient) {
