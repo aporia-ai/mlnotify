@@ -21,7 +21,7 @@ const client: ClientApiConstructor = async function(
 		{
 			name: 'og:description',
 			content:
-				'MLNotify is an open-source tool that keeps track of model training for you, and sends web, mobile, or email  notifications the second training is complete.',
+				'MLNotify is an open-source tool that keeps track of model training for you, and sends web, mobile, or email notifications the second training is complete.',
 		},
 		{
 			name: 'og:image',
@@ -33,7 +33,7 @@ const client: ClientApiConstructor = async function(
 		{
 			name: 'twitter:description',
 			content:
-				'MLNotify is an open-source tool that keeps track of model training for you, and sends web, mobile, or email  notifications the second training is complete.',
+				'MLNotify is an open-source tool that keeps track of model training for you, and sends web, mobile, or email notifications the second training is complete.',
 		},
 		{
 			name: 'twitter:image',

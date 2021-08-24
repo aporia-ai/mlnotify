@@ -1,7 +1,7 @@
 module.exports = {
 	titleTemplate: 'ML Notify',
 	siteName: 'ML Notify',
-	siteDescription: 'ML Notify is a useful tool that notifies you when your model is finished training',
+	siteDescription: 'MLNotify is an open-source tool that keeps track of model training for you, and sends web, mobile, or email notifications the second training is complete.',
 	siteUrl: process.env.GRIDSOME_BASE_URL,
 	icon: './src/assets/logo-dark.png',
 	chainWebpack: config => {
