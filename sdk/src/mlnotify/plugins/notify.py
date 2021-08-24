@@ -50,6 +50,11 @@ class NotifyPlugin(BasePlugin):
         This training's uuid
         """
         self.report_training_end(self.training_info)
+        self.reset()
+
+    def reset(self):
+        self.training_info = None
+        self.url = None
 
     @staticmethod
     def print_qr(url: str):
