@@ -20,6 +20,7 @@
 		"firebase": "^8.4.1",
 		"firebase-admin": "^9.6.0",
 		"gridsome": "^0.7.0",
+		"gridsome-plugin-gtm": "^0.1.1",
 		"gridsome-plugin-pwa": "^0.0.18",
 		"http-errors": "^1.7.2",
 		"lodash": "^4.17.21",
