@@ -1,4 +1,6 @@
-# ML Notify
+<p align="center">
+<img alt="ML Notify" src="docs/assets/logo-with-text.svg" width="300">
+</p>
 
 <p align="center">
   <img alt="SDK Build" src="https://img.shields.io/github/workflow/status/aporia-ai/mlnotify/Bump%20Version/main?label=sdk%20build">
@@ -12,7 +14,7 @@
   <!-- <a href="https://app.netlify.com/sites/mlnotify/deploys" alt="Website Deploy Status"><img src="https://api.netlify.com/api/v1/badges/a832ff7a-83aa-4c70-99b1-f812ae4bc3d8/deploy-status"/></a> -->
 </p>
 
-A useful tool that notifies you when your model is finished training
+A useful tool that notifies you when your model is finished training.
 
 **Features**
 
@@ -27,8 +29,19 @@ A useful tool that notifies you when your model is finished training
 
 ## Quickstart
 
-- `pip install mlnotify`
-- `import mlnotify`
+```bash
+pip3 install mlnotify
+```
+
+```python
+# STEP 1: Import package
+import mlnotify
+
+# STEP 2: Do your thing.
+my_model.fit(...)
+
+# STEP 3: Browse to mlnotify.com and get notified when training is done!
+```
 
 The import will automagically hook into your fit/train method.
 - Once you start training your model a tracking url & QR code will be printed to the console.
