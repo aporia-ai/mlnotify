@@ -22,7 +22,6 @@ No need to keep checking your training. Add <strong>just 1 import line</strong> 
 - Just `pip install mlnotify` and `import mlnotify` to get started
 - Out-of-the-box email & push notifications on desktop, mobile
 - Support for most major ML frameworks (as in Keras, LightGBM, SKLearn, XGBoost, Tensorflow)
-- [Gorilla](https://gorilla.readthedocs.io/en/latest/)-based hooking
 - A simple & intuitive UX
 
 <p align="center">Made with :heart: by <a href="https://aporia.com" target="_blank">Aporia</a></p>
