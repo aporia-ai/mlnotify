@@ -7,7 +7,7 @@
 				is complete
 			</h1>
 			<h2 class="md:text-base text-xs text-center mb-7 px-4">
-				No need to keep checking your training, we’ll let you know the second it’s done
+				No need to keep checking your training. Add <strong>just 1 import line</strong> and MLNotify will let you know the second it's done.
 			</h2>
 			<Count class="md:mb-6 mb-3" :count="statistics.totalTrainingsCount"></Count>
 			<div class="text-center text-grey-1 md:text-xl text-xs md:mb-6 mb-8">
