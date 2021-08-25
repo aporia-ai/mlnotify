@@ -38,14 +38,14 @@
 										class="text-blue-1 whitespace-nowrap"
 										href="https://mlops.toys"
 										target="_blank"
-										@click.prevent="goTo('https://mlops.toys')"
+										@click="goTo('https://mlops.toys')"
 										>MLOps Toys 🛠️</a
 									>, or
 									<a
 										class="text-blue-1 whitespace-nowrap"
 										href="https://www.aporia.com/blog/"
 										target="_blank"
-										@click.prevent="goTo('https://www.aporia.com/blog/')"
+										@click="goTo('https://www.aporia.com/blog/')"
 										>read something 📖</a
 									>
 								</span>
@@ -161,14 +161,14 @@
 								class="text-blue-1 whitespace-nowrap"
 								href="https://mlops.toys"
 								target="_blank"
-								@click.prevent="goTo('https://mlops.toys')"
+								@click="goTo('https://mlops.toys')"
 								>MLOps Toys 🛠️</a
 							>, or
 							<a
 								class="text-blue-1 whitespace-nowrap"
 								href="https://aporia.com/blog/"
 								target="_blank"
-								@click.prevent="goTo('https://www.aporia.com/blog/')"
+								@click="goTo('https://www.aporia.com/blog/')"
 								>read something 📖</a
 							>
 						</div>
@@ -344,9 +344,6 @@ export default Vue.extend({
 				event_category: 'outbound',
 				event_label: url,
 				transport_type: 'beacon',
-				event_callback() {
-					window.open(url, '_blank')
-				},
 			})
 		},
 		async startTrainingUpdates() {
