@@ -1,6 +1,6 @@
 <template>
 	<div
-		class="code-block rounded-lg bg-grey-5 w-full md:pl-5 md:pr-3 md:py-4 pr-3 py-2 pl-5 text-grey-7 flex justify-between items-center md:mb-10 mb-6 text-xs md:text-base"
+		class="code-block rounded-lg bg-grey-5 w-full md:pl-5 md:pr-3 md:py-4 pr-3 py-2 pl-5 text-grey-7 flex justify-between items-center  text-xs md:text-base"
 	>
 		<div ref="code"><slot /></div>
 		<div>
