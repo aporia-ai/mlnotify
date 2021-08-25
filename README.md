@@ -15,16 +15,15 @@
   <!-- <a href="https://app.netlify.com/sites/mlnotify/deploys" alt="Website Deploy Status"><img src="https://api.netlify.com/api/v1/badges/a832ff7a-83aa-4c70-99b1-f812ae4bc3d8/deploy-status"/></a> -->
 </p>
 
-Get notified when your model is finished training.
+No need to keep checking your training. Add <strong>just 1 import line</strong> and MLNotify will let you know the second it's done.
 
-**Features**
+**Features:**
 
+- Just `pip install mlnotify` and `import mlnotify` to get started
 - Out-of-the-box email & push notifications on desktop, mobile
-- Minimal setup (just install & import it into your code)
+- Support for most major ML frameworks (as in Keras, LightGBM, SKLearn, XGBoost, Tensorflow)
+- [Gorilla](https://gorilla.readthedocs.io/en/latest/)-based hooking
 - A simple & intuitive UX
-- Installable (as a PWA)
-- Super duper cutting-edge web technologies
-- Supports all major ML frameworks (as in Keras, LightGBM, SKLearn, XGBoost, Tensorflow)
 
 <p align="center">Made with :heart: by <a href="https://aporia.com" target="_blank">Aporia</a></p>
 
