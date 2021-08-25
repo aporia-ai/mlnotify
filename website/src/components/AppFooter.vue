@@ -10,7 +10,7 @@
 				href="https://aporia.com"
 				target="_blank"
 				class="block transition-opacity hover:opacity-70"
-				@click.prevent="goTo('https://aporia.com')"
+				@click="goTo('https://aporia.com')"
 			>
 				<AporiaLogo alt="Aporia" class="block ml-2 h-5 md:h-7" />
 			</a>
@@ -35,9 +35,6 @@ export default Vue.extend({
 				event_category: 'outbound',
 				event_label: url,
 				transport_type: 'beacon',
-				event_callback() {
-					window.open(url, '_blank')
-				},
 			})
 		},
 	},
