@@ -28,7 +28,9 @@ No need to keep checking your training. Add <strong>just 1 import line</strong> 
 <p align="center">Made with :heart: by <a href="https://aporia.com" target="_blank">Aporia</a></p>
 
 <p align="center">
-<img alt="ML Notify" src="docs/assets/usage.gif">
+  <kbd>
+    <img alt="ML Notify" src="docs/assets/usage.gif">
+  </kbd>
 </p>
 
 ## Quickstart
