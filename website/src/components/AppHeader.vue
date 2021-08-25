@@ -7,14 +7,23 @@
 					<LogoWithText class="flex-auto md:h-12 h-7" />
 				</RouterLink>
 			</div>
-			<a
-				href="https://github.com/aporia-ai/mlnotify"
-				target="_blank"
-				class="transition-opacity hover:opacity-70 flex-1 text-right text-sm"
-			>
-				<GithubIcon class="fill-current github-icon inline-block" />
-				<span class="hidden md:inline-block ml-3">Contribute</span>
-			</a>
+			<div class="flex-1 flex flex-row justify-end items-center md:divide-x-2 md:divide-white-0">
+				<a
+					href="https://www.aporia.com/meet-mlnotify/"
+					target="_blank"
+					class="text-sm pr-3 "
+				>
+					<span class="hidden md:inline-block">The story behind MLNotify</span>
+				</a>
+				<a
+					href="https://github.com/aporia-ai/mlnotify"
+					target="_blank"
+					class="transition-opacity hover:opacity-70 text-right text-sm pl-3"
+				>
+					<GithubIcon class="fill-current github-icon inline-block" />
+					<span class="hidden md:inline-block ml-3">Contribute</span>
+				</a>
+			</div>
 		</div>
 	</div>
 </template>
