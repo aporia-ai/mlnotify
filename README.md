@@ -15,10 +15,6 @@
   <!-- <a href="https://app.netlify.com/sites/mlnotify/deploys" alt="Website Deploy Status"><img src="https://api.netlify.com/api/v1/badges/a832ff7a-83aa-4c70-99b1-f812ae4bc3d8/deploy-status"/></a> -->
 </p>
 
-<p align="center">
-<img alt="ML Notify" src="docs/assets/usage.gif" width="300">
-</p>
-
 No need to keep checking your training. Add <strong>just 1 import line</strong> and MLNotify will let you know the second it's done.
 
 **Features:**
@@ -31,6 +27,9 @@ No need to keep checking your training. Add <strong>just 1 import line</strong> 
 
 <p align="center">Made with :heart: by <a href="https://aporia.com" target="_blank">Aporia</a></p>
 
+<p align="center">
+<img alt="ML Notify" src="docs/assets/usage.gif" width="300">
+</p>
 ## Quickstart
 
 ```bash
