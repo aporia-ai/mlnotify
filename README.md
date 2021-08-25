@@ -23,7 +23,7 @@ No need to keep checking your training. Add <strong>just 1 import line</strong> 
 - Out-of-the-box email & push notifications on desktop, mobile
 - Support for most major ML frameworks (as in Keras, LightGBM, SKLearn, XGBoost, Tensorflow)
 - A simple & intuitive UX
-- Fully secure - no data ever leaves your machine
+- Fully secure - no sensitive data leaves your machine (only training start time / end time)
 
 <p align="center">Made with :heart: by <a href="https://aporia.com" target="_blank">Aporia</a></p>
 
@@ -133,7 +133,7 @@ Methods:
   Removes all registered plugins.
 
 ## Security
-The library is fully secure - no data is ever sent to the server.
+No sensitive data is sent to the MLNotify server - only training start & end time.
 
 ## Contribution, self-deployment & local development
 Contributions and self-deployments are more than welcome.
