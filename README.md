@@ -30,6 +30,7 @@ No need to keep checking your training. Add <strong>just 1 import line</strong> 
 <p align="center">
 <img alt="ML Notify" src="docs/assets/usage.gif">
 </p>
+
 ## Quickstart
 
 ```bash
