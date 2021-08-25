@@ -15,6 +15,10 @@
   <!-- <a href="https://app.netlify.com/sites/mlnotify/deploys" alt="Website Deploy Status"><img src="https://api.netlify.com/api/v1/badges/a832ff7a-83aa-4c70-99b1-f812ae4bc3d8/deploy-status"/></a> -->
 </p>
 
+<p align="center">
+<img alt="ML Notify" src="docs/assets/usage.gif" width="300">
+</p>
+
 No need to keep checking your training. Add <strong>just 1 import line</strong> and MLNotify will let you know the second it's done.
 
 **Features:**
@@ -23,6 +27,7 @@ No need to keep checking your training. Add <strong>just 1 import line</strong> 
 - Out-of-the-box email & push notifications on desktop, mobile
 - Support for most major ML frameworks (as in Keras, LightGBM, SKLearn, XGBoost, Tensorflow)
 - A simple & intuitive UX
+- Fully secure - no data ever leaves your machine
 
 <p align="center">Made with :heart: by <a href="https://aporia.com" target="_blank">Aporia</a></p>
 
@@ -124,6 +129,9 @@ Methods:
 - `plugins_manager.clear_plugins() -> None`
 
   Removes all registered plugins.
+
+## Security
+The library is fully secure - no data is ever sent to the server.
 
 ## Contribution, self-deployment & local development
 Contributions and self-deployments are more than welcome.
