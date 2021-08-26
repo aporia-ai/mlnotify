@@ -6,7 +6,7 @@ license = '../LICENSE'
 name = "mlnotify"
 readme = '../README.md'
 repository = "https://github.com/aporia-ai/mlnotify"
-version = "v1.0.39"
+version = "v1.0.42"
 
 [tool.poetry.dependencies]
 python = "^3.6"
