@@ -1,9 +1,12 @@
 [tool.poetry]
-name = "mlnotify"
-version = "v1.0.42"
-description = "ML Notify - A useful tool that notifies you when your model is finished training"
 authors = ['Aporia']
+description = "No need to keep checking your training. Add just 1 import line and MLNotify will let you know the second it's done."
+homepage = 'https://mlnotify.aporia.com'
+license = '../LICENSE'
+name = "mlnotify"
+readme = '../README.md'
 repository = "https://github.com/aporia-ai/mlnotify"
+version = "v1.0.39"
 
 [tool.poetry.dependencies]
 python = "^3.6"
