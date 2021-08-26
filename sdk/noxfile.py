@@ -48,5 +48,5 @@ def install_with_constraints(session: Session, *args: str, **kwargs: Any):
 def tests(session: Session) -> None:
     """Run the test suite."""
     install_with_constraints(session, "pytest", "tensorflow", "xgboost", "lightgbm", "scikit-learn")
-    session.install(".", "--upgrade")
+    session.install(".", "--upgrade", "--use-feature=in-tree-build")
     session.run("pytest", *session.posargs)
