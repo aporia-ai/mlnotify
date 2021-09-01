@@ -121,7 +121,7 @@ Ends tracking.
 
 ### `plugins_manager: PluginsManager`
 
-The class handling all plugin registration and invokation.
+The class handling all plugin registration and invocation.
 Methods:
 
 - `plugins_manager.register_plugin(plugin: BasePlugin) -> None`
