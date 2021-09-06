@@ -16,7 +16,7 @@ def sample_data() -> SKLearnSampleData:
     return datasets.load_digits()
 
 
-# CatboostRegressor
+# CatBoostRegressor
 def test_catboost_regressor_model(sample_data: SKLearnSampleData, mocked_notify_plugin: MockedNotifyPlugin):
     clf = catboost.CatBoostRegressor()
     clf.fit(sample_data.data[:-1], sample_data.target[:-1])
@@ -24,7 +24,7 @@ def test_catboost_regressor_model(sample_data: SKLearnSampleData, mocked_notify_
     mocked_notify_plugin.before.assert_called_once()
     mocked_notify_plugin.after.assert_called_once()
 
-# CatboostClassifier
+# CatBoostClassifier
 def test_catboost_classifier_model(sample_data: SKLearnSampleData, mocked_notify_plugin: MockedNotifyPlugin):
     clf = catboost.CatBoostClassifier()
     clf.fit(sample_data.data[:-1], sample_data.target[:-1])
