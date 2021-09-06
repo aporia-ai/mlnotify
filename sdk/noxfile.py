@@ -47,6 +47,6 @@ def install_with_constraints(session: Session, *args: str, **kwargs: Any):
 @nox.session(python=["3.8", "3.7"])
 def tests(session: Session) -> None:
     """Run the test suite."""
-    install_with_constraints(session, "pytest", "tensorflow", "xgboost", "lightgbm", "scikit-learn")
+    install_with_constraints(session, "pytest", "tensorflow", "xgboost", "lightgbm", "scikit-learn", "catboost")
     session.install(".", "--upgrade", "--use-feature=in-tree-build")
     session.run("pytest", *session.posargs)
