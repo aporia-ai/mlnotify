@@ -122,3 +122,12 @@ def apply_hooks(before: Callable, after: Callable):
         patch(sklearn.tree.DecisionTreeRegressor, "fit", before=before, after=after)
     except ImportError:
         logger.debug("Could not import and patch sklearn", exc_info=True)
+
+    # Catboost
+    try:
+        import catboost
+
+        patch(catboost.CatBoostRegressor, "fit", before=before, after=after)
+        patch(catboost.CatBoostClassifier, "fit", before=before, after=after)
+    except ImportError:
+        logger.debug("Could not import and patch catboost", exc_info=True)

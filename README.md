@@ -70,6 +70,7 @@ Supported ML frameworks:
 - [SKLearn](http://scikit-learn.org/stable/)
 - [XGBoost](https://xgboost.readthedocs.io/en/latest/) (partially)
 - [Tensorflow](https://www.tensorflow.org/)
+- [Catboost](https://catboost.ai/)
 
 ### Manual
 
