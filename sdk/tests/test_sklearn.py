@@ -16,7 +16,9 @@ def sample_data() -> SKLearnSampleData:
 
 
 # svm
-def test_sklearn_svm_svc_fit(sample_data: SKLearnSampleData, mocked_notify_plugin: MockedNotifyPlugin):
+def test_sklearn_svm_svc_fit(
+    sample_data: SKLearnSampleData, mocked_notify_plugin: MockedNotifyPlugin
+):
 
     clf = svm.SVC()
     clf.fit(sample_data.data[:-1], sample_data.target[:-1])
@@ -25,7 +27,9 @@ def test_sklearn_svm_svc_fit(sample_data: SKLearnSampleData, mocked_notify_plugi
     mocked_notify_plugin.after.assert_called_once()
 
 
-def test_sklearn_svm_svr_fit(sample_data: SKLearnSampleData, mocked_notify_plugin: MockedNotifyPlugin):
+def test_sklearn_svm_svr_fit(
+    sample_data: SKLearnSampleData, mocked_notify_plugin: MockedNotifyPlugin
+):
     clf = svm.SVR()
     clf.fit(sample_data.data[:-1], sample_data.target[:-1])
 
@@ -33,7 +37,9 @@ def test_sklearn_svm_svr_fit(sample_data: SKLearnSampleData, mocked_notify_plugi
     mocked_notify_plugin.after.assert_called_once()
 
 
-def test_sklearn_svm_oneclasssvm_fit(sample_data: SKLearnSampleData, mocked_notify_plugin: MockedNotifyPlugin):
+def test_sklearn_svm_oneclasssvm_fit(
+    sample_data: SKLearnSampleData, mocked_notify_plugin: MockedNotifyPlugin
+):
     clf = svm.OneClassSVM()
     clf.fit(sample_data.data[:-1], sample_data.target[:-1])
 
@@ -41,7 +47,9 @@ def test_sklearn_svm_oneclasssvm_fit(sample_data: SKLearnSampleData, mocked_noti
     mocked_notify_plugin.after.assert_called_once()
 
 
-def test_sklearn_svm_nusvc_fit(sample_data: SKLearnSampleData, mocked_notify_plugin: MockedNotifyPlugin):
+def test_sklearn_svm_nusvc_fit(
+    sample_data: SKLearnSampleData, mocked_notify_plugin: MockedNotifyPlugin
+):
     clf = svm.NuSVC()
     clf.fit(sample_data.data[:-1], sample_data.target[:-1])
 
@@ -49,7 +57,9 @@ def test_sklearn_svm_nusvc_fit(sample_data: SKLearnSampleData, mocked_notify_plu
     mocked_notify_plugin.after.assert_called_once()
 
 
-def test_sklearn_svm_nusvr_fit(sample_data: SKLearnSampleData, mocked_notify_plugin: MockedNotifyPlugin):
+def test_sklearn_svm_nusvr_fit(
+    sample_data: SKLearnSampleData, mocked_notify_plugin: MockedNotifyPlugin
+):
     clf = svm.NuSVR()
     clf.fit(sample_data.data[:-1], sample_data.target[:-1])
 
@@ -57,7 +67,9 @@ def test_sklearn_svm_nusvr_fit(sample_data: SKLearnSampleData, mocked_notify_plu
     mocked_notify_plugin.after.assert_called_once()
 
 
-def test_sklearn_svm_linearsvr_fit(sample_data: SKLearnSampleData, mocked_notify_plugin: MockedNotifyPlugin):
+def test_sklearn_svm_linearsvr_fit(
+    sample_data: SKLearnSampleData, mocked_notify_plugin: MockedNotifyPlugin
+):
     clf = svm.LinearSVR()
     clf.fit(sample_data.data[:-1], sample_data.target[:-1])
 
@@ -65,7 +77,9 @@ def test_sklearn_svm_linearsvr_fit(sample_data: SKLearnSampleData, mocked_notify
     mocked_notify_plugin.after.assert_called_once()
 
 
-def test_sklearn_svm_linearsvc_fit(sample_data: SKLearnSampleData, mocked_notify_plugin: MockedNotifyPlugin):
+def test_sklearn_svm_linearsvc_fit(
+    sample_data: SKLearnSampleData, mocked_notify_plugin: MockedNotifyPlugin
+):
     clf = svm.LinearSVC()
     clf.fit(sample_data.data[:-1], sample_data.target[:-1])
 
@@ -84,7 +98,9 @@ def test_sklearn_tree_decisiontreeclassifier_fit(
     mocked_notify_plugin.after.assert_called_once()
 
 
-def test_sklearn_tree_extratreeregressor_fit(sample_data: SKLearnSampleData, mocked_notify_plugin: MockedNotifyPlugin):
+def test_sklearn_tree_extratreeregressor_fit(
+    sample_data: SKLearnSampleData, mocked_notify_plugin: MockedNotifyPlugin
+):
     clf = tree.ExtraTreeRegressor()
     clf.fit(sample_data.data[:-1], sample_data.target[:-1])
 
@@ -92,7 +108,9 @@ def test_sklearn_tree_extratreeregressor_fit(sample_data: SKLearnSampleData, moc
     mocked_notify_plugin.after.assert_called_once()
 
 
-def test_sklearn_tree_extratreeclassifier_fit(sample_data: SKLearnSampleData, mocked_notify_plugin: MockedNotifyPlugin):
+def test_sklearn_tree_extratreeclassifier_fit(
+    sample_data: SKLearnSampleData, mocked_notify_plugin: MockedNotifyPlugin
+):
     clf = tree.ExtraTreeClassifier()
     clf.fit(sample_data.data[:-1], sample_data.target[:-1])
 

@@ -26,7 +26,9 @@ def test_keras_fit(sample_data: KerasSampleData, mocked_notify_plugin: MockedNot
     mocked_notify_plugin.after.assert_called_once()
 
 
-def test_keras_train_on_batch(sample_data: KerasSampleData, mocked_notify_plugin: MockedNotifyPlugin):
+def test_keras_train_on_batch(
+    sample_data: KerasSampleData, mocked_notify_plugin: MockedNotifyPlugin
+):
     model = Sequential()
     model.compile()
     model.train_on_batch(
@@ -41,7 +43,9 @@ def test_keras_train_on_batch(sample_data: KerasSampleData, mocked_notify_plugin
     mocked_notify_plugin.after.assert_called_once()
 
 
-def test_tensorflow_keras_fit(sample_data: KerasSampleData, mocked_notify_plugin: MockedNotifyPlugin):
+def test_tensorflow_keras_fit(
+    sample_data: KerasSampleData, mocked_notify_plugin: MockedNotifyPlugin
+):
     model = tensorflow.keras.models.Sequential()
     model.compile()
     model.fit(sample_data["x"], sample_data["y"], epochs=1, batch_size=1)
@@ -50,7 +54,9 @@ def test_tensorflow_keras_fit(sample_data: KerasSampleData, mocked_notify_plugin
     mocked_notify_plugin.after.assert_called_once()
 
 
-def test_tensorflow_keras_train_on_batch(sample_data: KerasSampleData, mocked_notify_plugin: MockedNotifyPlugin):
+def test_tensorflow_keras_train_on_batch(
+    sample_data: KerasSampleData, mocked_notify_plugin: MockedNotifyPlugin
+):
     model = tensorflow.keras.models.Sequential()
     model.compile()
     model.train_on_batch(
