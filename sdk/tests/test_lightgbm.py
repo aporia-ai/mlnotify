@@ -24,7 +24,9 @@ def test_lightgbm_train(sample_data: LightgbmSampleData, mocked_notify_plugin: M
     mocked_notify_plugin.after.assert_called_once()
 
 
-def test_lightgbm_sklearn_train(sample_data: LightgbmSampleData, mocked_notify_plugin: MockedNotifyPlugin):
+def test_lightgbm_sklearn_train(
+    sample_data: LightgbmSampleData, mocked_notify_plugin: MockedNotifyPlugin
+):
     lightgbm.sklearn.train({"num_leaves": 2, "objective": "binary"}, sample_data, 1)
 
     mocked_notify_plugin.before.assert_called_once()
