@@ -21,7 +21,7 @@
 					class="transition-opacity hover:opacity-70 text-right text-sm pl-3"
 				>
 					<GithubIcon class="fill-current github-icon inline-block" />
-					<span class="hidden md:inline-block ml-3">Contribute</span>
+					<span class="hidden md:inline-block ml-3">Github</span>
 				</a>
 			</div>
 		</div>

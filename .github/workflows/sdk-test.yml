@@ -1,8 +1,10 @@
 name: SDK Tests
 on:
-  push:
+  pull_request:
     paths:
         - 'sdk/**'
+    branches:
+      - main
 defaults:
   run:
     working-directory: sdk
