@@ -9,7 +9,8 @@
   <img src="https://img.shields.io/github/license/aporia-ai/mlnotify" alt="License">
   <a href="https://github.com/aporia-ai/mlnotify/issues"><img src="https://img.shields.io/github/issues/aporia-ai/mlnotify" alt="Issues"></a>
   <img src="https://img.shields.io/github/last-commit/aporia-ai/mlnotify" alt="Last Commit">
-
+  <a href="https://pypi.org/project/mlnotify/"><img src="https://pepy.tech/badge/mlnotify" alt="Downloads"></a>
+  
   <!-- The Netlify badge is disabled since it's bugged. For more details: -->
   <!-- https://answers.netlify.com/t/status-badge-incorrectly-shows-failing-when-deploy-is-auto-cancelled/7316/26 -->
   <!-- <a href="https://app.netlify.com/sites/mlnotify/deploys" alt="Website Deploy Status"><img src="https://api.netlify.com/api/v1/badges/a832ff7a-83aa-4c70-99b1-f812ae4bc3d8/deploy-status"/></a> -->
