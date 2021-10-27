@@ -33,13 +33,13 @@
 							<span v-if="!trainingFinished" key="in-progress">
 								When fit() is completed, a notification will be raised.<br />
 								<span class="hidden sm:inline">
-									In the meantime, you can have coffee&nbsp;&nbsp;☕, find new
+									In the meantime, you can have coffee&nbsp;&nbsp;☕, play
 									<a
 										class="text-blue-1 whitespace-nowrap"
-										href="https://mlops.toys"
+										href="https://github.com/aporia-ai/TrainInvaders"
 										target="_blank"
-										@click="goTo('https://mlops.toys')"
-										>MLOps Toys 🛠️</a
+										@click="goTo('https://github.com/aporia-ai/TrainInvaders')"
+										>Train Invaders 👾</a
 									>, or
 									<a
 										class="text-blue-1 whitespace-nowrap"
@@ -156,19 +156,19 @@
 				<div class="mt-4">
 					<div v-if="!trainingFinished" class="text-center p-4">
 						<div class="mb-8 sm:hidden text-xs">
-							In the meantime, you can have <span class="whitespace-nowrap">coffee ☕</span>, find new
+							In the meantime, you can have <span class="whitespace-nowrap">coffee ☕</span>, play
 							<a
 								class="text-blue-1 whitespace-nowrap"
-								href="https://mlops.toys"
+								href="https://github.com/aporia-ai/TrainInvaders"
 								target="_blank"
-								@click="goTo('https://mlops.toys')"
-								>MLOps Toys 🛠️</a
+								@click="goTo('https://github.com/aporia-ai/TrainInvaders')"
+								>Train Invaders 👾</a
 							>, or
 							<a
 								class="text-blue-1 whitespace-nowrap"
-								href="https://aporia.com/blog/"
+								href="https://github.com/aporia-ai/TrainInvaders"
 								target="_blank"
-								@click="goTo('https://www.aporia.com/blog/')"
+								@click="goTo('https://github.com/aporia-ai/TrainInvaders')"
 								>read something 📖</a
 							>
 						</div>
