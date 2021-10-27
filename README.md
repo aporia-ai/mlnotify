@@ -85,9 +85,9 @@ And in any Jupyter cell:
 ...
 ```
 
-Or line:
+Works with line magic, too
 ```
-%notify model.fit()
+%notify your_code()
 ```
 
 ### Manual
