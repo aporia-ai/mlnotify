@@ -1,26 +1,19 @@
 from IPython.core.magic import Magics, magics_class, line_cell_magic
+from mlnotify.mlnotify import plugin_manager
 
-
-# mlnotify line and cell magic
+# Jupyter line and cell magic
 @magics_class
 class MLNotifyMagic(Magics):
     @line_cell_magic
-    def notifyit(self, line, cell=None):
-        mlnotify.start()
+    def notify(self, line, cell=None):
+        plugin_manager.run_before()
         self.shell.run_cell(line)
         if cell is not None:
             self.shell.run_cell(cell)
-        mlnotify.end()
+        plugin_manager.run_after()
 
 
-# Register with iPython
-def load_ipython_extension(ipython):
-    """
-    Any module file that define a function named `load_ipython_extension`
-    can be loaded via `%load_ext module.path` or be configured to be
-    autoloaded by IPython at startup time.
-    """
-    # You can register the class itself without instantiating it.  IPython will
-    # call the default constructor on it.
+def register_jupyter_magic():
+    ipython = get_ipython()
     ipython.register_magics(MLNotifyMagic)
 
