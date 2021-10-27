@@ -51,6 +51,7 @@ my_model.fit(...)
 ```
 
 The import will automagically hook into your fit/train method.
+
 - Once you start training your model a tracking url & QR code will be printed to the console.
   ![Printed tracking URL & QR code](docs/assets/printed-tracking-url-and-qr-code.png)
 - Enter the tracking url
@@ -72,6 +73,22 @@ Supported ML frameworks:
 - [XGBoost](https://xgboost.readthedocs.io/en/latest/) (partially)
 - [Tensorflow](https://www.tensorflow.org/)
 - [Catboost](https://catboost.ai/)
+
+### Jupyter Notebook
+
+`import mlnotify`
+
+And in any Jupyter cell:
+
+```
+%%notify
+...
+```
+
+Works with line magic, too
+```
+%notify your_code()
+```
 
 ### Manual
 
@@ -111,12 +128,15 @@ model.fit(...)
 ## API
 
 The library exports four items:
+
 ```python
 from mlnotify import start, end, plugins_manager, BasePlugin
 ```
+
 ### `start() -> None`
 
 Starts tracking.
+
 ### `end() -> None`
 
 Ends tracking.
@@ -135,10 +155,13 @@ Methods:
   Removes all registered plugins.
 
 ## Security
+
 No sensitive data is sent to the MLNotify server - only training start & end time.
 
 ## Contribution, self-deployment & local development
+
 Contributions and self-deployments are more than welcome.
+
 ### Website & API
 
 This project relies heavily on SaaS products, and must receive proper config for Netlify, Firebase and SendGrid for it to work. You can run this project locally using the Netlify CLI:
