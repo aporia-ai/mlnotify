@@ -45,7 +45,7 @@
 										class="text-blue-1 whitespace-nowrap"
 										href="https://www.aporia.com/blog/"
 										target="_blank"
-										@click="goTo('https://www.aporia.com/blog/?utm_source=mlnotify&utm_medium=inhouse_application&utm_campaign=mlnotify')"
+										@click="goTo('https://www.aporia.com/blog/?utm_source=mlnotify&utm_medium=inhouse-application&utm_campaign=mlnotify')"
 										>read something 📖</a
 									>
 								</span>
