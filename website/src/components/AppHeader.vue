@@ -9,7 +9,7 @@
 			</div>
 			<div class="flex-1 flex flex-row justify-end items-center md:divide-x-2 md:divide-white-0">
 				<a
-					href="https://www.aporia.com/meet-mlnotify/?utm_source=mlnotify&utm_medium=inhouse_application&utm_campaign=+mlnotify"
+					href="https://www.aporia.com/meet-mlnotify/?utm_source=mlnotify&utm_medium=inhouse_application&utm_campaign=mlnotify"
 					target="_blank"
 					class="text-sm pr-3 "
 				>
