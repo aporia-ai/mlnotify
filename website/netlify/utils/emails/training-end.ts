@@ -93,7 +93,7 @@ export const createTrainingEndEmail = ({ trainingId }: { trainingId: string }) =
 			</div>
 		</div>
 		<footer>
-			<a href="https://www.aporia.com?utm_source=mlnotify&utm_medium=email&utm_campaign=+mlnotify" target="_blank" class="made-with-love" >
+			<a href="https://www.aporia.com?utm_source=mlnotify&utm_medium=email&utm_campaign=mlnotify" target="_blank" class="made-with-love" >
 				Made with ❤️ by <img class="aporia-logo" src="${process.env.GRIDSOME_BASE_URL}/static-assets/aporia.png" alt="Aporia" />
 				</a>
 		</footer>
