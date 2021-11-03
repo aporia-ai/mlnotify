@@ -26,7 +26,7 @@ No need to keep checking your training. Add <strong>just 1 import line</strong> 
 - A simple & intuitive UX
 - Fully secure - no sensitive data leaves your machine (only training start time / end time)
 
-<p align="center">Made with :heart: by <a href="https://aporia.com" target="_blank">Aporia</a></p>
+<p align="center">Made with :heart: by <a href="https://www.aporia.com?utm_source=github&utm_medium=github&utm_campaign=mlnotify" target="_blank">Aporia</a></p>
 
 <p align="center">
   <kbd>
