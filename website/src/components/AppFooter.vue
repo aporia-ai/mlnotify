@@ -7,7 +7,7 @@
 			</div>
 			<div>by</div>
 			<a
-				href="https://www.aporia.com?utm_source=mlnotify&utm_medium=inhouse_application&utm_campaign=+mlnotify"
+				href="https://www.aporia.com?utm_source=mlnotify&utm_medium=inhouse_application&utm_campaign=mlnotify"
 				target="_blank"
 				class="block transition-opacity hover:opacity-70"
 				@click="goTo('https://www.aporia.com?utm_source=mlnotify&utm_medium=inhouse_application&utm_campaign=+mlnotify')"
