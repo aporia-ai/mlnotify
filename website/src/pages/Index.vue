@@ -56,26 +56,11 @@ export default Vue.extend({
 			statisticsIntervalToken: null as any,
 		}
 	},
-	beforeMount() {
-		this.periodicallyFetchStatistics()
+	async beforeMount() {
+		this.statistics = await apiService.getStatistics()
 	},
 	beforeDestroy() {
 		if (this.statisticsIntervalToken) clearInterval(this.statisticsIntervalToken)
-	},
-	methods: {
-		async periodicallyFetchStatistics() {
-			let refreshRate = 1000
-
-			const envRefreshRate = process.env.GRIDSOME_STATISTICS_REFRESH_RATE
-			if (envRefreshRate && +envRefreshRate) {
-				refreshRate = +envRefreshRate
-			}
-
-			this.statistics = await apiService.getStatistics()
-			this.statisticsIntervalToken = setInterval(async () => {
-				this.statistics = await apiService.getStatistics()
-			}, refreshRate)
-		},
 	},
 })
 </script>
