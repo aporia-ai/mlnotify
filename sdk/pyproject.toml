@@ -4,7 +4,7 @@ description = "No need to keep checking your training. Add just 1 import line an
 homepage = 'https://mlnotify.aporia.com'
 name = "mlnotify"
 repository = "https://github.com/aporia-ai/mlnotify"
-version = "v1.0.54"
+version = "v1.0.55"
 
 [tool.poetry.dependencies]
 python = "^3.6"
