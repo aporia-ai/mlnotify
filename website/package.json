@@ -27,7 +27,7 @@
 		"nanoid": "^3.1.22",
 		"party-js": "^2.0.1",
 		"qrcode.vue": "^1.7.0",
-		"sass": "^1.32.12",
+		"sass": "^1.51.0",
 		"vue-gtag": "^1.16.1",
 		"vue-toast-notification": "^0.6.1",
 		"vuex": "3.6.2"
