@@ -18,7 +18,7 @@
 		"crypto-random-string": "^3.3.1",
 		"dayjs": "^1.10.4",
 		"firebase": "^8.4.1",
-		"firebase-admin": "^9.6.0",
+		"firebase-admin": "^10.2.0",
 		"gridsome": "^0.7.0",
 		"gridsome-plugin-gtm": "^0.1.1",
 		"gridsome-plugin-pwa": "^0.0.18",
