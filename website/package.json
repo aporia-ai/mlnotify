@@ -26,7 +26,7 @@
 		"lodash": "^4.17.21",
 		"nanoid": "^3.1.22",
 		"party-js": "^2.0.1",
-		"qrcode.vue": "^1.7.0",
+		"qrcode.vue": "^3.3.3",
 		"sass": "^1.32.12",
 		"vue-gtag": "^1.16.1",
 		"vue-toast-notification": "^0.6.1",
